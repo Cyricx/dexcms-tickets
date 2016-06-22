@@ -1,0 +1,14 @@
+﻿
+
+<h2>@ViewBag.PageContent.Heading</h2>
+
+<div class="event-wrapper">
+    <nav class="event-nav">
+        @Html.Partial("_EventsNavigation")
+    </nav>
+    <div class="event-body">
+        @Html.Raw(ViewBag.PageContent.Body)
+    </div>
+
+</div>
+

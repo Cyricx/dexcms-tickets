@@ -1,0 +1,142 @@
+﻿@model DexCMS.Tickets.Mvc.Models.DisplayFAQ
+
+@section head {
+    <link href="~/libs/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+}
+
+<h2>@ViewBag.PageContent.Heading</h2>
+
+<div class="event-wrapper">
+    <nav class="event-nav">
+        @Html.Partial("_EventsNavigation")
+    </nav>
+    <div class="event-body">
+
+        <div id="faqCategories">
+            @foreach (var cat in Model.faqCategories)
+            {
+                <h3>@cat.Name</h3>
+                <div>
+                    <ul class="faq-cat-questions">
+                        @foreach (var item in cat.EventFaqItems)
+                        {
+                            <li><a href="@("#faqItem" + item.EventFaqItemID)" data-faq-link="@item.EventFaqItemID">@item.Question</a></li>
+                        }
+                    </ul>
+                </div>
+            }
+
+        </div>
+        <div id="faqItems">
+            <div id="faq-instructions">
+                <h4>Please choose a question on the left.</h4>
+            </div>
+            @foreach (var item in Model.faqItems)
+            {
+                <div id="@("faqItem" +item.EventFaqItemID)">
+                    <h4><span class="faq-Q">Q:</span>@item.Question</h4>
+                    <div>
+                        <span class="faq-A">A:</span>
+                        <div class="faq-answer">
+                            @Html.Raw(item.Answer)
+                        </div>
+                    </div>
+                    <div class="faq-item-footer">
+                        <div class="faq-stats">
+                            <span data-helpful="@item.EventFaqItemID" class="fa fa-thumbs-o-up success">
+                                @(item.HelpfulMarks.HasValue ? item.HelpfulMarks.Value : 0)
+                            </span>
+                            <span data-unhelpful="@item.EventFaqItemID" class="fa fa-thumbs-o-down danger">
+                                @(item.UnhelpfulMarks.HasValue ? item.UnhelpfulMarks.Value : 0)
+                            </span>
+                        </div>
+
+                        <div class="faq-helpful">
+                            <strong>Helpful?</strong>
+                            <a href="#" rel="nofollow" class="helpful-yes" data-faq="@item.EventFaqItemID">Yes</a>
+                            <a href="#" rel="nofollow" class="helpful-no" data-faq="@item.EventFaqItemID">No</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <p class="help-message"><em>Not finding the answer to your question? <a href="~/Contact">Contact Us!</a></em></p>
+                </div>
+
+            }
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+</div>
+
+@section scripts {
+
+    <script>
+        $(function () {
+            var ajaxMarkHelp = function (type, id) {
+                $.ajax({
+                    method: "GET",
+                    url: "@Url.Content("~/eventfaqitems/")" + type + "/" + id
+                }).done(function (msg) {
+                    alert('That FAQ answer has been marked as ' + type + '. Thank you.');
+                    $('a[data-faq=' + id + ']').off('click').on('click', function (e) { e.preventDefault(); }).addClass('disabled');
+                    updateHelp(type, id);
+                }).fail(function (err) {
+                    console.error(err);
+                });
+            };
+
+            var updateHelp = function (type, id) {
+                $markTag = $('span[data-' + type + '=' + id + ']');
+
+                var trimmedValue = $markTag.text().trim();
+
+                var numValue = parseInt(trimmedValue);
+
+                if (type == 'helpful') {
+                    numValue++;
+                } else {
+                    numValue--;
+                }
+
+                $markTag.text(' ' + numValue);
+            };
+
+            $('#faqCategories').accordion({collapsible: true});
+
+            $('#faqItems > div').hide().first().show();
+
+            $('.helpful-yes').on('click', function (e) {
+                e.preventDefault();
+                var $anchor = $(this);
+                var faqID = $anchor.data('faq');
+                ajaxMarkHelp('helpful', faqID);
+            });
+            $('.helpful-no').on('click', function (e) {
+                e.preventDefault();
+                var $anchor = $(this);
+                var faqID = $anchor.data('faq');
+                ajaxMarkHelp('unhelpful', faqID);
+            });
+
+
+            $('.faq-cat-questions a').on('click', function () {
+                var $anchor = $(this);
+                $('.faq-cat-questions a.active').removeClass('active');
+                $anchor.addClass('active');
+                var faqID = $anchor.data('faq-link');
+                $('#faqItems > div:visible').fadeOut(500, function () {
+                    $('#faqItem' + faqID).fadeIn();
+                });
+            });
+
+            var hash = window.location.hash;
+            $('a[href=' + hash + ']').click().parents('div.ui-accordion-content').prev().click();
+
+
+
+
+
+        });
+    </script>
+}

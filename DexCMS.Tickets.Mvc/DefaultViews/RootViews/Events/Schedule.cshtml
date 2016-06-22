@@ -1,0 +1,192 @@
+﻿@model List<DexCMS.Tickets.Mvc.Models.DisplayScheduleItem>
+
+@{
+    bool isLocal = HttpContext.Current.Request.IsLocal;
+    var modelAsJson = Html.Raw(Json.Encode(Model));
+}
+
+
+@section head {
+    @Styles.Render("~/libs/fullcalendar/fullcalendar.min.css")
+    @Styles.Render("~/libs/qtip2/jquery.qtip.min.css")
+}
+
+
+
+<h2>@ViewBag.PageContent.Heading</h2>
+
+<div class="event-wrapper">
+    <nav class="event-nav">
+        @Html.Partial("_EventsNavigation")
+    </nav>
+    <div class="event-body">
+
+        <div id='loading'>loading...</div>
+        <div id='calendar'></div>
+
+
+    </div>
+
+</div>
+
+@section scripts {
+    @Scripts.Render("~/libs/moment/moment.min.js")
+    @Scripts.Render("~/libs/fullcalendar/fullcalendar.min.js")
+    @Scripts.Render("~/libs/qtip2/jquery.qtip.min.js")
+
+
+    <script>
+
+        $(document).ready(function () {
+            var startDateTime = '@ViewBag.EventStart';
+            var endDateTime = '@ViewBag.EventEnd';
+            var startMoment = moment(startDateTime.substring(0, startDateTime.indexOf(' ')));
+            var endMoment = moment(endDateTime.substring(0, endDateTime.indexOf(' '))).add(23, 'hours');
+            var dateDiff = Math.ceil(endMoment.diff(startMoment, 'hours') / 24);
+
+            var isLocal = '@isLocal';
+
+            var currentTimezone = isLocal == 'True' ? 'local' : null;
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            var tooltip = $('<div/>').qtip({
+                id: 'fullcalendar',
+                prerender: true,
+                content: {
+                    text: ' ',
+                    title: {
+                        button: true
+                    }
+                },
+                position: {
+                    my: 'bottom center',
+                    at: 'top center',
+                    target: 'mouse',
+                    viewport: $('#calendar'),
+                    adjust: {
+                        screen: true
+                    }
+                },
+                show: false,
+                hide: false,
+                style: { classes: 'calendar-details' }//dark is okay, light is good
+            }).qtip('api');
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: '',
+                    center: 'title',
+                    right: ''
+                },
+                defaultDate: '@ViewBag.EventStart',
+                views: {
+                    agendaEvent: {
+                        type: 'agenda',
+                        duration: { days: dateDiff },
+                        buttonText: 'Full Event'
+                    }
+                },
+                defaultView: 'agendaEvent',
+
+                timezone: currentTimezone,
+                ignoreTimezone: false,
+                displayEventEnd: true,
+                eventLimit: true, // allow "more" link when too many events
+                eventLimitText: 'events',
+                events: JSON.parse('@modelAsJson'),
+                loading: function (bool) {
+                    if (bool) {
+                        $('#loading').css('opacity', '1');
+                        $('#calendar-legend').css('opacity', '0');
+                    } else {
+                        $('#loading').css('opacity', '0');
+                        $('#calendar-legend').css('opacity', '1');
+                    }
+                },
+                eventRender: function (event, element) {
+                    element.addClass(event.className);
+
+                    //only need to change the time if the event spans multiple days
+                    if (event.end) {
+                        //if we have an end date
+                        //only need to change if the start and end date are different
+                        var startMoment = moment(event.start),
+                            endMoment = moment(event.end);
+
+                        if (startMoment.format("M-D") != endMoment.format("M-D")) {
+                            var newTime = startMoment.format("M/D h:mm") + startMoment.format("a").substring(0, 1)
+                                + " - " +
+                                endMoment.format("M/D h:mm") + endMoment.format("a").substring(0, 1);
+
+                            element.find(".fc-time").text(newTime);
+                        }
+                    }//end event time fix
+
+                    //add location info
+                    var fcLocation = $('<span></span>').text(event.location).addClass('fc-location');
+                    element.find('.fc-content').append(fcLocation);
+
+                },//end event render
+
+                dayClick: function () { tooltip.hide() },
+                eventResizeStart: function () { tooltip.hide() },
+                eventDragStart: function () { tooltip.hide() },
+                viewDisplay: function () { tooltip.hide() },
+                eventClick: function (data, event, view) {
+                    var timeInfo = '';
+                    var startMoment = moment(data.start);
+                    if (data.end) {
+                        endMoment = moment(data.end);
+
+                        if (startMoment.format("M-D") != endMoment.format("M-D")) {
+                            timeInfo = startMoment.format("M/D h:mm") + startMoment.format("a").substring(0, 1)
+                                + " to " +
+                                endMoment.format("M/D h:mm") + endMoment.format("a").substring(0, 1);
+
+                        } else {
+                            timeInfo = startMoment.format("M/D h:mm") + startMoment.format("a").substring(0, 1)
+                                    + " to " +
+                                endMoment.format("h:mm") + endMoment.format("a").substring(0, 1);
+
+                        }
+                    } else {
+                        timeInfo = startMoment.format("M/D h:mm") + startMoment.format("a").substring(0, 1);
+                    }
+                    var content =
+                        "<div>" +
+
+                            "<h3>" + data.title + "</h3>" +
+                            "<span class='" + data.statusClass + "'>" + data.status + "</span>" +
+                            "<em>" + timeInfo + "</em>" +
+                        "</div>" +
+                        "<div>" +
+                            "<div><strong>Type: </strong><span>" + data.type + "</span></div>" +
+                            "<div><strong>Location: </strong><span>" + data.location + "</span></div>" +
+                        "</div>";
+                    console.log(data);
+                    if (data.details) {
+                        content +=
+                       "<div>" +
+                           "<strong>Details:</strong>" + data.details + 
+                       "</div>"
+                    }
+
+                    ////qtip
+                    tooltip.set({
+                        'position.target': this,
+                        'content.text': content
+                    }).reposition(event).show(event);
+                }
+            });//end full calendar
+
+
+
+
+        });
+
+    </script>
+
+}

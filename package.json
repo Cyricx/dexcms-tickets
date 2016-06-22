@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0-alpha",
+  "name": "dexcms-tickets",
+  "description": "Tickets library for Dex CMS",
+  "keywords": [ ".net", "cms", "framework" ],
+  "author": "Chris Byram",
+  "bugs": "https://github.com/Cyricx/dexcms-tikets/issues",
+  "license": "MIT",
+  "dependencies": {
+    "dexcms-base": "https://github.com/Cyricx/dexcms-base.git#0.1.0-alpha",
+    "dexcms-core": "https://github.com/Cyricx/dexcms-core.git#0.1.0-alpha"
+  },
+  "devDependencies": {
+    "grunt": "1.0.1",
+    "grunt-cli": "1.2.0",
+    "grunt-contrib-copy": "1.0.0",
+    "grunt-contrib-clean": "1.0.0"
+  }
+}

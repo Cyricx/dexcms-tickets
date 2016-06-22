@@ -1,0 +1,72 @@
+﻿@model DexCMS.Tickets.Events.Models.Event
+
+<h2>@ViewBag.PageContent.Heading</h2>
+
+<div class="event-wrapper">
+    <nav class="event-nav">
+        @Html.Partial("_EventsNavigation")
+    </nav>
+    <div class="event-body fees">
+
+            @foreach (var cutoff in Model.TicketCutoffs.OrderBy(x => x.OnSellDate))
+            {
+                if (cutoff.TicketPrices.Count > 0)
+                {
+                <div>
+                    <h3>@cutoff.Name</h3>
+                    <div class="cutoff-dates">
+                        <strong>On sale from: </strong>
+                            <span>@cutoff.OnSellDate.ToString("MMM d, yyyy")</span>
+                            <em>to</em>
+                            <span>@cutoff.CutoffDate.ToString("MMM d, yyyy")</span>
+                    </div>
+                    <div class="cutoff-prices">
+                        @foreach (var area in cutoff.TicketPrices.GroupBy(s => s.TicketArea))
+                    {
+                            <div class="cutoff-areas">
+                                <h4>@area.Key.Name</h4>
+                                <table class="cutoff-pricing-table">
+                                    @foreach (var price in cutoff.TicketPrices.Where(x => x.TicketAreaID == area.Key.TicketAreaID).OrderBy(x => x.EventAgeGroup.MinimumAge))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <strong>@price.EventAgeGroup.Name</strong>
+                                            </td>
+                                            <td>
+                                                @if (price.EventAgeGroup.MaximumAge.HasValue)
+                                                {
+                                                    <em>
+                                                        (
+                                                        @price.EventAgeGroup.MinimumAge
+                                                        -
+                                                        @price.EventAgeGroup.MaximumAge
+                                                        )
+                                                    </em>
+                                                }
+                                                else
+                                                {
+                                                    <em>
+                                                        (
+                                                        @price.EventAgeGroup.MinimumAge
+                                                        +)
+                                                    </em>
+                                                }
+                                            </td>
+                                            <td>
+                                                <span class="event-price-tag">
+                                                    @price.BasePrice.ToString("c")
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+                }
+            }
+
+    </div>
+
+</div>

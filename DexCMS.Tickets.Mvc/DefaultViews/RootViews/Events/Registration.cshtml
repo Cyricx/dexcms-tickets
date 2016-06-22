@@ -1,0 +1,49 @@
+﻿@model DexCMS.Tickets.Events.Models.Event
+
+@section head {
+    @Styles.Render("~/libs/ngtoast/ngtoast.min.css")
+    @Styles.Render("~/libs/ngtoast/ngtoast-animations.min.css")
+<base href="@(new Uri(Request.Url, Url.Content("~/events/" + ViewBag.UrlSegment + "/registration/")))" />
+}
+<toast></toast>
+<ttcms-ticket-timer event-segment="@ViewBag.UrlSegment"></ttcms-ticket-timer>
+
+<h2>@ViewBag.PageContent.Heading</h2>
+
+<div class="event-wrapper">
+    <nav class="event-nav">
+        @Html.Partial("_EventsNavigation")
+    </nav>
+    @if (!Model.ForceDisableRegistration)
+    {
+    <div ng-include="'../../../client/registration/views/_registration.html'">
+    </div>
+    }
+    else
+    {
+        <div>
+            @if (!string.IsNullOrEmpty(Model.RegistrationDisabledMessage))
+            {
+                @Html.Raw(Model.RegistrationDisabledMessage);
+            } else
+            {
+                <h3>Registration is temporarily disabled.</h3>
+            }
+            
+        </div>
+    }
+
+</div>
+<div class="timer-wrapper">
+    <ttcms-ticket-timer event-segment="@ViewBag.UrlSegment"></ttcms-ticket-timer>
+</div>
+<div class="clear"></div>
+@section scripts {
+    <script>
+        var evtInfo = {
+            segment: '@ViewBag.UrlSegment'
+        };
+    </script>
+    <script src="~/libs/requirejs/require.js" 
+           data-main="@Url.Content("~/client/registration/app.require.js")"></script>
+}
