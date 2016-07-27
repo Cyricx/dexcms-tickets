@@ -10,6 +10,7 @@ namespace DexCMS.Tickets.Events.Interfaces
     public interface IEventRepository : IRepository<Event>
     {
         Event RetrieveByUrlSegment(string eventSegment, bool? isPublic = true);
+        Event RetrievePublicSeriesEvent(string seriesSegment);
 
         List<ScheduleType> GetScheduleTypes();
         List<ScheduleStatus> GetScheduleStatuses();

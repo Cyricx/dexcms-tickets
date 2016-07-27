@@ -151,6 +151,18 @@ namespace DexCMS.Tickets.Repositories.Events
         {
             return _ctx.VenueScheduleLocations.Where(x => x.VenueID == venueID && x.IsActive).ToList();
         }
+
+        public Event RetrievePublicSeriesEvent(string seriesSegment)
+        {
+            EventSeries series = _ctx.EventSeries.Where(x => x.SeriesUrlSegment == seriesSegment &&
+                        x.IsActive).SingleOrDefault();
+            if (series == null)
+            {
+                return null;
+            }
+
+            return series.Events.Where(x => x.IsPublic).SingleOrDefault();
+        }
     }
 
 }

@@ -112,7 +112,7 @@ namespace DexCMS.Tickets.Mvc.Controllers
         private Event RetrieveEvent(string category, bool setViewBag = true)
         {
             //check for series event
-            var evt = seriesRepository.RetrievePublicSingle(category);
+            var evt = eventRepository.RetrievePublicSeriesEvent(category);
 
             if (evt == null)
             {
