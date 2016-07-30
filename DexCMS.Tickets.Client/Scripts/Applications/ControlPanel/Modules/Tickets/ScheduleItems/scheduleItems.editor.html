@@ -1,0 +1,85 @@
+﻿<div>
+
+    <a class="pull-right btn btn-default" ui-sref="events">Return to List</a>
+    <h2>{{navigation.title}}</h2>
+
+
+    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+
+    <h3>{{subtitle}}</h3>
+    <form name="manageScheduleItems" novalidate
+          angular-validator angular-validator-submit="save(currentItem)">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input class="form-control" name="title" id="title" required
+                       validate-on="dirty"
+                       ng-model="currentItem.title" />
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <datetimepicker max-date="currentItem.endDate" mousewheel="false" name="startDate" show-spinners="true"
+                                required ng-model="currentItem.startDate" date-format="MM/dd/yyyy"></datetimepicker>
+                <span class="control-label text-danger"
+                      ng-show="!currentItem.startDate"><strong><i class="fa fa-times"></i> Start Date is required</strong></span>
+                <span class="control-label text-danger"
+                      ng-show="currentItem.endDate && currentItem.startDate > currentItem.endDate">
+                    <i class="fa fa-times"></i>  Start Date must be lower than End Date.
+                </span>
+            </div>
+            <div class="form-group checkbox-inline">
+                <label>
+                    <input type="checkbox" id="isAllDay" name="isAllDay"
+                           ng-model="currentItem.isAllDay">
+                    Is All Day?
+                </label>
+            </div>
+            <div class="form-group" ng-if="!currentItem.isAllDay">
+                <label for="endDate">End Date:</label>
+                <datetimepicker mousewheel="false" 
+                                required min-date="currentItem.startDate" 
+                                ng-model="currentItem.endDate" 
+                                show-spinners="true" 
+                                date-format="MM/dd/yyyy"></datetimepicker>
+                <span class="control-label text-danger"
+                      ng-show="!currentItem.endDate"><strong><i class="fa fa-times"></i> End Date is required if this is not all day long.</strong></span>
+            </div>
+
+            <div class="form-group">
+                <label for="venueScheduleLocationID">Location:</label>
+                <select class="form-control" name="venueScheduleLocationID"
+                        id="venueScheduleLocationID"
+                        ng-model="currentItem.venueScheduleLocationID"
+                        ng-options="item.venueScheduleLocationID as item.name for item in venueScheduleLocations">
+                    <option value="">[other]</option>
+                </select>
+            </div>
+            <div class="form-group" ng-if="!currentItem.venueScheduleLocationID">
+                <label for="otherLocation">Other Location:</label>
+                <input class="form-control" name="otherLocation" id="otherLocation" ng-required="!currentItem.venueScheduleLocationID"
+                       validate-on="dirty"
+                       ng-model="currentItem.otherLocation" />
+            </div>
+
+            <div class="form-group">
+                <label for="scheduleTypeID">Type:</label>
+                <select class="form-control" name="scheduleTypeID" id="scheduleTypeID" ng-model="currentItem.scheduleTypeID" required
+                        ng-options="item.scheduleTypeID as item.name for item in scheduleTypes"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="scheduleStatusID">Status:</label>
+                <select class="form-control" name="scheduleStatusID" id="scheduleStatusID" ng-model="currentItem.scheduleStatusID" required
+                        ng-options="item.scheduleStatusID as item.name for item in scheduleStatuses"></select>
+            </div>
+            <div class="form-group">
+                <label for="details">Details:</label>
+                <ttcms-html-editor ng-model="currentItem.details"></ttcms-html-editor>
+            </div>
+            <button class="btn btn-primary" ng-disabled="manageScheduleItems.$invalid || isProcessing">
+                Save
+            </button>
+            <a class="btn btn-primary" ui-sref="scheduleitems/:id({id:eventID})">Cancel</a>
+        </div>
+    </form>
+</div>

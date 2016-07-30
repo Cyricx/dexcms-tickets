@@ -1,0 +1,24 @@
+﻿<div>
+    <a class="btn btn-success breathing-room" ng-show="!isAdding" ng-click="isAdding = !isAdding">
+        <i class="fa fa-plus-circle"></i> Add New
+    </a>
+
+    <div class="well" ng-if="isAdding">
+
+        <h4><small class="text-primary">Add</small> New Ticket Cutoff</h4>
+
+        <form class="form row" name="addCutoffForm" angular-validator 
+              angular-validator-submit="save(currentItem)">
+
+            <ng-include src="formInputs"></ng-include>
+
+            <div class="col-xs-2">
+                <button class="btn btn-primary btn-lg fa fa-floppy-o" 
+                        ng-disabled="addCutoffForm.$invalid || pending" 
+                        type="submit"></button>
+                <a class="btn btn-primary btn-lg fa fa-ban" ng-click="cancel()"></a>
+            </div>
+        </form>
+    </div>
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,10 @@
+﻿<div class="col-xs-12" ng-controller="ticketPricesEditorCtrl">
+    <h2>{{title}}</h2>
+    <form name="manageTicketPrices" novalidate>
+        <div class="panel-body">
+
+            <button class="btn btn-primary" ng-disabled="manageTicketPrices.$invalid" ng-click="save(currentItem)">Save</button>
+            <a class="btn btn-primary" ui-sref="ticketprices">Cancel</a>
+        </div>
+    </form>
+</div>

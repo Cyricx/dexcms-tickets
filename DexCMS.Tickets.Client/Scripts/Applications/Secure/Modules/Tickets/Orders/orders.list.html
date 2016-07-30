@@ -1,0 +1,38 @@
+﻿<h2>Your Orders</h2>
+<div class="event-body">
+    <ul class="ticket-list">
+        <li ng-repeat="item in orders">
+            <div class="ticket-item">
+                <h3><span>Order #{{item.orderID}}</span></h3>
+                <div class="item-details">
+                    <div ng-repeat="ticketDetail in item.ticketsDetails">
+                        <strong ng-bind="ticketDetail.eventName"></strong> <em>{{ '(Tickets: ' + ticketDetail.ticketCount + ')'}}</em>
+                    </div>
+                    <div class="options">
+                        <ul>
+                            <li>
+                                <a ui-sref="ticketholders/:id({id: item.orderID})"><i class="fa fa-users"></i> Modify Ticket Holders 
+                                <i class="fa fa-check success" title="Individuals can arrive on their own." ng-show="item.isUpdated"></i>
+                                </a>
+                                <p ng-show="!item.isUpdated">
+                                    <small class="erroritem">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        Purchaser must be present at check-in.
+                                    </small>
+                                </p>
+                            </li>
+                            <li>
+                                <a ng-href="./print/{{item.orderID}}" target="_blank" ng-click="$event.stopPropagation()"><i class="fa fa-print"></i> Print Receipt</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="item-subtotal">
+                    <span class="price">
+                        {{item.orderTotal | currency }}
+                    </span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

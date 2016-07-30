@@ -1,0 +1,19 @@
+﻿<div ng-if="nextExpiration.timeLeft > 0" class="timer-box">
+
+    <strong>Time Remaining</strong>
+    <div class="help">
+        <span class="fa fa-question-circle help-trigger"></span>
+        <div class="help-message">
+            <p>
+                This shows the amount of time you have to fully complete your purchase.
+            </p>
+            <p>
+                Failure to complete your purchase before this timer runs out will result in your
+                reserved seats being released.
+            </p>
+        </div>
+    </div>
+    <span class="timer" ng-class="getTimeClass(nextExpiration.timeLeft)">{{nextExpiration.printLeft}}</span>
+    <span class="timer-reset"  
+          ng-click="resetExpirations()">Request Extension</span>
+</div>

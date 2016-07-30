@@ -1,0 +1,249 @@
+﻿ 
+   <div ng-class="isEdit ? '' : 'col-xs-12'">
+
+       <a class="pull-right btn btn-default" ui-sref="events">Return to List</a>
+        <h2 ng-if="!isEdit">{{title}}</h2>
+       <h2 ng-if="isEdit">{{navigation.title}}</h2>
+
+        <ttcms-horizontal-nav ng-if="isEdit" navigation="navigation.navItems"></ttcms-horizontal-nav>
+
+        <h3 ng-if="isEdit">{{subtitle}}</h3>
+
+        <form name="manageEvents" novalidate angular-validator angular-validator-submit="save(currentItem)">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="title">Event Title:</label>
+                    <input class="form-control" name="heading" id="heading" required
+                           validate-on="dirty"
+                           ng-model="currentItem.pageContent.heading" />
+                </div>
+                <div class="form-group">
+                    <label for="pageTitle">Page Title:</label>
+                    <input class="form-control" name="pageTitle" id="pageTitle" required
+                           validate-on="dirty"
+                           ng-model="currentItem.pageContent.pageTitle" />
+                </div>
+                <div class="form-group">
+                    <label for="eventSeriesID">Event Series:</label>
+                    <select class="form-control" name="eventSeriesID" id="eventSeriesID"
+                            ng-model="currentItem.eventSeriesID" ng-change="(currentItem.eventSeriesID ? currentItem.eventUrlSegment = null : undefined)"
+                            ng-options="item.eventSeriesID as item.seriesName for item in eventSeries">
+                        <option value="">(No Series)</option>
+                    </select>
+                </div>
+                <div class="form-group" ng-if="!currentItem.eventSeriesID">
+                    <label for="eventUrlSegment">Url Segment:</label>
+                    <input class="form-control" name="eventUrlSegment" id="eventUrlSegment" required
+                           validate-on="dirty"
+                           pattern="^[a-z0-9-]+$"
+                           ng-model="currentItem.eventUrlSegment" />
+                </div>
+                <div class="form-group">
+                    <label for="venueID">Venue:</label>
+                    <select class="form-control" name="venueID" id="venueID" required
+                            validate-on="dirty" 
+                            ng-model="currentItem.venueID" 
+                            ng-options="item.venueID as item.name for item in venues"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventStart">Event Start:</label>
+                    <datetimepicker max-date="currentItem.eventEnd" name="eventStart" mousewheel="false" show-spinners="true"
+                                    required ng-model="currentItem.eventStart" date-format="MM/dd/yyyy"></datetimepicker>
+                    <span class="control-label text-danger"
+                          ng-show="!currentItem.eventStart"><strong><i class="fa fa-times"></i> Event Start is required</strong></span>
+                    <span class="control-label text-danger"
+                          ng-show="currentItem.eventStart > currentItem.eventEnd">
+                        <i class="fa fa-times"></i>  Event Start must be lower than Event End.
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventEnd">Event End:</label>
+                    <datetimepicker min-date="currentItem.eventStart" name="eventEnd" mousewheel="false" show-spinners="true"
+                                    required ng-model="currentItem.eventEnd" date-format="MM/dd/yyyy"></datetimepicker>
+                    <span class="control-label text-danger"
+                          ng-show="!currentItem.eventEnd"><strong><i class="fa fa-times"></i> Event End is required</strong></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="body">Body:</label>
+                    <ttcms-html-editor 
+                                       ng-model="currentItem.pageContent.body"></ttcms-html-editor>
+                </div>
+                <div class="form-group checkbox-inline">
+                    <label>
+
+                        <input type="checkbox" id="isPublic" name="isPublic"
+                               ng-model="currentItem.isPublic">
+                        Is Public?
+                    </label>
+                </div>
+                <uib-accordion>
+                    <uib-accordion-group is-open="showSeo">
+                        <uib-accordion-heading>
+                            <i class="fa" ng-class="{'fa-chevron-down':showSeo, 'fa-chevron-right':!showSeo}"></i>
+                            Seach Engine Optimization
+                        </uib-accordion-heading>
+                        <div class="form-group">
+                            <label for="metaKeywords">Meta Keywords:</label>
+                            <textarea class="form-control" name="metaKeywords" id="metaKeywords"
+                                      ng-model="currentItem.pageContent.metaKeywords"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="metaDescription">Meta Description:</label>
+                            <textarea class="form-control" name="metaDescription" id="metaDescription"
+                                      ng-model="currentItem.pageContent.metaDescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="changeFrequency">Change Frequency:</label>
+                            <select name="changeFrequency" id="changeFrequency" 
+                                    ng-model="currentItem.pageContent.changeFrequency"
+                                    ng-options="item.id as item.name for item in seoChangeFrequencies"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="priority">Priority:</label>
+                            <input class="form-control" type="number" name="priority" 
+                                   id="priority"
+                                    min="0" max="1" step=".1"
+                                                                  validate-on="dirty"
+                               invalid-message="'Acceptable values are 0 to 1.0'"
+                                   ng-model="currentItem.pageContent.priority" />
+                        </div>
+                        <div class="form-group checkbox-inline">
+                            <label>
+
+                                <input type="checkbox" id="addToSitemap" name="addToSitemap"
+                                       ng-model="currentItem.pageContent.addToSitemap">
+                                Add to Sitemap?
+                            </label>
+                        </div>
+
+                    </uib-accordion-group>
+                </uib-accordion>
+                <!--<uib-accordion>
+                    <uib-accordion-group is-open="showImages">
+                        <uib-accordion-heading>
+                            <i class="fa" ng-class="{'fa-chevron-down':showImages, 'fa-chevron-right':!showImages}"></i>
+                            Show Images
+                        </uib-accordion-heading>
+                        <div ng-if="!currentItem.pageContent.pageContentID">
+                            <p>You must save the current event first, before you can manage images.</p>
+                            <button class="btn btn-primary" ng-disabled="manageEvents.$invalid || processing"
+                                    ng-click="saveAndStay(currentItem)">
+                                Save and Stay
+                            </button>
+                        </div>
+                        <div ng-if="currentItem.pageContent.pageContentID">
+                            <label>Drag to reorder:</label>
+                            <button ng-disabled="processing" class="btn btn-warning pull-right buffer-bottom" ng-if="hasDraggedImage"
+                                    ng-click="saveImageOrder(currentItem)">
+                                Save Order
+                            </button>
+                            <div class="clearfix"></div>
+                            <ul class="list-inline reorder-box" dnd-list="currentItem.pageContent.pageContentImages">
+                                <li ng-repeat="item in currentItem.pageContent.pageContentImages"
+                                    dnd-draggable="item"
+                                    dnd-dragstart="dragTimeImage(event)"
+                                    dnd-moved="currentItem.pageContent.pageContentImages.splice($index, 1)"
+                                    dnd-effect-allowed="move">
+                                    <div class="well">
+
+                                        <strong>
+                                            {{item.alt}}
+                                        </strong>
+
+                                        <figure class="text-center">
+                                            <img ng-src="../{{item.thumbnail}}" />
+                                        </figure>
+                                        <a class="reorder-action pull-right" href="#" ng-click="deleteImage($event, item)">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <a ui-sref="pagecontentimages/:id?fromadmin({id:currentItem.pageContent.pageContentID, fromadmin: 'events'})">
+                            Manage Event Images
+                        </a>
+                    </uib-accordion-group>
+                </uib-accordion>-->
+                <uib-accordion>
+                    <uib-accordion-group is-open="showContentBlocks">
+                        <uib-accordion-heading>
+                            <i class="fa" ng-class="{'fa-chevron-down':showContentBlocks, 'fa-chevron-right':!showContentBlocks}"></i>
+                            Show Content Blocks
+                        </uib-accordion-heading>
+                        <div ng-if="!currentItem.pageContent.pageContentID">
+                            <p>You must save the current event first, before you can add content blocks.</p>
+                            <button class="btn btn-primary" ng-disabled="manageEvents.$invalid || processing" ng-click="saveAndStay(currentItem)">Save and Stay</button>
+                        </div>
+                        <div ng-if="currentItem.pageContent.pageContentID">
+                            <label>Drag to reorder:</label>
+                            <button ng-disabled="processing" class="btn btn-warning pull-right buffer-bottom" ng-if="hasDragged" ng-click="saveContentBlockOrder(currentItem)">
+                                Save Order
+                            </button>
+                            <div class="clearfix"></div>
+                            <ul class="list-inline reorder-box" dnd-list="currentItem.pageContent.contentBlocks">
+                                <li ng-repeat="item in currentItem.pageContent.contentBlocks"
+                                    dnd-draggable="item"
+                                    dnd-dragstart="dragTime(event)"
+                                    dnd-moved="currentItem.pageContent.contentBlocks.splice($index, 1)"
+                                    dnd-effect-allowed="move">
+                                    <div class="well">
+                                        <strong>
+                                            {{item.blockTitle}}
+                                        </strong>
+                                        <a class="reorder-action pull-right" href="#" ng-click="deleteContentBlock($event, item)">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                        <a class="reorder-action pull-right" ui-sref="contentblocks/:id?fromadmin({id:item.contentBlockID, fromadmin: 'events'})">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <a ng-if="currentItem.pageContent.pageContentID" ui-sref="contentblocks/new/:parentId?fromadmin({parentId:currentItem.pageContent.pageContentID, fromadmin: 'events'})">Add New Block</a>
+                    </uib-accordion-group>
+                </uib-accordion>
+                <uib-accordion>
+                    <uib-accordion-group is-option="showRegistrationAdmin">
+                        <uib-accordion-heading>
+                            <i class="fa" ng-class="{'fa-chevron-down':showRegistrationAdmin, 'fa-chevron-right':!showRegistrationAdmin}"></i>
+                            Show Registration Admin
+                        </uib-accordion-heading>
+                        <div class="form-group">
+                            <label for="disablePublicRegistration">Disable Public Registration:</label>
+                            <datetimepicker name="disablePublicRegistration" mousewheel="false" show-spinners="true"
+                                            ng-model="currentItem.disablePublicRegistration" date-format="MM/dd/yyyy"></datetimepicker>
+                        </div>
+                        <div class="form-group checkbox-inline">
+                            <label>
+                                <input type="checkbox" id="forceDisableRegistration" name="addToSitemap"
+                                       ng-model="currentItem.forceDisableRegistration">
+                                Force Registration to be Disabled? (this is for emergency overrides only)
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="registrationDisabledMessage">Disabled Message:</label>
+                            <textarea class="form-control" name="registrationDisabledMessage" id="registrationDisabledMessage"
+                                      ng-model="currentItem.registrationDisabledMessage"></textarea>
+                        </div>
+                    </uib-accordion-group>
+                </uib-accordion>
+                <div class="well text-danger" ng-if="modelError">
+                    <h3>{{modelError.message}}</h3>
+                    <ul>
+                        <li ng-repeat="err in modelError.errors">{{err}}</li>
+                    </ul>
+                </div>
+
+                <button class="btn btn-primary" ng-disabled="manageEvents.$invalid" 
+                        type="submit">Save</button>
+                <a class="btn btn-primary" ui-sref="events">Cancel</a>
+            </div>
+        </form>
+    </div>

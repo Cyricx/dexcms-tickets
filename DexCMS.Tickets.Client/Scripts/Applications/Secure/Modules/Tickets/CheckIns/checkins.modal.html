@@ -1,0 +1,41 @@
+﻿<form class="modal-box form-box" name="ticketForm">
+    <h2>Ticket #{{item.ticketID}} - Purchased By: {{item.purchasedBy}}</h2>
+    <div class="form-item">
+        <label class="form-lbl" for="firstName">First:</label>
+        <div>
+            <input id="firstName" type="text" required ng-model="item.firstName" />
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="form-lbl" for="middleInitial">M.I.:</label>
+        <div>
+            <input id="middleInitial" type="text" ng-model="item.middleInitial" />
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="form-lbl" for="lastName">Last:</label>
+        <div>
+            <input id="lastName" type="text" required ng-model="item.lastName" />
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="form-lbl">Arrival:</label>
+        <div>
+            <label for="hasArrived">
+                Arrived?
+                <input type="checkbox" ng-model="item.hasArrived" ng-change="setDefaultArrival()" />
+            </label>
+            <datetimepicker mousewheel="false" name="arrivalTime" show-spinners="true"
+                            ng-required="item.hasArrived" ng-model="item.arrivalTime" date-format="MM/dd/yyyy"></datetimepicker>
+
+        </div>
+    </div>
+    <div class="form-btn">
+        <button type="submit" title="Save Ticket!" ng-click="saveTicket(item)" ng-disabled="ticketForm.$invalid || isProcessing">
+            <i class="fa fa-save fa-2x"></i>
+        </button>
+        <button>
+            <i class="fa fa-ban fa-2x" title="Cancel" ng-disabled="isProcessing" ng-click="clearEdit()"></i>
+        </button>
+    </div>
+</form>

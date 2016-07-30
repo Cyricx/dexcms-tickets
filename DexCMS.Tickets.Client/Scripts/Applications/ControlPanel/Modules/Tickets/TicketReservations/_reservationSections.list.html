@@ -1,0 +1,78 @@
+﻿<div>
+    <div ng-if="editor.currentState == 'sections'" class="panel panel-primary">
+        <div class="panel-heading">
+            <h4><a ng-click="showAreas()">Areas</a> <i class="fa fa-arrow-right"></i> {{editor.selectedName}}</h4>
+        </div>
+        <div class="row panel-body">
+            <div ttcms-calculate-grid min-col-size="4" collection="ticketSections" ng-repeat="section in ticketSections">
+                <div class="well">
+                    <div>
+                        <p>
+                            <strong class="text-primary">{{section.name}}</strong>
+                        </p>
+                        <p>
+                            <em>Max Capacity: {{section.maxCapacity}}</em>
+                        </p>
+                        <p>
+                            <em>Assigned: {{section.assigned}}</em>
+                        </p>
+                        <p>
+                            <em>Pending Purchase: {{section.pendingPurchase}}</em>
+                        </p>
+                        <p>
+                            <em>Discount's Claimed: {{section.discountAssigned}}</em>
+                        </p>
+                        <p>
+                            <em>Discount's Pending: {{section.pendingDiscount}}</em>
+                        </p>
+                        <p>
+                            <em>Other Reservations: {{section.unclaimedReservations}}</em>
+                        </p>
+
+                        <div>
+                            <div class="row">
+                                <div class="col-xs-4 col-xs-offset-1 text-center text-primary inset-box">
+                                    <p>Available</p>
+                                    <strong>{{section.available}}</strong>
+                                </div>
+                                <div class="col-xs-2 text-center">
+                                </div>
+                                <div class="col-xs-4 text-center text-primary inset-box">
+                                    <p>Unavailable</p>
+                                    <strong>
+                                        {{section.unavailable}}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2 col-xs-offset-2">
+
+                                </div>
+                                <div class="col-xs-4 text-center text-primary inset-box">
+                                    <p>Reservations</p>
+                                    <strong>{{section.discountReservations}}</strong>
+
+                                </div>
+                                <div class="col-xs-2">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="pull-right">
+                        <span class="btn btn-primary btn-sm"
+                              uib-tooltip="{{'View rows in ' + section.name}}"
+                              ng-click="showRows(section)">
+                            <i class="fa fa-list-ul"></i>
+                        </span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <ttcms-reservation-rows-list config="config" exec-on-change="calculateCounts" ng-if="editor.currentState == 'rows'" editor="editor" ticket-rows="selectedRows"></ttcms-reservation-rows-list>
+</div>

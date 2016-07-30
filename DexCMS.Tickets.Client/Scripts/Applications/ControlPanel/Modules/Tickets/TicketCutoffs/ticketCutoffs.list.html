@@ -1,0 +1,20 @@
+﻿<div class="">
+    <a class="pull-right btn btn-default" ui-sref="events">Return to List</a>
+
+    <h2>{{navigation.title}}</h2>
+
+    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+
+    <div class="row">
+        <div class="col-xs-12">
+
+            <h3>{{subtitle}}</h3>
+
+            <ttcms-ticket-cutoffs-add></ttcms-ticket-cutoffs-add>
+            <div ng-repeat="ticketCutoff in ticketCutoffs">
+                <ttcms-ticket-cutoffs-display ticket-cutoff="ticketCutoff" ng-hide="ticketCutoff.isEditting"></ttcms-ticket-cutoffs-display>
+                <ttcms-ticket-cutoffs-edit ticket-cutoff="ticketCutoff" ng-if="ticketCutoff.isEditting"></ttcms-ticket-cutoffs-edit>
+            </div>
+        </div>
+    </div>
+</div>

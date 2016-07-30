@@ -1,0 +1,66 @@
+﻿<div>
+
+    <a class="pull-right btn btn-default" ui-sref="events">Return to List</a>
+    <h2>{{navigation.title}}</h2>
+
+
+    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+
+    <h3>{{buildSubTitle()}}</h3>
+    <form name="manageTicketOptionChoices" novalidate angular-validator angular-validator-submit="save(currentItem)">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="name">Name of Choice:</label>
+                <input class="form-control" name="name" id="name" required
+                       validate-on="dirty"
+                       ng-model="currentItem.name" />
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <ttcms-html-editor ng-model="currentItem.description"></ttcms-html-editor>
+            </div>
+            <div class="form-group">
+                <label for="markupPrice">Markup Price:</label>
+                <input type="number" name="markupPrice"
+                       ng-model="currentItem.markupPrice" min="0" step="0.50"
+                       required validate-on="dirty" />
+                <span class="control-label text-primary">
+                    Base Price is: {{ticketOption.basePrice | currency}},
+                    with markup total is:
+                    {{(ticketOption.basePrice + currentItem.markupPrice) | currency }}
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="maximumAvailable">Maximum Available:</label>
+                <input type="number" name="maximumAvailable"
+                       uib-tooltip="Blank for unlimited and 0 to disable."
+                       tooltip-trigger="focus" tooltip-placement="bottom"
+                       ng-model="currentItem.maximumAvailable" min="0" />
+            </div>
+
+            <div class="form-group">
+                <label>Display to Age Groups:</label>
+                <div class="alert alert-danger" ng-show="eventAgeGroups.length === 0">
+                    Age Groups are required. Please create some age groups before continuing.
+                </div>
+                <div class="checkbox" ng-repeat="ageGroup in eventAgeGroups">
+                    <label ng-click="toggleAges(ageGroup)">
+                        <i class="fa fa-square-o" ng-show="!ageIsSelected(ageGroup)"></i>
+                        <i class="fa fa-check-square-o" ng-show="ageIsSelected(ageGroup)"></i>
+                        {{ageGroup.name}}
+                        <small>({{ageGroup.maximumAge ? ageGroup.minimumAge + ' ' + ageGroup.maximumAge: ageGroup.minimumAge + '+'}})</small>
+                    </label>
+                </div>
+                <span class="control-label text-danger"
+                      ng-show="isInvalidChecks()">
+                    <i class="fa fa-times"></i>  You must choose at least one age group.
+                </span>
+            </div>
+            <button class="btn btn-primary" ng-disabled="manageTicketOptionChoices.$invalid || isInvalidChecks()"
+                    type="submit">
+                Save
+            </button>
+            <a class="btn btn-primary" ui-sref="ticketoptions/:id/:toID({id:ticketOption.eventID, toID:ticketOption.ticketOptionID})">Cancel</a>
+        </div>
+    </form>
+</div>

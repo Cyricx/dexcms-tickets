@@ -1,0 +1,76 @@
+﻿<div class="form-group">
+    <h4>
+        Areas
+    </h4>
+    <div ng-class="calculateColumns(currentItem.venueAreas, area.editting)" ng-repeat="area in currentItem.venueAreas">
+        <div class="well">
+            <div ng-if="!area.editting">
+                <p>
+                    <strong class="text-primary">{{area.name}}</strong>
+                </p>
+                <p>
+                    <em ng-if="area.isGA">Max Capacity: {{area.gaSeatCount}} persons</em>
+                </p>
+            </div>
+            <div ng-if="area.editting">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input class="form-control" required
+                           ng-model="area.name" />
+                </div>
+                <div class="form-group checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="area.isGA" />
+                        Is General Admission?
+                    </label>
+                </div>
+                <div class="form-group" ng-if="area.isGA">
+                    <label>Max Capacity:</label>
+                    <input class="form-control" type="number" ng-model="area.gaSeatCount" required />
+                </div>
+            </div>
+            <div class="pull-right">
+                <span class="btn btn-default btn-sm" ng-disabled="enableClick('Area', $index)" ng-click="changeEditor(area, $index)">
+                    <i class="fa" ng-class="setIcon(area)"></i>
+
+                </span>
+                <span ng-if="!area.isGA && !area.editting" class="btn btn-default btn-sm" ng-disabled="enableClick('Area', $index)" ng-click="setSections(area)">
+                    <i class="fa fa-list-ul"></i>
+
+                </span>
+                <span class="btn btn-danger btn-sm" ng-disabled="enableClick('Area', $index)" ng-click="deleteArea(area)">
+                    <i class="fa fa-trash-o"></i>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div ng-class="calculateColumns(currentItem.venueAreas, true)">
+        <div class="well" ng-if="!addingArea">
+            <div class="form-group text-center">
+                <button class="btn btn-primary" ng-disabled="managingArea != -1" ng-click="switchAddArea()">
+                    <i class="fa fa-plus-square-o"></i> Add Area
+                </button>
+            </div>
+        </div>
+        <div class="well" ng-if="addingArea">
+            <div class="form-group">
+                <label>Name</label>
+                <input class="form-control" ng-model="newArea.name" required />
+            </div>
+            <div class="form-group checkbox">
+                <label>
+                    <input type="checkbox" ng-model="newArea.isGA" />
+                    Is General Admission?
+                </label>
+            </div>
+            <div class="form-group" ng-if="newArea.isGA">
+                <label>Max Capacity:</label>
+                <input class="form-control" type="number" ng-model="newArea.gaSeatCount" required />
+            </div>
+            <button class="btn btn-primary btn-sm" ng-click="saveArea(newArea)">Save</button>
+            <button class="btn btn-primary btn-sm" ng-click="switchAddArea()">Cancel</button>
+        </div>
+    </div>
+
+</div>

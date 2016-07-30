@@ -1,0 +1,498 @@
+﻿<div class="">
+    <a class="pull-right btn btn-default" ui-sref="events">Return to List</a>
+
+    <h2>{{navigation.title}}</h2>
+
+    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+    <div class="well text-primary" ng-if="isLoading">
+        Loading..
+    </div>
+    <div class="row" ng-if="!isLoading">
+
+        <div class="col-xs-12">
+            <h3>{{title}}</h3>
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3>
+                        <button class="btn btn-xs btn-primary" ng-show="seatingGroup != 'Areas'" ng-click="toPreviousGroup(seatingGroup)">
+                            <i class="fa fa-arrow-left"></i>
+                        </button>
+
+                        Manage {{seatingGroup}}<small><em> {{seatingNote}}</em></small>
+                    </h3>
+
+                </div>
+                <div class="panel-body" ng-if="!currentItem.isSetup">
+                    <h4>Setup Tickets</h4>
+                    <div class="well">
+                        <p>The following options are only available when you first setup tickets.</p>
+                        <div class="text-center">
+                            <span class="btn btn-primary btn-lg" ng-click="loadFromVenue()" ng-if="!hasLoadedVenue">Load Default Venue Seats</span>
+                            <span class="btn btn-danger btn-lg" ng-disabled="isSavingAll" ng-click="removeAllSeats()">Remove All Seats</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <!-- AREAS -->
+                    <div class="form-group" ng-show="seatingGroup === 'Areas'">
+                        <div ng-class="calculateColumns(currentItem.ticketAreas, area.editting)" 
+                             ng-repeat="area in currentItem.ticketAreas">
+                            <div class="well"
+                                 ttcms-attention="!area.ticketAreaID"
+                                 attention-message="This item has not been saved."
+                                 ng-if="!area.editting">
+                                <div>
+                                    <p>
+                                        <strong class="text-primary">{{area.name}} <span ng-if="area.isGA">(General admission)</span></strong>
+                                    </p>
+                                    <p>
+                                        <em>Max Capacity: {{getAreaCount(area, 'newMaxCapacity')}}</em>
+                                    </p>
+                                    <p>
+                                        <em>Unavailable: {{getAreaCount(area, 'newUnavailable')}}</em>
+                                    </p>
+                                    <p ng-if="area.ticketAreaID">
+                                        <em>Reserved: {{getAreaCount(area, 'unclaimedReservations')}}</em>
+                                    </p>
+                                    <p ng-if="area.ticketAreaID">
+                                        <em>Claimed Tickets: {{getAreaCount(area, 'assigned')}}</em>
+                                    </p>
+
+                                </div>
+
+                                <div class="pull-right">
+                                    <span ng-if="area.isGA || !area.ticketAreaID" class="btn btn-primary btn-sm" ng-disabled="enableClick('Area', $index)"
+                                          ng-click="switchEdit('Area', area, $index)" uib-tooltip="{{'Edit ' + area.name}}">
+                                        <i class="fa fa-pencil-square-o"></i>
+
+                                    </span>
+                                    <span ng-if="!area.isGA && !area.editting" class="btn btn-primary btn-sm"
+                                          ng-disabled="enableClick('Area', $index)" uib-tooltip="{{'View sections in ' + area.name}}"
+                                          ng-click="setSections(area)">
+                                        <i class="fa fa-list-ul"></i>
+
+                                    </span>
+                                    <span ng-if="!area.ticketAreaID" class="btn btn-danger btn-sm" ng-disabled="enableClick('Area', $index)"
+                                          ng-click="deleteArea(area, $index)" uib-tooltip="{{'Delete ' + area.name}}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <form class="well" name="managingAreaForm"
+                                  ttcms-attention="!area.ticketAreaID"
+                                  attention-message="This item has not been saved."
+                                  novalidate ng-if="area.editting" angular-validator
+                                  >
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input ng-if="!editArea.ticketAreaID" class="form-control" required required-message="'Name is required.'" validate-on="dirty"
+                                           ng-model="editArea.name" />
+                                    <span ng-if="editArea.ticketAreaID" ng-bind="editArea.name"></span>
+                                </div>
+                                <div class="form-group checkbox">
+                                    <label>
+                                        <input type="checkbox"
+                                               ng-disabled="editArea.ticketAreaID || editArea.ticketSections.length > 0"
+                                               ng-model="editArea.isGA" />
+                                        Is General Admission?
+                                    </label>
+                                    <small class="text-info" ng-if="!editArea.ticketAreaID && editArea.ticketSections.length > 0">
+                                        You must remove any sections before you can change this to General Admission.
+                                    </small>
+                                </div>
+                                <div class="form-group" ng-if="editArea.isGA">
+                                    <label>Max Capacity:</label>
+                                    <input class="form-control" type="number"
+                                           name="newMaxCapacity"
+                                           validate-on="dirty"
+                                           required-message="'You must enter a capacity if the area is GA.'"
+                                           invalid-message="'Capacity must be at least {{editArea.maxCapacity}} and can not be lower than unavailable count.'"
+                                           validator="!editArea.newUnavailable || editArea.newUnavailable == 0 || editArea.newMaxCapacity >= editArea.newUnavailable"
+                                           min="{{editArea.maxCapacity}}"
+                                           ng-model="editArea.newMaxCapacity" required />
+                                    <small class="text-info">Minimum Capacity is {{editArea.maxCapacity}}</small>
+                                </div>
+                                <div class="form-group" ng-if="editArea.isGA">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <label>Unavailable:</label>
+                                            <span ng-bind="editArea.newUnavailable"></span>
+
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <span class="btn btn-xs btn-primary"
+                                                  ng-disabled="editArea.newUnavailable == editArea.newMaxCapacity"
+                                                  ng-click="changeUnavailable(editArea, 1)"><i class="fa fa-caret-up"></i></span>
+                                            <span class="btn btn-xs btn-primary"
+                                                  ng-disabled="editArea.newUnavailable == 0"
+                                                  ng-click="changeUnavailable(editArea, -1)"><i class="fa fa-caret-down"></i></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn btn-primary btn-sm" 
+                                          ng-disabled="managingAreaForm.$invalid"
+                                          ng-click="updateArea(area, editArea, $index)">
+                                        <i class="fa fa-floppy-o"></i>
+                                    </button>
+                                    <span class="btn btn-primary btn-sm" ng-click="switchEdit('Area', area, $index)">
+                                        <i class="fa fa-ban"></i>
+                                    </span>
+                                    <span ng-if="!area.ticketAreaID" 
+                                          class="btn btn-danger btn-sm"
+                                          ng-disabled="enableClick('Area', $index)" 
+                                          ng-click="deleteArea(area, $index)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+
+                            </form>
+                        </div>
+                        <div ng-class="calculateColumns(currentItem.ticketAreas, true)">
+                            <div class="well" ng-if="!addingArea">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary" ng-disabled="managingAreaIndex != -1" ng-click="switchAdd('Area')">
+                                        <i class="fa fa-plus-square-o"></i> Add Area
+                                    </button>
+                                </div>
+                            </div>
+                            <form class="well" name="addingAreaForm" ng-show="addingArea" 
+                                  novalidate angular-validator
+                                  >
+                                <div class="form-group">
+                                    <label class="control-label">Name:</label>
+                                    <input type="text"
+                                           name="name"
+                                           validate-on="dirty"
+                                           class="form-control"
+                                           ng-model="newArea.name"
+                                           required-message="'Name is required.'"
+                                           required>
+                                </div>
+                                <div class="form-group checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="newArea.isGA" />
+                                        Is General Admission?
+                                    </label>
+                                </div>
+                                <div class="form-group" ng-if="newArea.isGA">
+                                    <label>Max Capacity:</label>
+                                    <input class="form-control" type="number"
+                                           name="newMaxCapacity"
+                                           validate-on="dirty"
+                                           required-message="'You must enter a capacity if the area is GA.'"
+                                           invalid-message="'Capacity must be at least {{newArea.maxCapacity}} and can not be lower than unavailable count.'"
+                                           validator="!newArea.newUnavailable || newArea.newUnavailable == 0 || newArea.newMaxCapacity >= newArea.newUnavailable"
+                                           min="{{newArea.maxCapacity}}"
+                                           ng-model="newArea.newMaxCapacity" required />
+                                    <small class="text-info">Minimum Capacity is {{newArea.maxCapacity}}</small>
+                                </div>
+                                <div class="form-group" ng-if="newArea.isGA">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <label>Unavailable:</label>
+                                            <span ng-bind="newArea.newUnavailable"></span>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <span class="btn btn-xs btn-primary"
+                                                  ng-disabled="newArea.newUnavailable == newArea.newMaxCapacity"
+                                                  ng-click="changeUnavailable(newArea, 1)"><i class="fa fa-caret-up"></i></span>
+                                            <span class="btn btn-xs btn-primary"
+                                                  ng-disabled="newArea.newUnavailable == 0"
+                                                  ng-click="changeUnavailable(newArea, -1)"><i class="fa fa-caret-down"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right">
+                                    <btton class="btn btn-primary btn-sm" 
+                                          ng-disabled="addingAreaForm.$invalid" 
+                                          ng-click="saveArea(newArea)">
+                                        <i class="fa fa-floppy-o"></i>
+                                    </btton>
+                                    <span class="btn btn-primary btn-sm" ng-click="switchAdd('Area')">
+                                        <i class="fa fa-ban"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- SECTIONS -->
+                    <div class="form-group" ng-show="seatingGroup === 'Sections'">
+                        <h4><a ng-click="toPreviousGroup(seatingGroup)">Areas</a> <i class="fa fa-arrow-right"></i> {{selectedArea.name}}</h4>
+                        <div ng-class="calculateColumns(selectedArea.ticketSections, area.editting)" ng-repeat="section in selectedArea.ticketSections">
+                            <div class="well"
+                                 ttcms-attention="!section.ticketSectionID"
+                                 attention-message="This item has not been saved."
+                                 ng-if="!section.editting">
+                                <div>
+                                    <p>
+                                        <strong class="text-primary">{{section.name}}</strong>
+                                    </p>
+                                </div>
+                                <div class="pull-right">
+                                    <span ng-if="!section.ticketSectionID" class="btn btn-primary btn-sm" ng-disabled="enableClick('Section', $index)"
+                                          ng-click="switchEdit('Section', section, $index)">
+                                        <i class="fa fa-pencil-square-o"></i>
+
+                                    </span>
+                                    <span ng-if="!section.editting" class="btn btn-primary btn-sm" ng-disabled="enableClick('Section', $index)"
+                                          ng-click="setRows(section)">
+                                        <i class="fa fa-list-ul"></i>
+
+                                    </span>
+                                    <span ng-if="!section.ticketSectionID" class="btn btn-danger btn-sm" ng-disabled="enableClick('Section', $index)"
+                                          ng-click="deleteSection(section, $index)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <form class="well"
+                                  ttcms-attention="!section.ticketSectionID"
+                                  attention-message="This item has not been saved."
+                                  name="managingSectionForm" 
+                                  novalidate ng-if="section.editting" 
+                                  angular-validator
+                                  >
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input class="form-control" required required-message="'Name is required.'" validate-on="dirty"
+                                           ng-model="editSection.name" />
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn btn-primary btn-sm" 
+                                          ng-disabled="managingSectionForm.$invalid"
+                                          ng-click="updateSection(section, editSection, $index)">
+                                        <i class="fa fa-floppy-o"></i>
+                                    </button>
+                                    <span class="btn btn-primary btn-sm" ng-click="switchEdit('Section', section, $index)">
+                                        <i class="fa fa-ban"></i>
+                                    </span>
+                                    <span ng-if="!section.ticketSectionID" class="btn btn-danger btn-sm" ng-disabled="enableClick('Section', $index)"
+                                          ng-click="deleteSection(section, $index)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+
+                            </form>
+                        </div>
+                        <div ng-class="calculateColumns(selectedArea.ticketSections, true)">
+                            <div class="well" ng-if="!addingSection">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary" ng-disabled="managingSectionIndex != -1" ng-click="switchAdd('Section')">
+                                        <i class="fa fa-plus-square-o"></i> Add Section
+                                    </button>
+                                </div>
+                            </div>
+                            <form class="well" name="addingSectionForm" ng-show="addingSection" 
+                                  novalidate angular-validator
+                                  >
+                                <div class="form-group">
+                                    <label class="control-label">Name:</label>
+                                    <input type="text"
+                                           name="name"
+                                           validate-on="dirty"
+                                           class="form-control"
+                                           ng-model="newSection.name"
+                                           required-message="'Name is required.'"
+                                           required>
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn btn-primary btn-sm" ng-disabled="addingSectionForm.$invalid" 
+                                          ng-click="saveSection(newSection)">
+                                        <i class="fa fa-floppy-o"></i>
+                                    </button>
+                                    <span class="btn btn-primary btn-sm" ng-click="switchAdd('Section')">
+                                        <i class="fa fa-ban"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- ROWS -->
+                    <div class="form-group" ng-show="seatingGroup === 'Rows'">
+                        <h4>
+                            <a ng-click="toPreviousGroup('Sections')">Areas</a>
+                            <i class="fa fa-arrow-right"></i>
+                            <a ng-click="toPreviousGroup(seatingGroup)">{{selectedArea.name}}</a>
+                            <i class="fa fa-arrow-right"></i>
+                            {{selectedSection.name}}
+                        </h4>
+                        <div ng-class="calculateColumns(selectedSection.ticketRows, row.editting)" ng-repeat="row in selectedSection.ticketRows">
+                            <div class="well"
+                                 ttcms-attention="!row.ticketRowID"
+                                 attention-message="This item has not been saved."
+                                 ng-if="!row.editting">
+                                <div>
+                                    <p>
+                                        <strong class="text-primary">{{row.designation}}</strong>
+                                    </p>
+                                    <p>
+                                        <em>Max Capacity: {{row.newMaxCapacity}}</em>
+                                    </p>
+                                    <p>
+                                        <em>Unavailable: {{row.newUnavailable}}</em>
+                                    </p>
+                                    <p ng-if="row.ticketRowID">
+                                        <em>Reserved: {{row.unclaimedReservations}}</em>
+                                    </p>
+                                    <p ng-if="row.ticketRowID">
+                                        <em>Claimed Tickets: {{row.assigned}}</em>
+                                    </p>
+                                </div>
+                                <div class="pull-right">
+                                    <span class="btn btn-primary btn-sm" ng-disabled="enableClick('Row', $index)"
+                                          ng-click="switchEdit('Row', row, $index)">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </span>
+                                    <span ng-if="!row.ticketRowID" class="btn btn-danger btn-sm" ng-disabled="enableClick('Row', $index)"
+                                          ng-click="deleteRow(row, $index)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <form class="well"
+                                  ttcms-attention="!row.ticketRowID"
+                                  attention-message="This item has not been saved."
+                                  name="managingRowForm" novalidate ng-if="row.editting" angular-validator
+                                  >
+                                <div class="form-group">
+                                    <label>Designation:</label>
+                                    <input ng-if="!row.ticketRowID" class="form-control" name="designation" required required-message="'Designation is required.'"
+                                           validate-on="dirty"
+                                           ng-model="editRow.designation" />
+                                    <label ng-if="row.ticketRowID" ng-bind="row.designation"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Max Capacity:</label>
+                                    <input class="form-control" type="number"
+                                           name="newMaxCapacity"
+                                           validate-on="dirty"
+                                           required-message="'You must enter a capacity.'"
+                                           invalid-message="'Capacity must be at least {{editRow.maxCapacity}} and can not be lower than unavailable count.'"
+                                           validator="!editRow.newUnavailable || editRow.newUnavailable == 0 || editRow.newMaxCapacity >= editRow.newUnavailable"
+                                           min="{{editRow.maxCapacity}}"
+                                           ng-model="editRow.newMaxCapacity" required />
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <label>Unavailable:</label>
+                                            <span ng-bind="editRow.newUnavailable"></span>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <span class="btn btn-xs btn-primary"
+                                                  ng-disabled="editRow.newUnavailable == editRow.newMaxCapacity"
+                                                  ng-click="changeUnavailable(editRow, 1)"><i class="fa fa-caret-up"></i></span>
+                                            <span class="btn btn-xs btn-primary"
+                                                  ng-disabled="editRow.newUnavailable == 0"
+                                                  ng-click="changeUnavailable(editRow, -1)"><i class="fa fa-caret-down"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn btn-primary btn-sm" ng-disabled="managingRowForm.$invalid"
+                                          ng-click="updateRow(row, editRow, $index)">
+                                        <i class="fa fa-floppy-o"></i>
+                                    </button>
+                                    <span class="btn btn-primary btn-sm" ng-click="switchEdit('Row', row, $index)">
+                                        <i class="fa fa-ban"></i>
+                                    </span>
+                                    <span ng-if="!row.ticketRowID" class="btn btn-danger btn-sm" ng-disabled="enableClick('Row', $index)"
+                                          ng-click="deleteRow(row, $index)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+
+                            </form>
+                        </div>
+                        <div ng-class="calculateColumns(selectedSection.ticketRows, true)">
+                            <div class="well" ng-if="!addingRow">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary" ng-disabled="managingRowIndex != -1" ng-click="switchAdd('Row')">
+                                        <i class="fa fa-plus-square-o"></i> Add Row
+                                    </button>
+                                </div>
+                            </div>
+                            <form class="well" name="addingRowForm" ng-show="addingRow" 
+                                  novalidate angular-validator
+                                  >
+                                <div class="form-group">
+                                    <label class="control-label">Designation:</label>
+                                    <input type="text"
+                                           name="designation"
+                                           validate-on="dirty"
+                                           class="form-control"
+                                           ng-model="newRow.designation"
+                                           required-message="'Designation is required.'"
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Max Capacity:</label>
+                                    <input class="form-control" type="number"
+                                           name="newMaxCapacity"
+                                           validate-on="dirty"
+                                           required-message="'You must enter a capacity.'"
+                                           invalid-message="'Capacity must be at least {{newRow.maxCapacity}} and can not be lower than unavailable count.'"
+                                           validator="!newRow.newUnavailable || newRow.newUnavailable == 0 || newRow.newMaxCapacity >= newRow.newUnavailable"
+                                           min="{{newRow.maxCapacity}}"
+                                           ng-model="newRow.newMaxCapacity" required />
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <label>Unavailable:</label>
+                                            <span ng-bind="newRow.newUnavailable"></span>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <span class="btn btn-xs btn-primary"
+                                                  ng-disabled="newRow.newUnavailable == newRow.newMaxCapacity"
+                                                  ng-click="changeUnavailable(newRow, 1)"><i class="fa fa-caret-up"></i></span>
+                                            <span class="btn btn-xs btn-primary"
+                                                  ng-disabled="newRow.newUnavailable == 0"
+                                                  ng-click="changeUnavailable(newRow, -1)"><i class="fa fa-caret-down"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn btn-primary btn-sm" 
+                                          ng-disabled="addingRowForm.$invalid" 
+                                          ng-click="saveRow(newRow)">
+                                        <i class="fa fa-floppy-o"></i>
+                                    </button>
+                                    <span class="btn btn-primary btn-sm" ng-click="switchAdd('Row')">
+                                        <i class="fa fa-ban"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="panel-body text-center">
+                    <p class="text-danger">
+                        Warning! Once you save you can NOT remove any seats, only add. You can only mark existing seats as unavailable.
+                    </p>
+                    <input type="button" class="btn btn-danger btn-lg" ng-disabled="isSavingAll || !currentItem.ticketAreas || currentItem.ticketAreas.length == 0" value="Final Save" ng-click="saveAll()" />
+                    <p ng-if="isSavingAll" class="alert alert-warning">
+                        Please wait while we create your event tickets. This will take just a few moments.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

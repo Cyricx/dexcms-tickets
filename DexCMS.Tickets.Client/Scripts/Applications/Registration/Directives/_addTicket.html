@@ -1,0 +1,68 @@
+﻿<div>
+    <form name="addTicketForm" ng-if="hasLoaded && isOpen" angular-validator angular-validator-submit="saveItem(currentItem)">
+
+        <div class="seat-row">
+            <label>Select Your Tickets:</label>
+            <select name="area" id="area" required
+                    ng-if="areas"
+                    ng-model="currentItem.areaID"
+                    ng-change="selectedArea(currentItem.areaID)"
+                    ng-options="item.areaID as item.display for item in areas">
+                <option value="">[ - choose an area - ]</option>
+            </select>
+            <select name="section" id="section" required
+                    ng-if="sections"
+                    ng-model="currentItem.sectionID"
+                    ng-change="selectedSection(currentItem.sectionID)"
+                    ng-options="item.sectionID as item.display for item in sections">
+                <option value="">[ - choose a cabin - ]</option>
+            </select>
+            <select name="row" id="row" required
+                    ng-if="rows"
+                    ng-model="currentItem.rowID"
+                    ng-change="selectedRow(currentItem.rowID)"
+                    ng-options="item.rowID as item.display for item in rows">
+                <option value="">[ - choose a side - ]</option>
+            </select>
+            <div class="seat-count" ng-if="ticketLimit">
+                <label for="seatCount"># of Tickets (max: {{ticketLimit}})</label>
+                <input type="number" ng-change="createTickets(currentItem.seatCount)" min="0" max="{{ticketLimit}}" ng-model="currentItem.seatCount" />
+            </div>
+        </div>
+        <div class="seat-prices">
+            <div class="cutoff-areas" ng-repeat="area in prices.areas" ng-class="getSelectedClass(area.areaID)">
+                <h4>{{area.name}}</h4>
+                <table class="cutoff-pricing-table">
+                    <tr ng-repeat="price in area.prices">
+                        <td>
+                            <strong>{{price.ageName}}</strong>
+                        </td>
+                        <td>
+                            <em>({{price.ageRange}})</em>
+                        </td>
+                        <td>
+                            <span class="event-price-tag">
+                                {{price.basePrice|currency}}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="seat-ages">
+            <div ng-repeat="ticket in currentItem.tickets">
+                <label for="{{'age' + $index}}">Ticket #{{$index + 1}}:</label>
+                <select name="{{'age' + $index}}" id="{{'age' + $index}}" required
+                        ng-model="ticket.ticketPriceID"
+                        ng-change="selectedAge(ticket)"
+                        ng-options="age.ticketPriceID as age.display for age in ageGroups">
+                    <option value="">[ - select age group - ]</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" ng-disabled="validateTickets()" class="clear pseudo-btn right">Add Tickets</button>
+        <div class="clear"></div>
+    </form>
+    <div ng-if="!hasLoaded">Loading...</div>
+    <div ng-if="hasLoaded && !isOpen" ng-bind="registrationMessage"></div>
+</div>

@@ -1,0 +1,70 @@
+﻿<div class="form-group">
+    <h4>
+        <a ng-click="changeSeatingGroup('Sections')">Areas</a>
+        <i class="fa fa-arrow-right"></i>
+        <a ng-click="changeSeatingGroup(seatingGroup)">{{selectedArea.name}}</a>
+        <i class="fa fa-arrow-right"></i>
+        {{selectedSection.name}}
+    </h4>
+
+    <div ng-class="calculateColumns(selectedSection.venueRows, row.editting)"
+         ng-repeat="row in selectedSection.venueRows">
+        <div class="well">
+            <div ng-if="!row.editting">
+                <p>
+                    <strong class="text-primary">{{row.designation}}</strong>
+                </p>
+                <p>
+                    <em>Seats: {{row.seatCount}}</em>
+                </p>
+            </div>
+            <div ng-if="row.editting">
+                <div class="form-group">
+                    <label>Designation:</label>
+                    <input class="form-control" required
+                           ng-model="row.designation" />
+                </div>
+                <div class="form-group">
+                    <label>Seat Count:</label>
+                    <input class="form-control" type="number" required
+                           ng-model="row.seatCount" />
+                </div>
+            </div>
+            <div class="pull-right">
+                <span class="btn btn-default btn-sm" ng-disabled="enableClick('Row', $index)" ng-click="changeEditor(row, $index)">
+                    <i class="fa" ng-class="setIcon(row)"></i>
+
+                </span>
+                <span class="btn btn-danger btn-sm" ng-disabled="enableClick('Row', $index)" ng-click="deleteRow(row)">
+                    <i class="fa fa-trash-o"></i>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div ng-class="calculateColumns(selectedSection.venueRows, true)">
+        <div class="well" ng-if="!addingRow">
+            <div class="form-group text-center">
+                <button class="btn btn-primary" ng-disabled="managingRow != -1" ng-click="switchAddRow()">
+                    <i class="fa fa-plus-square-o"></i>
+                    Add Row
+                </button>
+            </div>
+        </div>
+        <div class="well" ng-if="addingRow">
+            <div class="form-group">
+                <label>Designation:</label>
+                <input class="form-control" ng-model="newRow.designation" required />
+            </div>
+            <div class="form-group">
+                <label>Seat Count:</label>
+                <input class="form-control" type="number" required
+                       ng-model="newRow.seatCount" />
+            </div>
+            <button class="btn btn-primary btn-sm" ng-click="saveRow(newRow)">Save</button>
+            <button class="btn btn-primary btn-sm" ng-click="switchAddRow()">Cancel</button>
+        </div>
+    </div>
+
+</div>

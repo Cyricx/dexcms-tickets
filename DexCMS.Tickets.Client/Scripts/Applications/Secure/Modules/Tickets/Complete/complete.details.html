@@ -1,0 +1,45 @@
+﻿<h2>{{content.title}}</h2>
+<div class="wrapper-box">
+    <!--<nav class="event-nav">
+        <div class="sibling-menu">
+            <a href="#">View Menu <span class="fa"></span></a>
+        </div>
+        <ul>
+            <li>
+                <span><i class="fa fa-shopping-cart"></i> Checkout</span>
+            </li>
+            <li>
+                <a ui-sref="checkout" class="active"><i class="fa fa-check-circle-o"></i> Complete</a>
+            </li>
+            <li>
+                <a ui-sref="checkout"><i class="fa fa-users"></i> Details</a>
+            </li>
+            <li>
+                <a ui-sref="checkout"><i class="fa fa-print"></i> Print</a>
+            </li>
+        </ul>
+    </nav>-->
+
+    <div class="nested-body" ng-show="!order">
+        <h3>
+            <i class="fa-2x fa fa-spinner fa-spin"></i> Loading
+        </h3>
+    </div>
+    <div class="nested-body" ng-show="order">
+        <div class="sub-nested-body" ng-bind-html="content.body">
+        </div>
+        <div class="half">
+            <div ng-bind-html="content.contentBlocks[0].blockBody"></div>
+            <a ui-sref="ticketholders/:id({id: order.orderID})"><i class="fa fa-users fa-3x"></i></a>
+
+        </div>
+        <div class="half">
+            <div  ng-bind-html="content.contentBlocks[1].blockBody"></div>
+            <a ng-href="./print/{{order.orderID}}" target="_blank" ng-click="$event.stopPropagation()"><i class="fa fa-print fa-3x"></i></a>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+</div>

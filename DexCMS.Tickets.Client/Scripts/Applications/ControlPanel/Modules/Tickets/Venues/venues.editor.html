@@ -1,0 +1,61 @@
+﻿<div class="col-xs-12">
+    <h2>{{title}}</h2>
+    <form name="manageVenues" novalidate angular-validator angular-validator-submit="save(currentItem)">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="form-control" name="name" id="name" required
+                       validate-on="dirty"
+                       ng-model="currentItem.name" />
+            </div>
+            <div class="form-group">
+                <label>Address:</label>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="address" class="input-group-addon">Street</label>
+                        <input class="form-control" name="address" id="address" required
+                               validate-on="dirty"
+                               ng-model="currentItem.address" />
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="input-group">
+                        <label for="city" class="input-group-addon">City</label>
+                        <input class="form-control" name="city" id="city" required
+                               validate-on="dirty"
+                               ng-model="currentItem.city" />
+                    </div>
+                    <div class="input-group">
+                        <label for="state" class="input-group-addon">State</label>
+                        <select name="stateID" class="form-control" id="stateID" 
+                                ng-model="currentItem.stateID" required
+                                validate-on="dirty"
+                                ng-options="item.stateID as item.name for item in states"></select>
+
+                    </div>
+                    <div class="input-group">
+                        <label for="zipCode" class="input-group-addon">Zip</label>
+                        <input class="form-control" name="zipCode" id="zipCode" required
+                               validate-on="dirty"
+                               ng-model="currentItem.zipCode" />
+                    </div>
+                </div>
+            </div>
+            <h3>Seating</h3>
+
+            <ng-include src="'../../scripts/dexcmsapps/applications/controlpanel/modules/ticketing/venues/_venueseating.html'"></ng-include>
+
+            <div class="panel-body">
+                <button class="btn btn-primary" ng-disabled="manageVenues.$invalid" 
+                        type="submit"
+                        >Save</button>
+                <a class="btn btn-primary" ui-sref="venues">Cancel</a>
+            </div>
+            <div class="well" ng-if="manageVenues.$invalid">
+                <ul class="text-danger">
+                    <li>The above form must be valid before you can save. Including any seating forms you may currently have open.</li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>

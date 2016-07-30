@@ -1,0 +1,146 @@
+﻿<div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>
+                <a ng-click="showAreas()">Areas</a>
+                <i class="fa fa-arrow-right"></i>
+                <a ng-click="showSections()">{{editor.selectedName}}</a>
+                <i class="fa fa-arrow-right"></i>
+                {{editor.subSelectedName}}
+            </h4>
+        </div>
+        <div class="row panel-body">
+            <div ttcms-calculate-grid min-col-size="4" collection="ticketRows" ng-repeat="row in ticketRows">
+                <div class="well">
+                    <div>
+                        <p>
+                            <strong class="text-primary">{{row.name}}</strong>
+                        </p>
+                        <p>
+                            <em>Max Capacity: {{row.maxCapacity}}</em>
+                        </p>
+                        <p>
+                            <em>Assigned: {{row.assigned}}</em>
+                        </p>
+                        <p>
+                            <em>Pending Purchase: {{row.pendingPurchase}}</em>
+                        </p>
+                        <p>
+                            <em>Discount's Claimed: {{row.discountAssigned}}</em>
+                        </p>
+                        <p>
+                            <em>Discount's Pending: {{row.pendingDiscount}}</em>
+                        </p>
+                        <p>
+                            <em>Other Reservations: {{row.unclaimedReservations}}</em>
+                        </p>
+
+                        <div ng-if="!row.isEditting">
+                            <div class="row">
+                                <div class="col-xs-4 col-xs-offset-1 text-center text-primary inset-box">
+                                    <p>Available</p>
+                                    <strong>{{row.available}}</strong>
+                                </div>
+                                <div class="col-xs-2 text-center">
+                                </div>
+                                <div class="col-xs-4 text-center text-primary inset-box">
+                                    <p>Unavailable</p>
+                                    <strong>
+                                        {{row.unavailable}}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2 col-xs-offset-2">
+
+                                </div>
+                                <div class="col-xs-4 text-center text-primary inset-box">
+                                    <p>Reservations</p>
+                                    <strong>{{row.discountReservations}}</strong>
+
+                                </div>
+                                <div class="col-xs-2">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div ng-if="row.isEditting">
+
+                            <div class="row">
+                                <div class="col-xs-4 col-xs-offset-1 text-center text-primary inset-box">
+                                    <p>Available</p>
+                                    <strong>{{row.newAvailable}}</strong>
+                                </div>
+                                <div class="col-xs-2 text-center">
+                                    <button ng-disabled="!row.newAvailable || row.isProcessing"
+                                            class="fa fa-long-arrow-right btn btn-clean btn-block"
+                                            ng-click="moveSeat(row, 'newAvailable', 'newUnavailable')"></button>
+                                    <button ng-disabled="!row.newUnavailable || row.isProcessing"
+                                            class="fa fa-long-arrow-left btn btn-clean btn-block"
+                                            ng-click="moveSeat(row ,'newUnavailable', 'newAvailable')"></button>
+                                </div>
+                                <div class="col-xs-4 text-center text-primary inset-box">
+                                    <p>Unavailable</p>
+                                    <strong>
+                                        {{row.newUnavailable}}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2 col-xs-offset-2">
+                                    <button ng-disabled="!row.newAvailable || row.isProcessing || row.newReservations == row.maxReservations"
+                                            class="fa fa-long-arrow-right btn btn-clean tilt-right"
+                                            ng-click="moveSeat(row, 'newAvailable', 'newReservations')"></button>
+                                    <button ng-disabled="!row.newReservations || row.isProcessing"
+                                            class="fa fa-long-arrow-left btn btn-clean tilt-right"
+                                            ng-click="moveSeat(row, 'newReservations','newAvailable')"></button>
+
+                                </div>
+                                <div class="col-xs-4 text-center text-primary inset-box">
+                                    <p>Reservations</p>
+                                    <strong>{{row.newReservations}}</strong>
+
+                                </div>
+                                <div class="col-xs-2">
+                                    <button ng-disabled="!row.newReservations || row.isProcessing"
+                                            class="fa fa-long-arrow-right btn btn-clean tilt-left"
+                                            ng-click="moveSeat(row, 'newReservations', 'newUnavailable')"></button>
+                                    <button ng-disabled="!row.newUnavailable || row.isProcessing || row.newReservations == row.maxReservations"
+                                            class="fa fa-long-arrow-left btn btn-clean tilt-left"
+                                            ng-click="moveSeat(row ,'newUnavailable', 'newReservations')"></button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="pull-right">
+                        <span ng-if="!row.isEditting"
+                              class="btn btn-primary btn-sm"
+                              uib-tooltip="{{'Edit ' + row.name + '\'s Reservations'}}"
+                              ng-disabled="pendingEdit"
+                              ng-click="switchEdit(row)">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </span>
+                        <span ng-if="row.isEditting"
+                              ng-disabled="row.isProcessing"
+                              class="btn btn-primary btn-sm"
+                              uib-tooltip="{{'Save ' + row.name + '\'s Reservations'}}"
+                              ng-click="saveEdit(row)">
+                            <i class="fa fa-floppy-o"></i>
+                        </span>
+                        <span ng-if="row.isEditting" class="btn btn-primary btn-sm"
+                              uib-tooltip="Cancel Edit"
+                              ng-disabled="row.isProcessing"
+                              ng-click="cancelEdit(row)">
+                            <i class="fa fa-ban"></i>
+                        </span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

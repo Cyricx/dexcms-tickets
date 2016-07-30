@@ -1,0 +1,148 @@
+﻿<div class="col-xs-12">
+    <h2 ng-if="title != null">{{title}}</h2>
+    <h2 ng-if="title == null">Faq Items</h2>
+    <h3 ng-if="title == null"><em>(Please select a category)</em></h3>
+    <a class="btn btn-success" ng-if="!isAdding && category != null" ng-click="openAddFaqItem()">
+        <i class="fa fa-plus-circle"></i> Add Item
+    </a>
+    <a class="btn btn-warning" ng-show="pendingFaqItemOrder" ng-disabled="updateProcessing"
+       ng-click="saveFaqItemOrder()">Save Order</a>
+    <div class="well" ng-if="faqItems.length == 0" style="margin-top: 2em;">
+        This category has no items.
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-default" ng-if="isAdding">
+            <form name="addFaqItem" novalidate
+                  angular-validator angular-validator-submit="saveFaqItem(newFaqItem)">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="question">Question:</label>
+                        <textarea required
+                                  validate-on="dirty" class="form-control" id="question" name="question" 
+                                  ng-model="newFaqItem.question"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="answer">Answer:</label>
+                        <ttcms-html-editor required ng-model="newFaqItem.answer"></ttcms-html-editor>
+                        <span class="control-label text-danger"
+                              ng-show="!newFaqItem.answer">
+                            <b>
+                                <i class="fa fa-times"></i> Required
+                            </b>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="displayOrder">Display Order:</label>
+                        <input class="form-control" pattern="[0-9]*" name="displayOrder" 
+                               id="displayOrder" required
+                               validate-on="dirty"
+                               ng-model="newFaqItem.displayOrder" />
+                    </div>
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" id="isActive" name="isActive" ng-model="newFaqItem.isActive">
+                            Is Active?
+                        </label>
+                    </div>
+                    <button class="btn btn-primary" 
+                            ng-disabled="isProcessing || addFaqItem.$invalid" 
+                            type="submit">Save</button>
+                    <a class="btn btn-primary" ng-click="clearAddFaqItem()">Cancel</a>
+                </div>
+            </form>
+        </li>
+    </ul>
+    <ul class="list-group" dnd-list="faqItems" dnd-drop="dropFaqItemCallback(event, index, item)">
+
+        <li ng-repeat="faqItem in faqItems" dnd-draggable="faqItem" dnd-moved="faqItems.splice($index,1)"
+            dnd-effect-allowed="move" class="list-group-item list-group-item-default">
+            <div class="handle"><i class="fa fa-ellipsis-v"></i><i class="fa fa-ellipsis-v"></i></div>
+            <div dnd-nodrag ng-if="!faqItem.isEditting">
+
+                <div class="pull-right">
+                    <i class="fa fa-trash-o pull-right" ng-click="deleteFaqItem(faqItem)"></i>
+                    <i class="fa fa-edit pull-right" ng-click="openEditFaqItem(faqItem)"></i>
+                </div>
+                <strong>{{faqItem.question}}</strong>
+
+                <div ng-bind-html="faqItem.answer | html_trusted">
+
+                </div>
+                <div class="pull-right">
+                    <small>Last Updated By: {{faqItem.lastUpdatedBy}} on {{faqItem.lastUpdated | date: 'MM/dd/yy'}}</small>
+                </div>
+                <div class="display-helpful">
+                    <span>Helpful?</span>
+                    <span class="text-success">
+                        {{faqItem.helpfulMarks ? faqItem.helpfulMarks : 0}}
+                        <i class="fa fa-thumbs-o-up"></i> 
+                    </span>
+                    <span class="text-danger">
+                        {{faqItem.unhelpfulMarks ? faqItem.unhelpfulMarks : 0}}
+                        <i class="fa fa-thumbs-o-down"></i> 
+                    </span>
+
+                </div>
+            </div>
+            <div dnd-nodrag ng-if="faqItem.isEditting">
+                <form name="editFaqItem" novalidate angular-validator
+                      angular-validator-submit="updateFaqItem(faqItem)">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="question">Question:</label>
+                            <textarea class="form-control" id="question" name="question" 
+                                      required validate-on="dirty"
+                                      ng-model="faqItem.question"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="answer">Answer:</label>
+                            <ttcms-html-editor required ng-model="faqItem.answer"></ttcms-html-editor>
+                            <span class="control-label text-danger"
+                                  n-show="!faqItem.answer">
+                                <strong>
+                                    <i class="fa fa-times"></i> Required
+                                </strong>
+                            </span>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="displayOrder">Display Order:</label>
+                            <input class="form-control" pattern="[0-9]*" 
+                                   name="displayOrder" id="displayOrder" required
+                                   validate-on="dirty"
+                                   ng-model="faqItem.displayOrder" />
+                        </div>
+                        <div class="form-group checkbox">
+                            <label>
+                                <input type="checkbox" id="resetMarks" name="resetMarks" ng-model="faqItem.resetMarks">
+                                Reset Marks
+
+                            </label>
+                            <div class="pull-right">
+                                Helpful?
+                                <span class="text-success">
+                                    {{faqItem.helpfulMarks ? faqItem.helpfulMarks : 0}}
+                                    <i class="fa fa-thumbs-o-up"></i>
+                                </span>
+                                <span class="text-danger">
+                                    {{faqItem.unhelpfulMarks ? faqItem.unhelpfulMarks : 0}}
+                                    <i class="fa fa-thumbs-o-down"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group checkbox">
+                            <label>
+                                <input type="checkbox" id="isActive" name="isActive" ng-model="faqItem.isActive">
+                                Is Active?
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" 
+                                ng-disabled="faqItem.isProcessing || editFaqItem.$invalid" 
+                                type="submit">Save</button>
+                        <a class="btn btn-primary" ng-click="closeEditFaqItem(faqItem)">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>

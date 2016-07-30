@@ -1,0 +1,95 @@
+﻿<h2>View Cart</h2>
+
+<div class="wrapper-box">
+    <div class="nested-body">
+        <div style="float:right">
+            <a class="pseudo-btn" ng-href="../../events/{{segment}}/registration">New Registration</a>
+        </div>
+        <h3>Check In Registrations</h3>
+
+
+
+        <div class="ttcms-table-controls">
+            <label for="showArrivals">
+                <input type="checkbox" id="showArrivals" ng-model="showArrivals" /> Show Arrivals?
+            </label>
+            <span>
+                Search: <input type="text" ng-model="filterText" />
+            </span>
+
+            </div>
+            <div clas="clear"></div>
+
+            <table class="ttcms-table">
+                <tr>
+                    <th ng-click="changeSort('orderID')"><i class="fa" ng-class="getSortClass('orderID')"></i>Order#</th>
+                    <th ng-click="changeSort('firstName')"><i class="fa" ng-class="getSortClass('firstName')"></i>Attendee</th>
+                    <th ng-click="changeSort('purchasedBy')"><i class="fa" ng-class="getSortClass('purchasedBy')"></i>Purchased By</th>
+                    <th ng-click="changeSort('seating')"><i class="fa" ng-class="getSortClass('seating')"></i>Ticket</th>
+                    <th>Details</th>
+                    <th ng-click="changeSort('arrivalTime')"><i class="fa" ng-class="getSortClass('arrivalTime')"></i>Arrival</th>
+                    <th ng-click="changeSort('orderStatus')"><i class="fa" ng-class="getSortClass('orderStatus')"></i>Status</th>
+
+                </tr>
+                <tr ng-repeat="item in tickets | filter: checkArrivals | filter: filterText | orderBy: sortBy | pageSplice:currentPage:10">
+                    <td>
+                        {{item.orderID}}
+                    </td>
+                    <td>
+                        {{item.firstName}} {{item.middleInitial}} {{item.lastName}}
+                    </td>
+                    <td>{{item.purchasedBy}}</td>
+                    <td>{{item.seating}}</td>
+                    <td>
+                        {{item.ageGroup}}
+                        <br />
+                        <span ng-if="item.discountName">Discount: {{item.discountName}}</span>
+                        <ul ng-if="item.options">
+                            <li ng-repeat="opt in item.options">{{opt}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <i class="fa fa-edit fa-2x" ng-if="item.orderStatus === 'Complete'" ng-click="checkEdit(item)"></i>
+                            <em ng-if="item.arrivalTime">{{item.arrivalTime | date:'MM/dd/yy h:mma'}}</em>
+                        <strong ng-if="!item.arrivalTime">Not Arrived.
+                        </strong>
+                    </td>
+                    <td>
+                        <div ng-switch="item.paymentStatus">
+                            <a ui-sref="payment/:id({id:item.orderID})" ng-switch-when="Pending">
+                                <i class="fa fa-edit fa-2x"></i>
+                                {{item.orderStatus}}
+                            </a>
+                            <a ui-sref="payment/:id({id:item.orderID})" ng-switch-when="">
+                                <i class="fa fa-edit fa-2x"></i>
+                                {{item.orderStatus}}
+                            </a>
+                            <a ui-sref="invoice/:id({id:item.orderID})" ng-switch-when="PendingInvoice">
+                                <i class="fa fa-edit fa-2x"></i>
+                                {{item.orderStatus}}
+                            </a>
+                            <span ng-switch-default>
+                                {{item.orderStatus}}
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        <div class="ttcms-page-message">
+            {{buildPageMessage((tickets | filter: checkArrivals | filter: filterText).length, currentPage, itemsPerPage)}}
+        </div>
+        <div class="ttcms-pager">
+            <uib-pagination total-items="(tickets | filter: checkArrivals | filter: filterText).length"
+                            ng-model="currentPage"
+                            max-size="maxPagesDisplayed"
+                            class="pagination-sm"
+                            items-per-page="itemsPerPage"
+                            boundary-link-numbers="true"></uib-pagination>
+        </div>
+        <div class="clear"></div>
+
+
+    </div>
+</div>
+
+<div class="clear"></div>

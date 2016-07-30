@@ -1,0 +1,32 @@
+﻿<div class="form-group col-xs-4">
+    <label for="name">Name:</label>
+    <input class="form-control" name="name" id="name" required
+           validate-on="dirty"
+           ng-model="currentItem.name" />
+</div>
+<div class="form-group col-xs-3">
+    <label for="onSellDate">On Sell:</label>
+    <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" 
+               ng-model="currentItem.onSellDate" name="onSellDate" 
+               max-date="currentItem.cutoffDate" is-open="onSellOpen"
+               validate-on="dirty"
+                ng-required="true" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="onSellOpen = !onSellOpen"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+    </p>
+</div>
+<div class="form-group col-xs-3">
+    <label for="cutoffDate">End Date:</label>
+    <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy"
+               ng-model="currentItem.cutoffDate" name="cutoffDate"
+               min-date="currentItem.onSellDate" is-open="onCutoffOpen"
+               validate-on="dirty"
+               ng-required="true" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="onCutoffOpen = !onCutoffOpen"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+    </p>
+</div>

@@ -1,0 +1,48 @@
+﻿<div class="jumbotron">
+    <h1>{{title}}</h1>
+
+    <div class="well panel">
+        <time class="pull-right">{{currentItem.enteredOn | date:"MM/dd/yyyy h:mm a"}}</time>
+        <strong class="pull-right">{{currentItem.orderStatusName}}</strong>
+        <h2>User: {{currentItem.userName}}</h2>
+        <div class="panel-heading">
+            <h3 class="panel-title">Order #{{currentItem.orderID}}</h3>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <li ng-repeat="ticket in currentItem.tickets">
+                    <h4>{{ticket.eventName}}</h4>
+                    <strong>Ticket: {{ticket.ticketID}}</strong> <em>{{ticket.location}}</em> ({{ticket.ageGroup}})
+                    <p>
+                        {{ticket.firstName}} {{ticket.middleInitial}} {{ticket.lastName}}
+                    </p>
+                    <p ng-hide="ticket.discountName">
+                        {{ticket.discountName}}
+                    </p>
+                    <ul>
+                        <li ng-repeat="choice in ticket.ticketOptionChoices">
+                            {{choice.ticketOptionName}} {{choice.name}}
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-footer">
+            <h3>Payments</h3>
+            <ul>
+                <li ng-repeat="payment in currentItem.payments">
+                    <strong>{{payment.paymentTypeName}}</strong>
+                    <p>
+                        Gross: {{payment.grossPaid | currency}}
+                    </p>
+                    <p>
+                        Payment Fee: {{payment.paymentFee | currency}}
+                    </p>
+                    <p>
+                        Net Paid: {{payment.netPaid | currency}}
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

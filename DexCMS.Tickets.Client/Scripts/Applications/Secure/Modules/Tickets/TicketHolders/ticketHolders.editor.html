@@ -1,0 +1,45 @@
+﻿<h2>Update Ticket Holders</h2>
+
+<form class="form-box" name="ticketHoldersForm">
+    <div ng-show="!order">
+        <h3>
+            <i class="fa-2x fa fa-spinner fa-spin"></i> Loading
+        </h3>
+    </div>
+    <div ng-show="order">
+        <h3>Update the ticket holders for Order #{{order.orderID}}</h3>
+        <div class="form-divider" ng-repeat="holder in order.ticketHolders">
+            <div class="form-item">
+                <label class="form-lbl"><strong ng-bind="'Ticket #' + holder.ticketID"></strong>
+                (<span ng-bind="holder.location"></span>
+                <em ng-bind="holder.ageGroup"></em>)</label>
+                <div class="form-name-fields">
+                    <input id="{{'fn' + holder.ticketID}}" ng-model="holder.firstName" class="form-firstname" placeholder="First Name" title="First Name" />
+                    <input id="{{'mi' + holder.ticketID}}" ng-model="holder.middleInitial" class="form-middleinitial" placeholder="M.I." title="Middle Initial" />
+                    <input id="{{'ln' + holder.ticketID}}" ng-model="holder.lastName" class="form-lastname" placeholder="Last Name" title="Last Name"/>
+                    <div ng-if="userData.isCashier">
+                        <label for="hasArrived">
+                            Arrived?
+                            <input type="checkbox" ng-disabled="!holder.firstName || !holder.lastName" ng-model="holder.hasArrived" ng-change="setDefaultArrival(holder)" />
+                            <span style="color:red" ng-if="!holder.firstName || !holder.lastName"><br />You must enter their first and last name to mark them as arrived.</span>
+                        </label>
+                        <datetimepicker ng-if="holder.hasArrived" mousewheel="false" name="arrivalTime" show-spinners="true"
+                                        ng-required="holder.hasArrived" ng-model="holder.arrivalTime" date-format="MM/dd/yyyy"></datetimepicker>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-btn" ng-show="ticketHoldersForm.$dirty && !isProcessing">
+            <input type="submit" value="Save Changes" ng-click="saveHolders(order)"/>
+        </div>
+        <div class="form-btn" ng-if="!userData.isCashier" ng-show="!ticketHoldersForm.$dirty && !isProcessing">
+            <a ng-href="./print/{{order.orderID}}" target="_blank" ng-click="$event.stopPropagation()">Print Order</a>
+            <a ui-sref="orders" >View All Orders</a>
+        </div>
+        <div class="form-btn" ng-if="userData.isCashier" ng-show="!ticketHoldersForm.$dirty && !isProcessing">
+            <a ng-href="./print/{{order.orderID}}" target="_blank" ng-click="$event.stopPropagation()">Print Order</a>
+            </div>
+        <div class="clear"></div>
+    </div>
+</form>

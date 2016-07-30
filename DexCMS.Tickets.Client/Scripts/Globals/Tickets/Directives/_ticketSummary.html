@@ -1,0 +1,24 @@
+﻿<div>
+
+    <div class="registration-total" ng-if="tickets.length > 0">
+        <strong>Total</strong>
+        <em>{{totalPrice() | currency}}</em>
+        <div ng-switch="displayType">
+            <a ng-switch-when="viewCart" class="pseudo-btn" ng-disabled="isADisabled()" href="../../../secure/checkout">View Cart</a>
+            <a ng-switch-when="amountDue" ng-click="goToPay()" title="Checkout with Paypal"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" alt="Checkout with Paypal"/></a>
+            <a ng-switch-when="noCharge"  ng-click="goToNoPay()" class="pseudo-btn" title="Submit Order">Submit Order</a>
+            <span ng-switch-default>Loading...</span>
+        </div>
+    </div>
+    <div class="registration-paytypes" ng-if="displayType == 'amountDue' && tickets.length > 0">
+        <strong>Paypal Accepts:</strong>
+        <img ng-src="../content/images/credit-cards/amex_32.png" />
+        <img ng-src="../content/images/credit-cards/discover_32.png" />
+        <img ng-src="../content/images/credit-cards/generic_bank_32.png" />
+        <img ng-src="../content/images/credit-cards/mastercard_32.png" />
+        <img ng-src="../content/images/credit-cards/paypal_32.png" />
+        <img ng-src="../content/images/credit-cards/visa_32.png" />
+        <em>You do not need a paypal account to complete your purchase.</em>
+    </div>
+    <div class="clear"></div>
+</div>

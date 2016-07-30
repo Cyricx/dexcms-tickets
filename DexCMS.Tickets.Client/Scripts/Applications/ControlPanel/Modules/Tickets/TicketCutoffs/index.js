@@ -1,0 +1,9 @@
+﻿define([
+    './ticketcutoffs.list.controller',
+    './ticketcutoffs.service',
+    './ticketcutoffsdisplay',
+    './ticketcutoffsedit',
+    './ticketcutoffsadd',
+    './ticketpricesareaslist',
+    './ticketpricesareasdetails',
+]);

@@ -1,0 +1,3 @@
+﻿define([
+    './payment.details.controller'
+]);

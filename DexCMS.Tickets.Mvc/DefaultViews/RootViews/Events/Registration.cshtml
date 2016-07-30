@@ -16,8 +16,8 @@
     </nav>
     @if (!Model.ForceDisableRegistration)
     {
-    <div ng-include="'../../../client/registration/views/_registration.html'">
-    </div>
+        <div ng-include="'../../../scripts/dexcmsapps/applications/registration/views/_registration.html'">
+        </div>
     }
     else
     {
@@ -45,5 +45,5 @@
         };
     </script>
     <script src="~/libs/requirejs/require.js" 
-           data-main="@Url.Content("~/client/registration/app.require.js")"></script>
+           data-main="@Url.Content("~/scripts/dexcmsapps/applications/registration/registration.require.js")"></script>
 }

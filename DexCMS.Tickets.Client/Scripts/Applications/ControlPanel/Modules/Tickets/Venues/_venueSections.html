@@ -1,0 +1,57 @@
+﻿<div class="form-group" >
+
+    <h4>
+        <a ng-click="changeSeatingGroup(seatingGroup)">Areas</a>
+        <i class="fa fa-arrow-right"></i> {{selectedArea.name}}
+    </h4>
+    <div ng-class="calculateColumns(selectedArea.venueSections, section.editting)" ng-repeat="section in selectedArea.venueSections">
+        <div class="well">
+            <div ng-if="!section.editting">
+                <p>
+                    <strong class="text-primary">{{section.name}}</strong>
+                </p>
+            </div>
+            <div ng-if="section.editting">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input class="form-control" required
+                           ng-model="section.name" />
+                </div>
+            </div>
+            <div class="pull-right">
+                <span class="btn btn-default btn-sm" ng-disabled="enableClick('Section', $index)" ng-click="changeEditor(section, $index)">
+                    <i class="fa" ng-class="setIcon(section)"></i>
+
+                </span>
+                <span ng-if="!section.editting" class="btn btn-default btn-sm" ng-disabled="enableClick('Section', $index)" ng-click="setRows(section)">
+                    <i class="fa fa-list-ul"></i>
+
+                </span>
+                <span class="btn btn-danger btn-sm" ng-disabled="enableClick('Section', $index)" ng-click="deleteSection(section)">
+                    <i class="fa fa-trash-o"></i>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div ng-class="calculateColumns(selectedArea.venueSections, true)">
+        <div class="well" ng-if="!addingSection">
+            <div class="form-group text-center">
+                <button class="btn btn-primary" ng-disabled="managingSection != -1" ng-click="switchAddSection()">
+                    <i class="fa fa-plus-square-o"></i>
+                    Add Section
+                </button>
+            </div>
+        </div>
+        <div class="well" ng-if="addingSection">
+            <div class="form-group">
+                <label>Name</label>
+                <input class="form-control" ng-model="newSection.name" required />
+            </div>
+            <button class="btn btn-primary btn-sm" ng-click="saveSection(newSection)">Save</button>
+            <button class="btn btn-primary btn-sm" ng-click="switchAddSection()">Cancel</button>
+        </div>
+    </div>
+
+</div>

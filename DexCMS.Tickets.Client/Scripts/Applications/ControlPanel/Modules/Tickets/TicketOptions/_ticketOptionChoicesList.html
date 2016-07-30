@@ -1,0 +1,30 @@
+﻿<div>
+    <a class="btn btn-success buffer-bottom" ui-sref="ticketoptionchoices/:id/:toID/new({id:ticketOption.eventID, toID:ticketOption.ticketOptionID})">
+        <i class="fa fa-plus-circle"></i> Add New
+    </a>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="choice in ticketOptionChoices">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    {{choice.name}}
+                    <div class="pull-right">
+                        <i class="btn btn-primary fa fa-pencil-square-o" 
+                           ui-sref="ticketoptionchoices/:id/:toID/:tocID({id: ticketOption.eventID, toID: ticketOption.ticketOptionID, tocID:choice.ticketOptionChoiceID})"></i>
+                        <i class="btn btn-danger fa fa-trash-o" ng-click="delete(choice)" ng-disabled="choice.ticketCount > 0"></i>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <p>Markup Price: +{{choice.markupPrice|currency}}
+                    </p>
+                    <strong>Total Cost: {{(ticketOption.basePrice + choice.markupPrice) | currency}}</strong>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="age in choice.ageGroups">
+                            {{age.name}}
+                            ({{age.maximumAge? age.minimumAge + ' to ' + age.maximumAge : age.minimumAge + '+'}})
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

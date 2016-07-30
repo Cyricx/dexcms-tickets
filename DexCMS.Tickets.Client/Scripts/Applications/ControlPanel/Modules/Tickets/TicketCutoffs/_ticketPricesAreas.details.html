@@ -1,0 +1,52 @@
+﻿<div>
+    <div class="well">
+        <div ng-if="!ticketArea.isEditting">
+            <p>
+                <strong class="text-primary">{{ticketArea.name}}</strong>
+            </p>
+            <ul class="list-group" ng-show="ticketArea.ticketPrices.length > 0">
+                <li class="list-group-item" ng-repeat="price in ticketArea.ticketPrices">
+                    <div ng-if="!price.isEditting">
+                        <strong>
+                            {{price.name}}
+                        </strong>
+                        <em>({{price.minimumAge}}{{price.maximumAge? '-' + price.maximumAge : ''}})</em>
+                        <span class="text-primary" ng-show="price.basePrice">
+                            {{price.basePrice | currency}}
+                        </span>
+                        <span ng-show="price.basePrice === 0" class="text-primary">{{0 | currency}}</span>
+                        <span class="text-primary" ng-show="price.basePrice !== 0 && !price.basePrice">
+                            n/a
+                        </span>
+                        <i class="pull-right btn btn-danger fa fa-trash-o" ng-show="price.ticketPriceID" ng-click="deletePrice(price)"></i>
+
+                        <i class="pull-right btn btn-primary fa fa-pencil-square-o" ng-click="price.isEditting = true"></i>
+                    </div>
+                    <form ng-if="price.isEditting" name="editPriceForm" novalidate angular-valdator >
+                        <strong>
+                            {{price.name}}
+                        </strong>
+                        <em>({{price.minimumAge}}{{price.maximumAge? '-' + price.maximumAge : ''}})</em>
+                        
+                        <div class="pull-right">
+                            <button class="btn btn-primary fa fa-floppy-o" ng-click="savePrice(price)"></button>
+
+                            <i class="btn btn-primary fa fa-ban" ng-click="price.isEditting = false"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="text-primary">Price:</label>
+                            <input  type="number" class="form-control" name="basePrice" ng-model="price.basePrice" min="0" step="0.50" required validate-on="dirty" />
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </form>
+                </li>
+            </ul>
+            <div class="alert alert-danger" ng-show="ticketArea.ticketPrices.length === 0">You must first setup age groups.</div>
+        </div>
+        <form ng-if="ticketArea.isEditting">
+
+        </form>
+    </div>
+</div>

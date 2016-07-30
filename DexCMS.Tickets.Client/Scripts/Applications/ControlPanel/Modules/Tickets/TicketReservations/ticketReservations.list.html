@@ -1,0 +1,19 @@
+﻿<div>
+
+    <a class="pull-right btn btn-default" ui-sref="events">Return to List</a>
+    <h2>{{navigation.title}}</h2>
+
+
+    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+
+    <h3>{{buildSubTitle()}}</h3>
+    <div class="alert alert-danger" ng-if="configObject.maximumAvailable > configObject.totalReservations">
+        This discount has {{configObject.maximumAvailable}} available, however, you have only reserved {{configObject.totalReservations}}. 
+        The remaining {{configObject.maximumAvailable - configObject.totalReservations}} ticket(s) will not be usable until you have assigned locations.
+    </div>
+    <div class="alert alert-success" ng-if="configObject.maximumAvailable && configObject.maximumAvailable == configObject.totalReservations">
+        You have successfully marked all available locations as reserved.
+    </div>
+    <ttcms-reservation-areas-list ng-if="currentItem" config="configObject" ticket-areas="currentItem.ticketAreas"></ttcms-reservation-areas-list>
+    <a class="btn btn-primary" ui-sref="ticketdiscounts/:id/:tdID({id:eventID, tdID:discountID})">Return to Manage Discount</a>
+</div>

@@ -1,0 +1,40 @@
+﻿<div class="col-xs-12">
+    <h2>{{title}}</h2>
+    <form name="manageEventSeries" novalidate
+          angular-validator angular-validator-submit="save(currentItem)">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="seriesName">Name:</label>
+                <input class="form-control" name="seriesName" id="seriesName" required
+                       validate-on="dirty"
+                       ng-model="currentItem.seriesName" />
+            </div>
+            <div class="form-group checkbox-inline">
+                <label>
+
+                    <input type="checkbox" id="allowMultiplePublic" name="allowMultiplePublic"
+                           ng-model="currentItem.allowMultiplePublic">
+                    Allow multiple public events?
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="seriesUrlSegment">Url Segment:</label>
+                <input class="form-control" name="seriesUrlSegment" id="seriesUrlSegment" required
+                       validate-on="dirty"
+                       pattern="^[a-z0-9-]+$"
+                       ng-model="currentItem.seriesUrlSegment" />
+            </div>
+            <div class="form-group checkbox">
+                <label>
+                    <input type="checkbox" id="isActive" name="isActive" 
+                           ng-model="currentItem.isActive">
+                    Is Active?
+                </label>
+            </div>
+
+            <button class="btn btn-primary" ng-disabled="manageEventSeries.$invalid" 
+                    type="submit">Save</button>
+            <a class="btn btn-primary" ui-sref="eventseries">Cancel</a>
+        </div>
+    </form>
+</div>

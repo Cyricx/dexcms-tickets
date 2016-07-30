@@ -1,0 +1,53 @@
+﻿<div>
+    <ul class="ticket-list">
+        <li ng-repeat="ticket in tickets">
+            <form  class="ticket-item" name="modifyTicket">
+                <h3><span>Ticket #{{($index + 1)}}</span></h3>
+                <div class="item-details">
+                    <strong>{{ticket.location}}</strong> <em>{{ticket.ageGroup}}</em>
+                    <div class="options">
+                        <ul>
+                            <li ng-repeat="option in ticketOptions[ticket.ticketSeatID]" ng-if="ticketOptions[ticket.ticketSeatID].length > 0">
+                                <label>
+                                    {{option.name}}
+
+                                </label>
+                                <select ng-model="ticket.options[option.ticketOptionID]" ng-required="option.isRequired"
+                                        ng-options="choice.ticketOptionChoiceID as getChoiceName(choice) for choice in option.ticketOptionChoices">
+                                    <option value="">[- {{option.isRequired ? 'Select a choice' : 'None'}} -]</option>
+                                </select>
+                                <div class="help" ng-if="option.description">
+                                    <span class="fa fa-info-circle help-trigger"></span>
+                                    <div class="help-message">
+                                        <div>
+                                            <strong>{{option.name}}</strong>
+                                            <div ng-bind-html=option.description></div>
+                                        </div>
+                                        <ul>
+                                            <li ng-repeat="choice in option.ticketOptionChoices">
+                                                <div>
+                                                    <em>{{getChoiceName(choice)}}</em>
+                                                    <div ng-bind-html=choice.description></div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <span class="erroritem" ng-if="option.isRequired && !ticket.options[option.ticketOptionID]">
+                                    Required
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="item-subtotal" ng-class="modifyTicket.$invalid ? 'dull' : ''">
+                    <span class="price">
+                        {{calculateTicket(ticket, modifyTicket.$valid) |currency}}
+                    </span>
+                    <span ng-click="deleteTicket(ticket)" class="item-delete">Delete</span>
+                </div>
+            </form>
+        </li>
+    </ul>
+</div>

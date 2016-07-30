@@ -1,0 +1,3 @@
+﻿define([
+    './complete.details.controller'
+]);

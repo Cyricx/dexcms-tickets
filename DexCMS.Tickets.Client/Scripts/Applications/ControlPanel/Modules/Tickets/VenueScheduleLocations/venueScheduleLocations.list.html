@@ -1,0 +1,11 @@
+﻿<div class="col-xs-12" ng-controller="venueScheduleLocationsListCtrl">
+    <h2>{{buildTitle()}}</h2>
+    <a class="btn btn-success" ui-sref="venueschedulelocations/:id/new({id: venueID})">
+        <i class="fa fa-plus-circle"></i> Add New
+    </a>
+    <div>
+        <table datatable="" dt-options="dtOptions" dt-columns="dtColumns"
+               class="table table-striped table-bordered"></table>
+    </div>
+    <a class="btn btn-primary" ui-sref="venues">Back to Venues</a>
+</div>

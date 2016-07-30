@@ -1,0 +1,38 @@
+﻿<h2>{{content.title}}</h2>
+<div class="wrapper-box">
+
+
+
+    <div class="nested-body">
+        <h3>Confirm Invoice Details</h3>
+        <a class="pseudo-btn" ng-disabled="isLoading" ng-if="order.orderStatus === 0" ng-click="checkPayment()">Check for Payment</a>
+
+        <div ng-if="order.orderStatus === 0">
+        <div>
+            Verify Email: {{order.invoiceEmail}}
+        </div>
+        <form name="resendInvoice">
+            If the above email is incorrect, please enter a correct email address:
+            <input type="text" ng-model="correctedEmail" required />
+            <button type="submit" class="pseudo-btn" ng-click="sendNewInvoice(correctedEmail, order)" ng-disabled="resendInvoice.$invalid || isProcessing">Send New Invoice</button>
+        </form>
+        </div>
+        <div ng-if="order.orderStatus === 2">
+            <hr />
+            <h2>Order Complete!!</h2>
+
+            <div>
+                <h4>Leave a note?</h4>
+                <textarea ng-model="order.notes"></textarea>
+                <!--TODO save notes!! -->
+            </div>
+            <a class="pseudo-btn" ng-disabled="isProcessnig" ng-click="saveNotes(order)">Continue</a>
+        </div>
+        <div ng-if="order.orderStatus === 1">
+            Oops.. this is supposed to happen yet. :P
+            </div>
+
+
+    </div>
+
+</div>

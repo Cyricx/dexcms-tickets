@@ -1,0 +1,22 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>
+            <button class="btn btn-xs btn-primary" ng-show="seatingGroup != 'Areas'" ng-click="changeSeatingGroup(seatingGroup)">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+
+            Manage {{seatingGroup}}<small><em> {{seatingNote}}</em></small>
+        </h4>
+    </div>
+    <div class="panel-body">
+
+        <ng-include  ng-show="seatingGroup === 'Areas'" src="'../../scripts/dexcmsapps/applications/controlpanel/modules/ticketing/venues/_venueareas.html'"></ng-include>
+       <ng-include ng-show="seatingGroup === 'Sections'" src="'../../scripts/dexcmsapps/applications/controlpanel/modules/ticketing/venues/_venuesections.html'"></ng-include>
+        <ng-include ng-show="seatingGroup === 'Rows'" src="'../../scripts/dexcmsapps/applications/controlpanel/modules/ticketing/venues/_venuerows.html'"></ng-include>
+
+
+
+
+
+    </div>
+</div>

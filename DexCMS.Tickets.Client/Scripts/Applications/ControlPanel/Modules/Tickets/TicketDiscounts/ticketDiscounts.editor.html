@@ -1,0 +1,171 @@
+﻿<div>
+
+    <a class="pull-right btn btn-default" ui-sref="events">Return to List</a>
+    <h2>{{navigation.title}}</h2>
+
+
+    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+
+    <h3>{{buildSubTitle()}}</h3>
+    <form name="manageTicketDiscounts" novalidate angular-validator angular-validator-submit="save(currentItem)">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="form-control" name="name" id="name" required
+                       validate-on="dirty"
+                       ng-model="currentItem.name" />
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" ng-model="currentItem.description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="code">Code:</label>
+                <input class="form-control" name="code" id="code" required
+                       validate-on="dirty"
+                       ng-model="currentItem.code" />
+            </div>
+            <div class="form-group">
+                <label for="cutoffDate">Cutoff Date:</label>
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy"
+                           ng-model="currentItem.cutoffDate" name="cutoffDate"
+                           is-open="onCutoffOpen"
+                           validate-on="dirty"
+                           ng-required="true" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="onCutoffOpen = !onCutoffOpen"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+
+
+            <div class="form-group">
+                <label for="maximumAvailable">Maximum Available:</label>
+                <input class="form-control" type="number" name="maximumAvailable"
+                       uib-tooltip="Blank for unlimited and 0 to disable."
+                       tooltip-trigger="focus" tooltip-placement="bottom"
+                       invalid-message="'You have already assiged ' + currentItem.totalReservations + ' reservations.'"
+                       ng-required="currentItem.totalReservations > 0"
+                       validate-on="dirty"
+                       required-message="'This discount has reservations, so it must have a maximum available.'"
+                       ng-model="currentItem.maximumAvailable" min="{{currentItem.totalReservations}}" />
+            </div>
+            <div class="form-group">
+                <label>Display to Age Groups:</label>
+                <div class="alert alert-danger" ng-show="eventAgeGroups.length === 0">
+                    Age Groups are required. Please create some age groups before continuing.
+                </div>
+                <div class="checkbox" ng-repeat="ageGroup in eventAgeGroups">
+                    <label ng-click="toggleAges(ageGroup)">
+                        <i class="fa fa-square-o" ng-show="!ageIsSelected(ageGroup)"></i>
+                        <i class="fa fa-check-square-o" ng-show="ageIsSelected(ageGroup)"></i>
+                        {{ageGroup.name}}
+                        <small>({{ageGroup.maximumAge ? ageGroup.minimumAge + ' ' + ageGroup.maximumAge: ageGroup.minimumAge + '+'}})</small>
+                    </label>
+                </div>
+                <span class="control-label text-danger"
+                      ng-show="isInvalidChecks()">
+                    <i class="fa fa-times"></i>  You must choose at least one age group.
+                </span>
+            </div>
+            <div class="form-group checkbox">
+                <label>
+                    <input type="checkbox" id="isActive" name="isActive" ng-model="currentItem.isActive">
+                    Is Active?
+                </label>
+            </div>
+            <!-- AREA DISCOUNTS -->
+            <div class="form-group">
+                <label>Area Discounts</label>
+                <div class="row">
+                    <div class="col-xs-12 col-lg-5 discount-boxes" ng-class-even="'col-lg-offset-1'" ng-repeat="area in areaDiscounts">
+                        <div class="row well" ng-show="!area.isEditting">
+                            <div class="col-xs-4">
+                                <strong>{{area.name}}</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <em>{{buildDiscountAmount(area)}}</em>
+                            </div>
+                            <div class="col-xs-offset-1 col-xs-3">
+                                <i class="btn fa"
+                                   ng-class="(area.isStored ? 'btn-primary fa-pencil-square-o' : 'btn-success fa-plus')"
+                                   ng-disabled="subItemEditting" ng-click="switchToEdit(area)"></i>
+                                <i class="btn btn-danger fa fa-trash-o" ng-show="area.isStored" ng-click="deleteArea(area)"></i>
+                            </div>
+                        </div>
+                        <div class="row well" ng-if="area.isEditting">
+                            <div class="col-xs-4">
+                                <strong>{{area.name}}</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <input ng-model="area.newAmount" type="number" min="1" step="1" required class="form-control" />
+                                <label>%<input type="radio" ng-model="area.newType" value="0" /> off</label>
+                                <b>OR</b>
+                                <label>$<input type="radio" ng-model="area.newType" value="1" /> off</label>
+                            </div>
+                            <div class="col-xs-offset-1 col-xs-3">
+                                <i class="btn btn-primary fa fa-floppy-o" ng-disabled="!area.newAmount || area.newAmount <= 0 || area.isProcessing" ng-click="saveArea(area)"></i>
+                                <i class="btn btn-default fa fa-ban" ng-disabled="area.isProcessing" ng-click="cancelEdit(area)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- OPTION DISCOUNTS -->
+            <div class="form-group">
+                <label>Option Discounts</label>
+                <div class="row">
+                    <div class="col-xs-12 col-lg-5 discount-boxes" ng-class-even="'col-lg-offset-1'" ng-repeat="opt in optionDiscounts">
+                        <div class="row well" ng-show="!opt.isEditting">
+                            <div class="col-xs-4">
+                                <strong>{{opt.name}}</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <em>{{buildDiscountAmount(opt)}}</em>
+                            </div>
+                            <div class="col-xs-offset-1 col-xs-3">
+                                <i class="fa btn" ng-class="(opt.isStored ? 'btn-primary fa-pencil-square-o' : 'btn-success fa-plus')"
+                                   ng-disabled="subItemEditting" ng-click="switchToEdit(opt)"></i>
+                                <i class="btn btn-danger fa fa-trash-o" ng-show="opt.isStored" ng-click="deleteOption(opt)"></i>
+                            </div>
+                        </div>
+                        <div class="row well" ng-if="opt.isEditting">
+                            <div class="col-xs-4">
+                                <strong>{{opt.name}}</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <input ng-model="opt.newAmount" type="number" min="1" step="1" required class="form-control" />
+                                <label>%<input type="radio" ng-model="opt.newType" value="0" /> off</label>
+                                <b>OR</b>
+                                <label>$<input type="radio" ng-model="opt.newType" value="1" /> off</label>
+                            </div>
+                            <div class="col-xs-offset-1 col-xs-3">
+                                <i class="btn btn-primary fa fa-floppy-o" ng-disabled="!opt.newAmount || opt.newAmount <= 0 || opt.isProcessing" ng-click="saveOption(opt)"></i>
+                                <i class="btn btn-default fa fa-ban" ng-disabled="opt.isProcessing" ng-click="cancelEdit(opt)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- RESERVATIONS -->
+            <div class="form-group" ng-if="currentItem.ticketDiscountID">
+                <label>Reservations</label>
+                <div class="row">
+                    <a class="btn btn-primary" ng-if="savedMaximumAvailable && savedMaximumAvailable == currentItem.maximumAvailable" ui-sref="ticketreservations/:id/:tdID({id:eventID, tdID:currentItem.ticketDiscountID})">Manage Reservations</a>
+                    <span class="text-danger" ng-if="savedMaximumAvailable && savedMaximumAvailable != currentItem.maximumAvailable">
+                        You must save your current changes before you can adjust the reservations.
+                    </span>
+                    <span class="text-danger" ng-if="!savedMaximumAvailable">You must set the maximum available before you can assign reservations.</span>
+                </div>
+            </div>
+            <button class="btn btn-primary" ng-disabled="manageTicketDiscounts.$invalid || subItemEditting || isProcessing || isInvalidChecks()">Save</button>
+            <button class="btn btn-primary" ng-disabled="manageTicketDiscounts.$invalid || subItemEditting || isProcessing"
+                    ng-click="saveAndStay(currentItem)">
+                Save And Stay
+            </button>
+            <a class="btn btn-primary" ui-sref="ticketdiscounts/:id({id:eventID})">Cancel</a>
+        </div>
+    </form>
+</div>

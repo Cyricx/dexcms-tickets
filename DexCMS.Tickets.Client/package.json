@@ -1,0 +1,10 @@
+{
+  "name": "dexcms-tickets-client",
+  "version": "0.0.0",
+  "description": "DexCMS.Tickets.Client",
+  "main": "app.js",
+  "author": {
+    "name": "Cyricx",
+    "email": "contact@chrisbyram.com"
+  }
+}

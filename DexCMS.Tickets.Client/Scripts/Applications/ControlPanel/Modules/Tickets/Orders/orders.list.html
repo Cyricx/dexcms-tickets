@@ -1,0 +1,10 @@
+﻿<div class="col-xs-12">
+    <h2>{{title}}</h2>
+    <a class="btn btn-danger" ng-disabled="processing" ng-click="cleanOrders()">
+        <i class="fa fa-trash-o"></i> Clean Expired Orders
+    </a>
+    <div>
+        <table datatable="" dt-options="dtOptions" dt-columns="dtColumns"
+               class="table table-striped table-bordered"></table>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+﻿<div class="well">
+
+        <h4><small class="text-primary">Edit</small> {{ticketCutoff.name}}</h4>
+
+        <form class="form row" name="editCutoffForm">
+
+            <ng-include src="formInputs"></ng-include>
+
+            <div class="col-xs-2">
+                <button class="btn btn-primary btn-lg fa fa-floppy-o" ng-disabled="editCutoffForm.$invalid || pending"
+                        ng-click="update(currentItem, ticketCutoff)">
+                </button>
+                <a class="btn btn-primary btn-lg fa fa-ban" ng-click="cancel(ticketCutoff)"></a>
+            </div>
+        </form>
+    </div>

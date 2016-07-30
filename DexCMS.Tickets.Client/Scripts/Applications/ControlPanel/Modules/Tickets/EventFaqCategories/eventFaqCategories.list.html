@@ -1,0 +1,100 @@
+﻿<div class="">
+    <a class="pull-right btn btn-default" ui-sref="events">Return to List</a>
+
+    <h2>{{navigation.title}}</h2>
+
+    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="col-xs-12">
+                <h3>{{title}}</h3>
+                <a class="btn btn-success" ng-if="!isAdding" ng-click="openAddCategory()">
+                    <i class="fa fa-plus-circle"></i> Add Category
+                </a>
+                <a class="btn btn-warning" ng-show="pendingCategoryOrder" ng-disabled="updateProcessing"
+                   ng-click="saveCategoryOrder()">Save Order</a>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-primary" ng-if="isAdding">
+                        <form name="addCategory" novalidate
+                              angular-validator angular-validator-submit="saveCategory(newCategory)">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input class="form-control" name="name" id="name" required
+                                           validate-on="dirty"
+                                           ng-model="newCategory.name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="displayOrder">Display Order:</label>
+                                    <input class="form-control" pattern="[0-9]*" name="displayOrder" 
+                                           id="displayOrder" required
+                                           validate-on="dirty"
+                                           ng-model="newCategory.displayOrder" />
+                                </div>
+                                <div class="form-group checkbox">
+                                    <label>
+                                        <input type="checkbox" id="isActive" name="isActive" ng-model="newCategory.isActive">
+                                        Is Active?
+                                    </label>
+                                </div>
+                                <button class="btn btn-primary" 
+                                        ng-disabled="isProcessing || addCategory.$invalid" 
+                                        >Save</button>
+                                <a class="btn btn-primary" ng-click="clearAddCategory()">Cancel</a>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="list-group" dnd-list="faqCategories" dnd-drop="dropCategoryCallback(event, index, item)">
+
+                    <li ng-repeat="cat in faqCategories" dnd-draggable="cat" dnd-moved="faqCategories.splice($index,1)"
+                        dnd-effect-allowed="move" class="list-group-item" ng-class="getClass(cat)">
+                        <div class="handle"><i class="fa fa-ellipsis-v"></i><i class="fa fa-ellipsis-v"></i></div>
+                        <div dnd-nodrag ng-if="!cat.isEditting" class="faq-category">
+                            <strong ng-click="loadFaqItems(cat)">{{cat.name}}
+                            <em class="text-danger" ng-show="!cat.isActive"><small>(Inactive)</small></em></strong>
+                            <i class="fa fa-search pull-right" ng-click="selectCategory(cat)"></i>
+                            <i ng-if="cat.itemCount == 0" class="fa fa-trash-o pull-right" ng-click="deleteCategory(cat)"></i>
+                            <i ng-if="cat.itemCount > 0" class="fa fa-trash-o pull-right disabled" title="You can not delete a category that has items in it."></i>
+                            <i class="fa fa-edit pull-right" ng-click="openEditCategory(cat)"></i>
+                        </div>
+                        <div dnd-nodrag ng-if="cat.isEditting">
+                            <form name="editCategory" novalidate
+                                  angular-validator angular-validator-submit="updateCategory(cat)">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label>Name:</label>
+                                        <input class="form-control" required
+                                               validate-on="dirty"
+                                               ng-model="cat.name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="displayOrder">Display Order:</label>
+                                        <input class="form-control" pattern="[0-9]*" 
+                                               validate-on="dirty" name="displayOrder" id="displayOrder" required
+                                               ng-model="cat.displayOrder" />
+                                    </div>
+                                    <div class="form-group checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="cat.isActive">
+                                            Is Active?
+                                        </label>
+                                    </div>
+                                    <button class="btn btn-primary" 
+                                            ng-disabled="cat.isProcessing || editCategory.$invalid" 
+                                            type="submit">Save</button>
+                                    <a class="btn btn-primary" ng-click="closeEditCategory(cat)">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <ttcms-event-faq-items-list class="col-xs-8" faq-category="selectedCategory"></ttcms-event-faq-items-list>
+    </div>
+
+
+</div>

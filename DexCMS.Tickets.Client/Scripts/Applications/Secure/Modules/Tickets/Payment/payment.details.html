@@ -1,0 +1,43 @@
+﻿<h2>{{content.title}}</h2>
+<div class="form-box">
+<h3>Pay for order #{{order.orderID}}</h3>
+    <form>
+
+        <div class="form-item">
+            <label class="form-lbl">Total Due:</label>
+            <div>{{order.orderTotal | currency}}</div>
+
+        </div>
+        <div  class="form-item">
+            <label  class="form-lbl">Amount Paid:*</label>
+            <div>
+                <input type="number" ng-model="order.grossPaid" />
+            </div>        </div>
+        <div  class="form-item">
+            <label  class="form-lbl">Payment Type:*</label>
+            <div>
+                <select ng-model="order.paymentType" ng-options="pay.id as pay.name for pay in paymentTypes">
+                </select>
+            </div>
+        </div>
+        <div  class="form-item">
+            <label class="form-lbl">Payment Details:</label>
+            <div><textarea ng-model="order.paymentDetails" placeholder="Optional payment details (ex: check number)"></textarea></div>
+        </div>
+        <div  class="form-item">
+            <label class="form-lbl">Order Notes:</label>
+            <div><textarea ng-model="order.notes" placeholder="Optional order notes"></textarea></div>
+        </div>
+        <div  class="form-item">
+            <label class="form-lbl">Order Status:*</label>
+            <div><select ng-model="order.orderStatus" ng-options="status.id as status.name for status in orderStatuses">
+
+                </select>
+            </div>
+        </div>
+        <div class="form-btn">
+        <a class="pseudo-btn" ng-click="updateOrder(order)">Save</a>
+        </div>
+    </form>
+
+</div>

@@ -1,0 +1,70 @@
+﻿<h2>View Cart</h2>
+<ttcms-ticket-timer></ttcms-ticket-timer>
+<div class="clear"></div>
+<div class="wrapper-box">
+    <div class="nested-body">
+        <h3 ng-show="tickets && tickets.length > 0">Confirm your order</h3>
+            <h3 ng-show="!tickets || tickets.length === 0">Your cart is empty.</h3>
+            <div class="sub-nested-body" ng-show="(!tickets || tickets.length === 0) && (publicEvents && publicEvents.length > 0)">
+                <br />
+                <strong>Please continue shopping at:</strong>
+                <ul>
+                    <li ng-repeat="evt in publicEvents">
+                        <a ng-href="../events{{evt.seriesUrlSegment ? '/' + evt.seriesUrlSegment : ''}}{{evt.eventUrlSegment? '/' + evt.eventUrlSegment : ''}}">{{evt.heading}}</a>
+                    </li>
+                </ul>
+            </div>
+        <ul class="ticket-list">
+            <li ng-repeat="ticket in tickets">
+                <div class="ticket-item">
+                    <h3><span>Ticket #{{($index + 1)}}</span></h3>
+                    <div class="item-details">
+                        <strong>{{ticket.location}}</strong> <em>{{ticket.ageGroup}}</em>
+                        <div class="options">
+                            <ul>
+                                <li ng-repeat="option in ticketOptions[ticket.ticketSeatID]">
+                                    <label>{{option}}</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item-subtotal">
+                        <span class="price">
+                            {{ticket.totalPrice | currency}}
+                        </span>
+                        <span ng-click="deleteTicket(ticket)" class="item-delete">Delete</span>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+        <ttcms-ticket-summary ng-if="!hideSummary"
+                               display-type="displayType" 
+                              go-to-no-pay="goToNoPay(tickets)"
+                              go-to-pay="goToPay(tickets)"></ttcms-ticket-summary>
+        <div ng-if="hideSummary">
+            <div class="registration-total">
+                <strong>Total</strong>
+                <em>{{totalPrice() | currency}}</em>
+                <div>
+                    <a class="pseudo-btn"
+                       ng-disabled="isProcessing"
+                       ng-click="goToCashOrCheck(tickets)">Pay By Cash or Check</a>
+                </div>
+                <div>
+                    Invoice Email: <input type="email" ng-model="email" />
+                    <a class="pseudo-btn"
+                       ng-disabled="isProcessing || !email"
+                       ng-click="goToInvoice(tickets, email)">Pay by Invoice</a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+</div>
+<div class="timer-wrapper">
+    <ttcms-ticket-timer></ttcms-ticket-timer>
+</div>
+<div class="clear"></div>

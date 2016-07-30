@@ -1,0 +1,147 @@
+﻿<div>
+    <div ng-if="editor.currentState == 'areas'" class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Areas</h4>
+        </div>
+        <div class="row panel-body">
+            <div ttcms-calculate-grid min-col-size="4" collection="ticketAreas" ng-repeat="area in ticketAreas">
+                <div class="well">
+                    <div>
+                        <p>
+                            <strong class="text-primary">{{area.name}} <span ng-if="area.isGA">(General admission)</span></strong>
+                        </p>
+                        <p>
+                            <em>Max Capacity: {{area.maxCapacity}}</em>
+                        </p>
+                        <p>
+                            <em>Assigned: {{area.assigned}}</em>
+                        </p>
+                        <p>
+                            <em>Pending Purchase: {{area.pendingPurchase}}</em>
+                        </p>
+                        <p>
+                            <em>Discount's Claimed: {{area.discountAssigned}}</em>
+                        </p>
+                        <p>
+                            <em>Discount's Pending: {{area.pendingDiscount}}</em>
+                        </p>
+                        <p>
+                            <em>Other Reservations: {{area.unclaimedReservations}}</em>
+                        </p>
+
+                        <div ng-if="!area.isEditting">
+                            <div class="row">
+                                <div class="col-xs-4 col-xs-offset-1 text-center text-primary inset-box">
+                                    <p>Available</p>
+                                    <strong>{{area.available}}</strong>
+                                </div>
+                                <div class="col-xs-2 text-center">
+                                </div>
+                                <div class="col-xs-4 text-center text-primary inset-box">
+                                    <p>Unavailable</p>
+                                    <strong>
+                                        {{area.unavailable}}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2 col-xs-offset-2">
+
+                                </div>
+                                <div class="col-xs-4 text-center text-primary inset-box">
+                                    <p>Reservations</p>
+                                    <strong>{{area.discountReservations}}</strong>
+
+                                </div>
+                                <div class="col-xs-2">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div ng-if="area.isEditting">
+
+                            <div class="row">
+                                <div class="col-xs-4 col-xs-offset-1 text-center text-primary inset-box">
+                                    <p>Available</p>
+                                    <strong>{{area.newAvailable}}</strong>
+                                </div>
+                                <div class="col-xs-2 text-center">
+                                    <button ng-disabled="!area.newAvailable || area.isProcessing"
+                                            class="fa fa-long-arrow-right btn btn-clean btn-block"
+                                            ng-click="moveSeat(area, 'newAvailable', 'newUnavailable')"></button>
+                                    <button ng-disabled="!area.newUnavailable || area.isProcessing"
+                                            class="fa fa-long-arrow-left btn btn-clean btn-block"
+                                            ng-click="moveSeat(area ,'newUnavailable', 'newAvailable')"></button>
+                                </div>
+                                <div class="col-xs-4 text-center text-primary inset-box">
+                                    <p>Unavailable</p>
+                                    <strong>
+                                        {{area.newUnavailable}}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2 col-xs-offset-2">
+                                    <button ng-disabled="!area.newAvailable || area.isProcessing || area.newReservations == area.maxReservations"
+                                            class="fa fa-long-arrow-right btn btn-clean tilt-right"
+                                            ng-click="moveSeat(area, 'newAvailable', 'newReservations')"></button>
+                                    <button ng-disabled="!area.newReservations || area.isProcessing"
+                                            class="fa fa-long-arrow-left btn btn-clean tilt-right"
+                                            ng-click="moveSeat(area, 'newReservations','newAvailable')"></button>
+
+                                </div>
+                                <div class="col-xs-4 text-center text-primary inset-box">
+                                    <p>Reservations</p>
+                                    <strong>{{area.newReservations}}</strong>
+
+                                </div>
+                                <div class="col-xs-2">
+                                    <button ng-disabled="!area.newReservations || area.isProcessing"
+                                            class="fa fa-long-arrow-right btn btn-clean tilt-left"
+                                            ng-click="moveSeat(area, 'newReservations', 'newUnavailable')"></button>
+                                    <button ng-disabled="!area.newUnavailable || area.isProcessing || area.newReservations == area.maxReservations"
+                                            class="fa fa-long-arrow-left btn btn-clean tilt-left"
+                                            ng-click="moveSeat(area ,'newUnavailable', 'newReservations')"></button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="pull-right">
+                        <span ng-if="area.isGA && !area.isEditting"
+                              class="btn btn-primary btn-sm"
+                              uib-tooltip="{{'Edit ' + area.name + '\'s Reservations'}}"
+                              ng-disabled="pendingEdit"
+                              ng-click="switchEdit(area)">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </span>
+                        <span ng-if="area.isGA && area.isEditting"
+                              ng-disabled="area.isProcessing"
+                              class="btn btn-primary btn-sm"
+                              uib-tooltip="{{'Save ' + area.name + '\'s Reservations'}}"
+                              ng-click="saveEdit(area)">
+                            <i class="fa fa-floppy-o"></i>
+                        </span>
+                        <span ng-if="area.isEditting" class="btn btn-primary btn-sm"
+                              uib-tooltip="Cancel Edit"
+                              ng-disabled="area.isProcessing"
+                              ng-click="cancelEdit(area)">
+                            <i class="fa fa-ban"></i>
+                        </span>
+                        <span ng-if="!area.isGA" class="btn btn-primary btn-sm"
+                              ng-disabled="pendingEdit"
+                              uib-tooltip="{{'View sections in ' + area.name}}"
+                              ng-click="showSections(area)">
+                            <i class="fa fa-list-ul"></i>
+                        </span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <ttcms-reservation-sections-list config="config" exec-on-change="calculateAreaSeats" ticket-sections="selectedSections" editor="editor" ng-if="editor.currentState != 'areas'"></ttcms-reservation-sections-list>
+</div>

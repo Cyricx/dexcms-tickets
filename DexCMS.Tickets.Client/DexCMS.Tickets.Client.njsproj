@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>DexCMS.Tickets.Client</Name>
+    <RootNamespace>DexCMS.Tickets.Client</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>1ad0cbdf-d2d5-4c69-9ae9-465bae333c1a</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>app.js</StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartWebBrowser>false</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="app.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\tickets.routes.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventAgeGroups\eventAgeGroups.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventAgeGroups\eventAgeGroups.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventAgeGroups\eventAgeGroups.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventAgeGroups\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventDashboards\eventDashboards.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventDashboards\eventDashboards.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventDashboards\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventFaqCategories\eventFaqCategories.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventFaqCategories\eventFaqCategories.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventFaqCategories\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventFaqItems\eventFaqItems.list.directive.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventFaqItems\eventFaqItems.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventFaqItems\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventSeries\eventSeries.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventSeries\eventSeries.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventSeries\eventSeries.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventSeries\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Events\events.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Events\events.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Events\events.navigation.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Events\events.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Events\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventTickets\eventTickets.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventTickets\eventTickets.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\EventTickets\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Orders\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Orders\orders.details.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Orders\orders.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Orders\orders.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleItems\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleItems\scheduleItems.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleItems\scheduleItems.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleItems\scheduleItems.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleStatuses\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleStatuses\scheduleStatuses.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleStatuses\scheduleStatuses.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleStatuses\scheduleStatuses.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleTypes\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleTypes\scheduleTypes.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleTypes\scheduleTypes.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\ScheduleTypes\scheduleTypes.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketAreaDiscounts\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketAreaDiscounts\ticketAreaDiscounts.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketAreas\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketAreas\ticketAreas.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketAssignments\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketAssignments\ticketAssignments.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketAssignments\ticketAssignments.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketAssignments\ticketAssignments.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\ticketCutoffs.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\ticketCutoffs.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\ticketCutoffsAdd.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\ticketcutoffsDisplay.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\ticketcutoffsEdit.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\ticketPricesAreasDetails.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\ticketPricesAreasList.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketDiscounts\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketDiscounts\ticketDiscounts.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketDiscounts\ticketDiscounts.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketDiscounts\ticketDiscounts.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketOptionChoices\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketOptionChoices\ticketOptionChoices.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketOptionChoices\ticketOptionChoices.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketOptionDiscounts\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketOptionDiscounts\ticketOptionDiscounts.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketOptions\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketOptions\ticketOptionChoicesList.directive.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketOptions\ticketOptions.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketOptions\ticketOptions.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketOptions\ticketOptions.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketPrices\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketPrices\ticketPrices.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketPrices\ticketPrices.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketPrices\ticketPrices.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\reservationAreasList.directive.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\reservationRowsList.directive.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\reservationSectionsList.directive.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\ticketReservations.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\ticketReservations.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Tickets\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Tickets\tickets.editor.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Tickets\tickets.list.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Tickets\tickets.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\VenueScheduleLocations\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\VenueScheduleLocations\venueScheduleLocations.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\VenueScheduleLocations\venueScheduleLocations.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\VenueScheduleLocations\venueScheduleLocations.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Venues\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Venues\venues.editor.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Venues\venues.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Tickets\Venues\venues.service.js" />
+    <Content Include="package.json" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\EventAgeGroups\eventAgeGroups.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\EventAgeGroups\eventAgeGroups.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\EventDashboards\eventDashboards.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\EventFaqCategories\eventFaqCategories.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\EventFaqItems\_eventFaqItems.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\EventSeries\eventSeries.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\EventSeries\eventSeries.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Events\events.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Events\events.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\EventTickets\eventTickets.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Orders\orders.details.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Orders\orders.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\ScheduleItems\scheduleItems.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\ScheduleItems\scheduleItems.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\ScheduleStatuses\scheduleStatuses.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\ScheduleStatuses\scheduleStatuses.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\ScheduleTypes\scheduleTypes.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\ScheduleTypes\scheduleTypes.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketAssignments\ticketAssignments.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketAssignments\ticketAssignments.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\ticketCutoffs.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\_ticketcutoffs.add.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\_ticketcutoffs.display.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\_ticketcutoffs.edit.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\_ticketcutoffs.form.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\_ticketPricesAreas.details.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\_ticketPricesAreas.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketDiscounts\ticketDiscounts.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketDiscounts\ticketDiscounts.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketOptionChoices\ticketOptionChoices.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketOptions\ticketOptions.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketOptions\ticketOptions.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketOptions\_ticketOptionChoicesList.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketPrices\ticketPrices.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketPrices\ticketPrices.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\ticketReservations.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\_reservationAreas.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\_reservationRows.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\_reservationSections.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Tickets\tickets.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Tickets\tickets.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\VenueScheduleLocations\venueScheduleLocations.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\VenueScheduleLocations\venueScheduleLocations.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Venues\venues.editor.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Venues\venues.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Venues\_venueAreas.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Venues\_venueRows.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Venues\_venueSeating.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Tickets\Venues\_venueSections.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+    <Folder Include="Scripts\Applications\" />
+    <Folder Include="Scripts\Applications\ControlPanel\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\EventAgeGroups\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\EventDashboards\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\EventFaqCategories\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\EventFaqItems\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\EventSeries\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\Events\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\EventTickets\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\Orders\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\ScheduleItems\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\ScheduleStatuses\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\ScheduleTypes\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\TicketAreaDiscounts\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\TicketAreas\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\TicketAssignments\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\TicketCutoffs\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\TicketDiscounts\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\TicketOptionChoices\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\TicketOptionDiscounts\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\TicketOptions\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\TicketPrices\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\TicketReservations\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\Tickets\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\VenueScheduleLocations\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Tickets\Venues\" />
+  </ItemGroup>
+  <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+</Project>

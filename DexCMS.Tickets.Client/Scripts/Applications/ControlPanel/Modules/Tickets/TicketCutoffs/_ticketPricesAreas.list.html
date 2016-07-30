@@ -1,0 +1,7 @@
+﻿<div>
+    <div class="row" ng-show="ticketAreas.length > 0">
+        <ttcms-ticket-prices-areas-details ng-class="calculateGrid()" ticket-area="ticketArea" ng-repeat="ticketArea in ticketAreas"></ttcms-ticket-prices-areas-details>
+    </div>
+    <div class="alert-danger alert" ng-show="ticketAreas.length === 0">You must setup Ticket Areas first and should also setup Age Groups.</div>
+
+</div> 

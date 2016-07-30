@@ -1,0 +1,74 @@
+﻿<div>
+
+    <a class="pull-right btn btn-default" ui-sref="events">Return to List</a>
+    <h2>{{navigation.title}}</h2>
+
+
+    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+
+    <h3>{{subtitle}}</h3>
+    <form name="manageTicketOptions" novalidate
+          angular-validator angular-validator-submit="save(currentItem)">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="form-control" name="name" id="name" required
+                       validate-on="dirty"
+                       ng-model="currentItem.name" />
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <ttcms-html-editor ng-model="currentItem.description"></ttcms-html-editor>
+
+            </div>
+
+            <div class="form-group">
+                <label for="basePrice">Base Price:</label>
+                <input type="number" name="basePrice"
+                       ng-model="currentItem.basePrice" min="0" step="0.50"
+                       required validate-on="dirty" />
+            </div>
+            <div class="form-group">
+                <label for="cutoffDate">Cutoff Date:</label>
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy"
+                           ng-model="currentItem.cutoffDate" name="cutoffDate"
+                           is-open="onCutoffOpen"
+                           validate-on="dirty"
+                           ng-required="true" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="onCutoffOpen = !onCutoffOpen">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                </p>
+            </div>
+
+            <div class="form-group checkbox">
+                <label>
+                    <input type="checkbox" id="isRequired" name="isRequired" ng-model="currentItem.isRequired">
+                    Is Required?
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Choices:</label>
+                <ttcms-ticket-option-choices-list ticket-option="currentItem" ng-if="currentItem.ticketOptionID"></ttcms-ticket-option-choices-list>
+                <div ng-if="!currentItem.ticketOptionID">
+                    <p>You must first save this option before you can manage choices.</p>
+
+                </div>
+            </div>
+
+            <button class="btn btn-primary" ng-disabled="manageTicketOptions.$invalid || isProcessing"
+                    ng-click="save(currentItem)">
+                Save
+            </button>
+            <button class="btn btn-primary" ng-disabled="manageTicketOptions.$invalid || isProcessing"
+                    ng-click="saveAndStay(currentItem)">
+                Save And Stay
+            </button>
+            <a class="btn btn-primary" ui-sref="ticketoptions/:id({id:eventID})">Cancel</a>
+        </div>
+    </form>
+</div>

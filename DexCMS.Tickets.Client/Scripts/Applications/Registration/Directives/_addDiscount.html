@@ -1,0 +1,95 @@
+﻿<div>
+    <span class="pseudo-btn right" ng-click="clearDiscount()">Clear</span>
+    <form name="addDiscountForm" ng-if="!checkingSecurity && hasLoaded && isOpen" angular-validator angular-validator-submit="saveItem(currentItem)">
+        <div class="seat-row">
+            <label>Select Your Tickets:</label>
+            <select name="area" id="area" required
+                    ng-if="areas"
+                    ng-model="currentItem.areaID"
+                    ng-change="selectedArea(currentItem.areaID)"
+                    ng-options="item.areaID as item.display for item in areas">
+                <option value="">[ - choose an area - ]</option>
+            </select>
+            <select name="section" id="section" required
+                    ng-if="sections"
+                    ng-model="currentItem.sectionID"
+                    ng-change="selectedSection(currentItem.sectionID)"
+                    ng-options="item.sectionID as item.display for item in sections">
+                <option value="">[ - choose a cabin - ]</option>
+            </select>
+            <select name="row" id="row" required
+                    ng-if="rows"
+                    ng-model="currentItem.rowID"
+                    ng-change="selectedRow(currentItem.rowID)"
+                    ng-options="item.rowID as item.display for item in rows">
+                <option value="">[ - choose a side - ]</option>
+            </select>
+            <div class="seat-count" ng-if="ticketLimit">
+                <label for="seatCount"># of Tickets (max: {{ticketLimit}})</label>
+                <input type="number" ng-change="createTickets(currentItem.seatCount)" min="0" max="{{ticketLimit}}" ng-model="currentItem.seatCount" />
+            </div>
+        </div>
+        <div class="seat-prices">
+            <div class="cutoff-areas" ng-repeat="area in prices.areas" ng-class="getSelectedClass(area.areaID)">
+                <h4>{{area.name}}</h4>
+                <table class="cutoff-pricing-table">
+                    <tr ng-repeat="price in area.prices">
+                        <td>
+                            <strong>{{price.ageName}}</strong>
+                        </td>
+                        <td>
+                            <em>({{price.ageRange}})</em>
+                        </td>
+                        <td>
+                            <span class="event-price-tag">
+                                {{price.basePrice|currency}}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="seat-ages">
+            <div ng-repeat="ticket in currentItem.tickets">
+                <label for="{{'age' + $index}}">Ticket #{{$index + 1}}:</label>
+                <select name="{{'age' + $index}}" id="{{'age' + $index}}" required
+                        ng-model="ticket.ticketPriceID"
+                        ng-change="selectedAge(ticket)"
+                        ng-options="age.ticketPriceID as age.display for age in ageGroups">
+                    <option value="">[ - select age group - ]</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" ng-disabled="validateTickets()" class="pseudo-btn right">Add Tickets</button>
+        <div class="clear"></div>
+    </form>
+    <div ng-if="!checkingSecurity && !useSelection && !hasLoaded">
+        <form name="discountCode" angular-validator angular-validator-submit="submitDiscount(discount)">
+            <label class="registration-label">Code:</label>
+            <input type="text" required ng-model="discount.code" />
+            <button type="submit" ng-disabled="isVerifying" class="pseudo-btn small">Submit Code</button>
+            <div class="erroritem" ng-if="discountError">
+                <p>{{discountError}}</p>
+                <p>
+                    Repeated failed attempts to enter a code may result in a
+                    lock out from the system.
+                    Please verify your code before attempting again.
+                </p>
+            </div>
+        </form>
+    </div>
+    <div ng-if="!checkingSecurity && useSelection && !hasLoaded">
+        <form name="discountSelection" angular-validator angular-validator-submit="selectDiscount(selectedItem)">
+            <label class="registration-label">Discount:</label>
+            <select ng-model="selectedItem" required
+                    ng-options="item as (item.name + ' [' + item.code +'] (Available: ' + item.maxAvailable + ')') for item in discounts">
+                <option value="">[- Please choose a discount -]</option>
+            </select>
+            <button type="submit" class="pseudo-btn small">Confirm</button>
+        </form>    
+    </div>
+    <div ng-if="!checkingSecurity && hasLoaded && !isOpen" ng-bind="registrationMessage"></div>
+    <div ng-if="checkingSecurity">
+        Loading...
+    </div>
+</div>
