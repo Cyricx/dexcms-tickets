@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="Configurations\index.js" />
     <Compile Include="Scripts\Applications\Registration\Directives\addDiscount.directive.js" />
     <Compile Include="Scripts\Applications\Registration\Directives\addTicket.directive.js" />
     <Compile Include="Scripts\Applications\Registration\Directives\index.js" />
@@ -40,8 +41,8 @@
     <Compile Include="Scripts\Applications\Registration\registration.require.js" />
     <Compile Include="Scripts\Applications\Registration\Services\index.js" />
     <Compile Include="Scripts\Applications\Registration\Services\value.service.js" />
-    <Compile Include="Configurations\controlpanel.tickets.navigation.js" />
-    <Compile Include="Configurations\controlpanel.tickets.routes.js" />
+    <Compile Include="Configurations\applications.controlpanel.tickets.navigation.js" />
+    <Compile Include="Configurations\applications.controlpanel.tickets.routes.js" />
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventAgeGroups\eventAgeGroups.editor.controller.js" />
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventAgeGroups\eventAgeGroups.list.controller.js" />
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventAgeGroups\eventAgeGroups.service.js" />
@@ -135,7 +136,7 @@
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\Venues\venues.editor.controller.js" />
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\Venues\venues.list.controller.js" />
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\Venues\venues.service.js" />
-    <Compile Include="Configurations\secure.tickets.routes.js" />
+    <Compile Include="Configurations\applications.secure.tickets.routes.js" />
     <Compile Include="Scripts\Applications\Secure\Modules\Tickets\CheckIns\checkins.list.controller.js" />
     <Compile Include="Scripts\Applications\Secure\Modules\Tickets\CheckIns\checkins.service.js" />
     <Compile Include="Scripts\Applications\Secure\Modules\Tickets\CheckIns\index.js" />
@@ -166,6 +167,7 @@
     <Compile Include="Scripts\Globals\Tickets\Services\tickets.service.js" />
     <Compile Include="Scripts\Globals\Tickets\tickets.js" />
     <Compile Include="Scripts\Globals\Tickets\tickets.settings.js" />
+    <Compile Include="Configurations\globals.tickets.settings.js" />
     <Content Include="package.json" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventAgeGroups\eventAgeGroups.editor.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventAgeGroups\eventAgeGroups.list.html" />
