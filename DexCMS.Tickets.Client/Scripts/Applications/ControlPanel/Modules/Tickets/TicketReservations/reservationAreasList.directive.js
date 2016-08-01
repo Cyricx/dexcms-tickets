@@ -2,9 +2,9 @@
     'angular',
     'controlpanel-app',
 ], function (angular, module) {
-    module.directive('ttcmsReservationAreasList', [
-        'ttcmsSettings',
-        function (ttcmsSettings) {
+    module.directive('dexcmsReservationAreasList', [
+        'dexcmsSettings',
+        function (dexcmsSettings) {
             return {
                 restrict: "E",
                 replace: true,
@@ -12,7 +12,7 @@
                     "ticketAreas": "=",
                     "config": "=",
                 },
-                templateUrl: ttcmsSettings.startingRoute + '/modules/ticketing/ticketreservations/views/_reservationareas.list.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketreservations/views/_reservationareas.list.html',
                 controller: [
                     '$scope',
                     'TicketReservations',

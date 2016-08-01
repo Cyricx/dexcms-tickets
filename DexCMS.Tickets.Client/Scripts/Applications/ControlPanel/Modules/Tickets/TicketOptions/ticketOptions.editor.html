@@ -4,7 +4,7 @@
     <h2>{{navigation.title}}</h2>
 
 
-    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+    <dexcms-horizontal-nav navigation="navigation.navItems"></dexcms-horizontal-nav>
 
     <h3>{{subtitle}}</h3>
     <form name="manageTicketOptions" novalidate
@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label for="description">Description:</label>
-                <ttcms-html-editor ng-model="currentItem.description"></ttcms-html-editor>
+                <dexcms-html-editor ng-model="currentItem.description"></dexcms-html-editor>
 
             </div>
 
@@ -53,7 +53,7 @@
 
             <div class="form-group">
                 <label>Choices:</label>
-                <ttcms-ticket-option-choices-list ticket-option="currentItem" ng-if="currentItem.ticketOptionID"></ttcms-ticket-option-choices-list>
+                <dexcms-ticket-option-choices-list ticket-option="currentItem" ng-if="currentItem.ticketOptionID"></dexcms-ticket-option-choices-list>
                 <div ng-if="!currentItem.ticketOptionID">
                     <p>You must first save this option before you can manage choices.</p>
 

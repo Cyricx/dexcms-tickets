@@ -1,16 +1,16 @@
 ﻿define([
    'controlpanel-app'
 ], function (module) {
-    module.directive('ttcmsEventFaqItemsList', [
+    module.directive('dexcmsEventFaqItemsList', [
         'dexCMSControlPanelSettings',
-        function (ttcmsSettings) {
+        function (dexcmsSettings) {
 
             return {
                 restrict: "E",
                 scope: {
                     "faqCategory": "="
                 },
-                templateUrl: ttcmsSettings.startingRoute + '/modules/ticketing/eventfaqitems/_eventfaqitems.list.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/eventfaqitems/_eventfaqitems.list.html',
                 controller: [
         '$scope',
         'EventFaqItems',

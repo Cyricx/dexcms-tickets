@@ -84,8 +84,8 @@
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleTypes\scheduleTypes.editor.controller.js" />
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleTypes\scheduleTypes.list.controller.js" />
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleTypes\scheduleTypes.service.js" />
-    <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\TicketAreaDiscounts\index.js" />
-    <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\TicketAreaDiscounts\ticketAreaDiscounts.service.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleTypes\TicketAreaDiscounts\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleTypes\TicketAreaDiscounts\ticketAreaDiscounts.service.js" />
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\TicketAreas\index.js" />
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\TicketAreas\ticketAreas.service.js" />
     <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\TicketAssignments\index.js" />
@@ -256,7 +256,7 @@
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleItems\" />
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleStatuses\" />
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleTypes\" />
-    <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\TicketAreaDiscounts\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleTypes\TicketAreaDiscounts\" />
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\TicketAreas\" />
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\TicketAssignments\" />
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\TicketCutoffs\" />

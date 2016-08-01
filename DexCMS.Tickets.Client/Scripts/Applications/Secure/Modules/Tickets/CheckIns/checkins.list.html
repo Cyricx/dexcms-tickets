@@ -9,7 +9,7 @@
 
 
 
-        <div class="ttcms-table-controls">
+        <div class="dexcms-table-controls">
             <label for="showArrivals">
                 <input type="checkbox" id="showArrivals" ng-model="showArrivals" /> Show Arrivals?
             </label>
@@ -20,7 +20,7 @@
             </div>
             <div clas="clear"></div>
 
-            <table class="ttcms-table">
+            <table class="dexcms-table">
                 <tr>
                     <th ng-click="changeSort('orderID')"><i class="fa" ng-class="getSortClass('orderID')"></i>Order#</th>
                     <th ng-click="changeSort('firstName')"><i class="fa" ng-class="getSortClass('firstName')"></i>Attendee</th>
@@ -75,10 +75,10 @@
                     </td>
                 </tr>
             </table>
-        <div class="ttcms-page-message">
+        <div class="dexcms-page-message">
             {{buildPageMessage((tickets | filter: checkArrivals | filter: filterText).length, currentPage, itemsPerPage)}}
         </div>
-        <div class="ttcms-pager">
+        <div class="dexcms-pager">
             <uib-pagination total-items="(tickets | filter: checkArrivals | filter: filterText).length"
                             ng-model="currentPage"
                             max-size="maxPagesDisplayed"

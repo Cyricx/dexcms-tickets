@@ -6,7 +6,7 @@
 <base href="@(new Uri(Request.Url, Url.Content("~/events/" + ViewBag.UrlSegment + "/registration/")))" />
 }
 <toast></toast>
-<ttcms-ticket-timer event-segment="@ViewBag.UrlSegment"></ttcms-ticket-timer>
+<dexcms-ticket-timer event-segment="@ViewBag.UrlSegment"></dexcms-ticket-timer>
 
 <h2>@ViewBag.PageContent.Heading</h2>
 
@@ -35,7 +35,7 @@
 
 </div>
 <div class="timer-wrapper">
-    <ttcms-ticket-timer event-segment="@ViewBag.UrlSegment"></ttcms-ticket-timer>
+    <dexcms-ticket-timer event-segment="@ViewBag.UrlSegment"></dexcms-ticket-timer>
 </div>
 <div class="clear"></div>
 @section scripts {

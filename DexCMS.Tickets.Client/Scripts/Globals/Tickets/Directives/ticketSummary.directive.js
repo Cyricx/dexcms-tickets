@@ -2,7 +2,7 @@
     '../tickets',
     'underscore',
 ], function (module, _) {
-    module.directive('ttcmsTicketSummary', [
+    module.directive('dexcmsTicketSummary', [
         'dexCMSGlobalsTicketsSettings',
         function (Settings) {
             return {

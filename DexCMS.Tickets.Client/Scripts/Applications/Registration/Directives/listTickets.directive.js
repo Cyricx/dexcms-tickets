@@ -2,7 +2,7 @@
     'underscore',
 ], function (_) {
     return function (module) {
-        module.directive('ttcmsListTickets', function () {
+        module.directive('dexcmsListTickets', function () {
             return {
                 templateUrl: '../../../scripts/dexcmsapps/applications/registration/directives/_listTickets.html',
                 restrict: 'E',

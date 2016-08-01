@@ -4,7 +4,7 @@
     <h2>{{navigation.title}}</h2>
 
 
-    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+    <dexcms-horizontal-nav navigation="navigation.navItems"></dexcms-horizontal-nav>
 
     <h3>{{buildSubTitle()}}</h3>
     <div class="alert alert-danger" ng-if="configObject.maximumAvailable > configObject.totalReservations">
@@ -14,6 +14,6 @@
     <div class="alert alert-success" ng-if="configObject.maximumAvailable && configObject.maximumAvailable == configObject.totalReservations">
         You have successfully marked all available locations as reserved.
     </div>
-    <ttcms-reservation-areas-list ng-if="currentItem" config="configObject" ticket-areas="currentItem.ticketAreas"></ttcms-reservation-areas-list>
+    <dexcms-reservation-areas-list ng-if="currentItem" config="configObject" ticket-areas="currentItem.ticketAreas"></dexcms-reservation-areas-list>
     <a class="btn btn-primary" ui-sref="ticketdiscounts/:id/:tdID({id:eventID, tdID:discountID})">Return to Manage Discount</a>
 </div>

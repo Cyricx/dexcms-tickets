@@ -9,15 +9,15 @@
                 </ul>
             </nav>
             <div class="registration-ticket">
-                <ttcms-add-ticket ng-if="display=='addTicket'"></ttcms-add-ticket>
-                <ttcms-add-discount ng-if="display=='addDiscount' || display=='addReservation'"></ttcms-add-discount>
+                <dexcms-add-ticket ng-if="display=='addTicket'"></dexcms-add-ticket>
+                <dexcms-add-discount ng-if="display=='addDiscount' || display=='addReservation'"></dexcms-add-discount>
                 <div ng-if="display=='chooseOptions'">
                     <h2>Select your options below or click a button above to add more.</h2>
                 </div>
             </div>
         </div>
-        <ttcms-list-tickets></ttcms-list-tickets>
-        <ttcms-ticket-summary></ttcms-ticket-summary>
+        <dexcms-list-tickets></dexcms-list-tickets>
+        <dexcms-ticket-summary></dexcms-ticket-summary>
     </div>
     <div ng-if="!hasCheckedRegistration">Loading..</div>
     <div ng-if="hasCheckedRegistration && !registrationOpen" ng-bind="registrationDisabledMessage"></div>

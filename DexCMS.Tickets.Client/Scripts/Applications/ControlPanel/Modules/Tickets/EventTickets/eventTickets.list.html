@@ -3,7 +3,7 @@
 
     <h2>{{navigation.title}}</h2>
 
-    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+    <dexcms-horizontal-nav navigation="navigation.navItems"></dexcms-horizontal-nav>
     <div class="well text-primary" ng-if="isLoading">
         Loading..
     </div>
@@ -40,7 +40,7 @@
                         <div ng-class="calculateColumns(currentItem.ticketAreas, area.editting)" 
                              ng-repeat="area in currentItem.ticketAreas">
                             <div class="well"
-                                 ttcms-attention="!area.ticketAreaID"
+                                 dexcms-attention="!area.ticketAreaID"
                                  attention-message="This item has not been saved."
                                  ng-if="!area.editting">
                                 <div>
@@ -82,7 +82,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <form class="well" name="managingAreaForm"
-                                  ttcms-attention="!area.ticketAreaID"
+                                  dexcms-attention="!area.ticketAreaID"
                                   attention-message="This item has not been saved."
                                   novalidate ng-if="area.editting" angular-validator
                                   >
@@ -227,7 +227,7 @@
                         <h4><a ng-click="toPreviousGroup(seatingGroup)">Areas</a> <i class="fa fa-arrow-right"></i> {{selectedArea.name}}</h4>
                         <div ng-class="calculateColumns(selectedArea.ticketSections, area.editting)" ng-repeat="section in selectedArea.ticketSections">
                             <div class="well"
-                                 ttcms-attention="!section.ticketSectionID"
+                                 dexcms-attention="!section.ticketSectionID"
                                  attention-message="This item has not been saved."
                                  ng-if="!section.editting">
                                 <div>
@@ -254,7 +254,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <form class="well"
-                                  ttcms-attention="!section.ticketSectionID"
+                                  dexcms-attention="!section.ticketSectionID"
                                   attention-message="This item has not been saved."
                                   name="managingSectionForm" 
                                   novalidate ng-if="section.editting" 
@@ -328,7 +328,7 @@
                         </h4>
                         <div ng-class="calculateColumns(selectedSection.ticketRows, row.editting)" ng-repeat="row in selectedSection.ticketRows">
                             <div class="well"
-                                 ttcms-attention="!row.ticketRowID"
+                                 dexcms-attention="!row.ticketRowID"
                                  attention-message="This item has not been saved."
                                  ng-if="!row.editting">
                                 <div>
@@ -361,7 +361,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <form class="well"
-                                  ttcms-attention="!row.ticketRowID"
+                                  dexcms-attention="!row.ticketRowID"
                                   attention-message="This item has not been saved."
                                   name="managingRowForm" novalidate ng-if="row.editting" angular-validator
                                   >

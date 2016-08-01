@@ -4,7 +4,7 @@
             <h4>Areas</h4>
         </div>
         <div class="row panel-body">
-            <div ttcms-calculate-grid min-col-size="4" collection="ticketAreas" ng-repeat="area in ticketAreas">
+            <div dexcms-calculate-grid min-col-size="4" collection="ticketAreas" ng-repeat="area in ticketAreas">
                 <div class="well">
                     <div>
                         <p>
@@ -143,5 +143,5 @@
             </div>
         </div>
     </div>
-    <ttcms-reservation-sections-list config="config" exec-on-change="calculateAreaSeats" ticket-sections="selectedSections" editor="editor" ng-if="editor.currentState != 'areas'"></ttcms-reservation-sections-list>
+    <dexcms-reservation-sections-list config="config" exec-on-change="calculateAreaSeats" ticket-sections="selectedSections" editor="editor" ng-if="editor.currentState != 'areas'"></dexcms-reservation-sections-list>
 </div>

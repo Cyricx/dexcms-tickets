@@ -2,16 +2,16 @@
     'angular',
     'controlpanel-app'
 ], function (angular, module) {
-    module.directive('ttcmsTicketCutoffsAdd', [
+    module.directive('dexcmsTicketCutoffsAdd', [
         'dexCMSControlPanelSettings',
-        function (ttcmsSettings) {
+        function (dexcmsSettings) {
             return {
                 restrict: "E",
                 replace: true,
                 scope: {
                     "ticketCutoff": "="
                 },
-                templateUrl: ttcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.add.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.add.html',
                 controller: [
                     '$scope',
                     'TicketCutoffs',
@@ -19,7 +19,7 @@
                     'ngToast',
                     function ($scope, TicketCutoffs, $stateParams, ngToast) {
 
-                    $scope.formInputs = ttcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.form.html';
+                    $scope.formInputs = dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.form.html';
 
                     var eventID = $stateParams.id;
 

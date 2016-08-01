@@ -2,16 +2,16 @@
     'angular',
     'controlpanel-app'
 ], function (angular, module) {
-    module.directive('ttcmsTicketCutoffsDisplay', [
+    module.directive('dexcmsTicketCutoffsDisplay', [
         'dexCMSControlPanelSettings',
-        function (ttcmsSettings) {
+        function (dexcmsSettings) {
             return {
                 restrict: "E",
                 replace: true,
                 scope: {
                     "ticketCutoff": "="
                 },
-                templateUrl: ttcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.display.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.display.html',
                 controller: ['$scope', 'TicketCutoffs', function ($scope, TicketCutoffs) {
                     //! Added temporarily
                     $scope.ticketCutoff.showContents = true;

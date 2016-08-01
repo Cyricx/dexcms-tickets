@@ -4,7 +4,7 @@
             <h4><a ng-click="showAreas()">Areas</a> <i class="fa fa-arrow-right"></i> {{editor.selectedName}}</h4>
         </div>
         <div class="row panel-body">
-            <div ttcms-calculate-grid min-col-size="4" collection="ticketSections" ng-repeat="section in ticketSections">
+            <div dexcms-calculate-grid min-col-size="4" collection="ticketSections" ng-repeat="section in ticketSections">
                 <div class="well">
                     <div>
                         <p>
@@ -74,5 +74,5 @@
             </div>
         </div>
     </div>
-    <ttcms-reservation-rows-list config="config" exec-on-change="calculateCounts" ng-if="editor.currentState == 'rows'" editor="editor" ticket-rows="selectedRows"></ttcms-reservation-rows-list>
+    <dexcms-reservation-rows-list config="config" exec-on-change="calculateCounts" ng-if="editor.currentState == 'rows'" editor="editor" ticket-rows="selectedRows"></dexcms-reservation-rows-list>
 </div>

@@ -1,5 +1,5 @@
 ﻿<h2>View Cart</h2>
-<ttcms-ticket-timer></ttcms-ticket-timer>
+<dexcms-ticket-timer></dexcms-ticket-timer>
 <div class="clear"></div>
 <div class="wrapper-box">
     <div class="nested-body">
@@ -38,10 +38,10 @@
 
             </li>
         </ul>
-        <ttcms-ticket-summary ng-if="!hideSummary"
+        <dexcms-ticket-summary ng-if="!hideSummary"
                                display-type="displayType" 
                               go-to-no-pay="goToNoPay(tickets)"
-                              go-to-pay="goToPay(tickets)"></ttcms-ticket-summary>
+                              go-to-pay="goToPay(tickets)"></dexcms-ticket-summary>
         <div ng-if="hideSummary">
             <div class="registration-total">
                 <strong>Total</strong>
@@ -65,6 +65,6 @@
 
 </div>
 <div class="timer-wrapper">
-    <ttcms-ticket-timer></ttcms-ticket-timer>
+    <dexcms-ticket-timer></dexcms-ticket-timer>
 </div>
 <div class="clear"></div>

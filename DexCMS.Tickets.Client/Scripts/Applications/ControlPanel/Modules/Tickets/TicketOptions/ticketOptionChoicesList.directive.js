@@ -3,9 +3,9 @@
     'angular',
    '../ticketoptionchoices/ticketoptionchoices.service',
 ], function (module, angular) {
-    module.directive('ttcmsTicketOptionChoicesList', [
+    module.directive('dexcmsTicketOptionChoicesList', [
         'dexCMSControlPanelSettings',
-        function (ttcmsSettings) {
+        function (dexcmsSettings) {
 
             return {
                 restrict: "E",
@@ -13,7 +13,7 @@
                 scope: {
                     "ticketOption": "="
                 },
-                templateUrl: ttcmsSettings.startingRoute + './modules/ticketing/ticketoptions/_ticketoptionchoiceslist.html',
+                templateUrl: dexcmsSettings.startingRoute + './modules/ticketing/ticketoptions/_ticketoptionchoiceslist.html',
                 controller: [
                     '$scope',
                     'TicketOptionChoices',

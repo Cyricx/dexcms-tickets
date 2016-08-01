@@ -2,7 +2,7 @@
     'underscore',
 ], function (_) {
     return function (module) {
-        module.directive('ttcmsAddTicket', function () {
+        module.directive('dexcmsAddTicket', function () {
 
             return {
                 restrict: 'E',

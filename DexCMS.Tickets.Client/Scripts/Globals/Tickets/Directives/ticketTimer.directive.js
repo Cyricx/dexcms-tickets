@@ -3,7 +3,7 @@
     'angular',
     'moment',
 ], function (module, angular, moment) {
-    module.directive('ttcmsTicketTimer', [
+    module.directive('dexcmsTicketTimer', [
         'dexCMSGlobalsTicketsSettings',
         function (Settings) {
             return {

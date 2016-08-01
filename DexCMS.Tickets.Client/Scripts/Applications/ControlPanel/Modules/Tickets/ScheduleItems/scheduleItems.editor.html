@@ -4,7 +4,7 @@
     <h2>{{navigation.title}}</h2>
 
 
-    <ttcms-horizontal-nav navigation="navigation.navItems"></ttcms-horizontal-nav>
+    <dexcms-horizontal-nav navigation="navigation.navItems"></dexcms-horizontal-nav>
 
     <h3>{{subtitle}}</h3>
     <form name="manageScheduleItems" novalidate
@@ -74,7 +74,7 @@
             </div>
             <div class="form-group">
                 <label for="details">Details:</label>
-                <ttcms-html-editor ng-model="currentItem.details"></ttcms-html-editor>
+                <dexcms-html-editor ng-model="currentItem.details"></dexcms-html-editor>
             </div>
             <button class="btn btn-primary" ng-disabled="manageScheduleItems.$invalid || isProcessing">
                 Save

@@ -3,16 +3,16 @@
     'controlpanel-app',
     '../ticketprices/ticketprices.service',
 ], function (angular, module) {
-    module.directive('ttcmsTicketPricesAreasDetails', [
+    module.directive('dexcmsTicketPricesAreasDetails', [
         'dexCMSControlPanelSettings',
-        function (ttcmsSettings) {
+        function (dexcmsSettings) {
             return {
                 restrict: "E",
                 replace: true,
                 scope: {
                     "ticketArea": "="
                 },
-                templateUrl: ttcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketpricesareas.details.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketpricesareas.details.html',
                 controller: [
                     '$scope',
                     'TicketPrices',

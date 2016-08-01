@@ -2,23 +2,23 @@
     'angular',
     'controlpanel-app'
 ], function (angular, module) {
-    module.directive('ttcmsTicketCutoffsEdit', [
+    module.directive('dexcmsTicketCutoffsEdit', [
         'dexCMSControlPanelSettings',
-        function (ttcmsSettings) {
+        function (dexcmsSettings) {
             return {
                 restrict: "E",
                 replace: true,
                 scope: {
                     "ticketCutoff": "="
                 },
-                templateUrl: ttcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.edit.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.edit.html',
                 controller: [
                     '$scope',
                     'TicketCutoffs',
                     'ngToast',
                     function ($scope, TicketCutoffs, ngToast) {
 
-                    $scope.formInputs = ttcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.form.html';
+                    $scope.formInputs = dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.form.html';
 
                     var init = function () {
                         $scope.currentItem = angular.copy($scope.ticketCutoff);
