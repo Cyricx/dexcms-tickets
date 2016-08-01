@@ -1,0 +1,49 @@
+﻿.list-group-item {
+    margin: .5em 0;
+    border-radius: 5px;
+}
+
+.faq-category {
+
+    i {
+        cursor: pointer;
+        padding: .5em;
+        margin: 0 .5em;
+
+        &.disabled {
+            cursor: not-allowed;
+            opacity: .4;
+        }
+    }
+
+    strong {
+        font-size: 1.25em;
+    }
+}
+.list-group-item-default {
+    strong {
+        font-size: 1.25em;
+        border-bottom: 1px solid $brand-primary;
+        margin-bottom: 1em;
+        display: inline-block;
+        padding: .25em;
+    }
+    p {
+        font-size: 1em;
+    }
+    i.fa {
+        cursor: pointer;
+        padding: .5em;
+        margin: 0 .5em;
+
+    }
+
+}
+.display-helpful {
+    border-top: 1px solid $brand-primary;
+    span:first-child {
+        font-style: italic;
+        margin-right: 1em;
+        display: inline-block;
+    }
+}

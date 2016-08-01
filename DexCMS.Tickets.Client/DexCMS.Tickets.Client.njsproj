@@ -169,6 +169,7 @@
     <Compile Include="Scripts\Globals\Tickets\tickets.settings.js" />
     <Compile Include="Configurations\globals.tickets.settings.js" />
     <Content Include="package.json" />
+    <Content Include="Sass\Applications\ControlPanel\Tickets\_eventFaqs.scss" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventAgeGroups\eventAgeGroups.editor.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventAgeGroups\eventAgeGroups.list.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventDashboards\eventDashboards.list.html" />
@@ -235,6 +236,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configurations\" />
+    <Folder Include="Sass\" />
+    <Folder Include="Sass\Applications\" />
+    <Folder Include="Sass\Applications\ControlPanel\" />
+    <Folder Include="Sass\Applications\ControlPanel\Tickets\" />
     <Folder Include="Scripts\" />
     <Folder Include="Scripts\Applications\" />
     <Folder Include="Scripts\Applications\ControlPanel\" />
