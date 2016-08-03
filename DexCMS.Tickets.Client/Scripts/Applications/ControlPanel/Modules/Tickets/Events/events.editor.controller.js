@@ -87,7 +87,7 @@
                 }
                 
                 if (item.eventID) {
-                    Events.updateItem(item.eventID, item).success(function (response) {
+                    Events.updateItem(item.eventID, item).then(function (response) {
                         if ($state.current.name != "events/new") {
                             ngToast.create({
                                 className: 'success',
@@ -97,7 +97,7 @@
                         } else {
                             $state.go('events');
                         }
-                    }).error(function (err) {
+                    }, function (err) {
                         console.warn('ERROR');
                         console.log(err);
                         $scope.modelError = {
@@ -107,13 +107,21 @@
                         $scope.processing = false;
                     });
                 } else {
-                    Events.createItem(item).success(function (response) {
+                    Events.createItem(item).then(function (response) {
                         $state.go('events');
-                    }).error(function (err) {
+                    }, function (err) {
                         console.warn('ERROR');
                         console.log(err);
-                        var message = err.message;
-                        message += err.exceptionMessage ? ' ' + err.exceptionMessage : '';
+                        var message;
+                        if (err.data) {
+                            message = err.data.message;
+                            if (err.data.exceptionMessage) {
+                                message += ' ' + err.data.exceptionMessage;
+                            }
+                        } else {
+                            message = "An error has occured.";
+                        }
+                        
                         $scope.modelError = {
                             message: message,
                             errors: err.modelState ? err.modelState.errors : err.stackTrace
