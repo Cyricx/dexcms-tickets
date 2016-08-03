@@ -19,7 +19,7 @@
     (ViewContext.RouteData.Values["urlSegment"].ToString() == "registration" ? new { @class = "active" } : null))
     </li>
     <li>
-        @Html.ActionLink("FAQ", "FAQ", "Events", new { urlSegment = "faq", category = ViewBag.UrlSegment },
+        @Html.ActionLink("Event FAQ", "FAQ", "Events", new { urlSegment = "faq", category = ViewBag.UrlSegment },
     (ViewContext.RouteData.Values["urlSegment"].ToString() == "faq" ? new { @class = "active" } : null))
     </li>
 </ul>
