@@ -219,6 +219,16 @@
                         "path": "/:id/:eageID"
                     }
                 ]
+            },
+            {
+                "name": "reportingTickets",
+                "module": "tickets",
+                "routes": [
+                    {
+                        "viewType": "list",
+                        "path": "/:id"
+                    }
+                ]
             }
         ]
     };

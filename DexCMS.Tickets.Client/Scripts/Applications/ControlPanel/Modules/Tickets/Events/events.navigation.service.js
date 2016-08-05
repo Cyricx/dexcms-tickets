@@ -11,6 +11,7 @@
                 return [
                     { name: 'eventdashboards/:id', text: 'Dashboard', icon: 'fa-dashboard', data: dataID },
                     { name: 'events/:id', text: 'Settings', icon: 'fa-wrench', data: dataID },
+                    { name: 'reportingtickets/:id', text: 'Reports', icon: 'fa-list', data: dataID },
                     { name: 'scheduleitems/:id', text: 'Schedule', icon: 'fa-calendar-o', data: dataID },
                     { name: 'eventfaqcategories/:id', text: 'FAQs', icon: 'fa-question-circle', data: dataID },
                     { text: 'Tickets', icon: 'fa-ticket', items: [
