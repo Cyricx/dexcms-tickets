@@ -11,7 +11,6 @@
                 return [
                     { name: 'eventdashboards/:id', text: 'Dashboard', icon: 'fa-dashboard', data: dataID },
                     { name: 'events/:id', text: 'Settings', icon: 'fa-wrench', data: dataID },
-                    { name: 'reportingtickets/:id', text: 'Reports', icon: 'fa-list', data: dataID },
                     { name: 'scheduleitems/:id', text: 'Schedule', icon: 'fa-calendar-o', data: dataID },
                     { name: 'eventfaqcategories/:id', text: 'FAQs', icon: 'fa-question-circle', data: dataID },
                     { text: 'Tickets', icon: 'fa-ticket', items: [
@@ -19,7 +18,8 @@
                         { name: 'eventagegroups/:id', text: 'Ages', icon: 'fa-users', data: dataID },
                         { name: 'ticketcutoffs/:id', text: 'Prices', icon: 'fa-usd', data: dataID },
                         { name: 'ticketoptions/:id', text: 'Ticket Options', icon: 'fa-shopping-bag', data: dataID },
-                        { name: 'ticketdiscounts/:id', text: 'Discounts', icon: 'fa-tags', data: dataID }
+                            { name: 'ticketdiscounts/:id', text: 'Discounts', icon: 'fa-tags', data: dataID },
+                            { name: 'reportingtickets/:id', text: 'Reports', icon: 'fa-list', data: dataID },
                     ]},
 
                 ];
