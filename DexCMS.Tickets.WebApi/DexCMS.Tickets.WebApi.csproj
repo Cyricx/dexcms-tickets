@@ -130,6 +130,7 @@
     <Compile Include="ApiModels\PaymentApiModel.cs" />
     <Compile Include="ApiModels\PublicEventApiModel.cs" />
     <Compile Include="ApiModels\RegistrationApiModels.cs" />
+    <Compile Include="ApiModels\ReportingTicketsApiModel.cs" />
     <Compile Include="ApiModels\ScheduleItemApiModel.cs" />
     <Compile Include="ApiModels\ScheduleStatusApiModel.cs" />
     <Compile Include="ApiModels\ScheduleTypeApiModel.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="ApiModels\VenueApiModel.cs" />
     <Compile Include="ApiModels\VenueScheduleLocationApiModel.cs" />
     <Compile Include="Controllers\CashierOrdersController.cs" />
+    <Compile Include="Controllers\ReportingTicketsController.cs" />
     <Compile Include="Controllers\CheckInsController.cs" />
     <Compile Include="Controllers\EventAgeGroupsController.cs" />
     <Compile Include="Controllers\EventFaqCategoriesController.cs" />

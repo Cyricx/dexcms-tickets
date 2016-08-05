@@ -95,6 +95,7 @@
             $scope.updateArea = function (area, editted, index) {
                 area.name = editted.name;
                 area.isGA = editted.isGA;
+                area.displayOrder = editted.displayOrder;
                 area.newMaxCapacity = editted.newMaxCapacity;
                 area.newUnavailable = editted.newUnavailable;
                 $scope.switchEdit('Area', area, index);

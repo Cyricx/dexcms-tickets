@@ -32,6 +32,9 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="Configurations\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\ReportingTickets\index.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\ReportingTickets\reportingTickets.list.controller.js" />
+    <Compile Include="Scripts\Applications\ControlPanel\Modules\Tickets\ReportingTickets\reportingTickets.service.js" />
     <Compile Include="Scripts\Applications\Registration\Directives\addDiscount.directive.js" />
     <Compile Include="Scripts\Applications\Registration\Directives\addTicket.directive.js" />
     <Compile Include="Scripts\Applications\Registration\Directives\index.js" />
@@ -252,6 +255,7 @@
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventSeries\" />
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\Events\" />
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventTickets\" />
+    <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\ReportingTickets\" />
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\Orders\" />
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleItems\" />
     <Folder Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleStatuses\" />
