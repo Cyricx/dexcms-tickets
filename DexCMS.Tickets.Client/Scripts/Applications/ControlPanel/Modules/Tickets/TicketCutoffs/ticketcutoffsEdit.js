@@ -32,7 +32,8 @@
                         $scope.pending = true;
                         cutoff.name = editCutoff.name;
                         cutoff.onSellDate = editCutoff.onSellDate;
-                        cutoff.cutoffDate = editCutoff.cutoffDate;
+                            cutoff.cutoffDate = editCutoff.cutoffDate;
+                            cutoff.displayOrder = editCutoff.displayOrder;
                         TicketCutoffs.updateItem(cutoff.ticketCutoffID, cutoff).then(
                             function (response) {
                                 cutoff.isEditting = false;

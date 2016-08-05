@@ -11,7 +11,7 @@
             <h3>{{subtitle}}</h3>
 
             <dexcms-ticket-cutoffs-add></dexcms-ticket-cutoffs-add>
-            <div ng-repeat="ticketCutoff in ticketCutoffs">
+            <div ng-repeat="ticketCutoff in ticketCutoffs | orderBy: 'displayOrder'">
                 <dexcms-ticket-cutoffs-display ticket-cutoff="ticketCutoff" ng-hide="ticketCutoff.isEditting"></dexcms-ticket-cutoffs-display>
                 <dexcms-ticket-cutoffs-edit ticket-cutoff="ticketCutoff" ng-if="ticketCutoff.isEditting"></dexcms-ticket-cutoffs-edit>
             </div>

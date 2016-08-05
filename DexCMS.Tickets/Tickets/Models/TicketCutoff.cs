@@ -24,6 +24,8 @@ namespace DexCMS.Tickets.Tickets.Models
         
         [Required]
         public DateTime CutoffDate { get; set; }
+
+        public int? DisplayOrder { get; set; }
         
         public virtual Event Event { get; set; }
         

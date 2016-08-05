@@ -54,7 +54,7 @@ namespace DexCMS.Tickets.Mvc.Controllers
                     end = item.EndDate.HasValue ? item.EndDate.Value.ToString("MM/dd/yyyy hh:mm tt") : "",
                     allDay = item.IsAllDay,
                     location = item.VenueScheduleLocationID.HasValue ? item.VenueScheduleLocation.Name : item.OtherLocation,
-                    details = item.Details.Replace('\r', ' ').Replace('\n', ' ').Replace("\"", "\\\""),
+                    details = item.Details != null ? item.Details.Replace('\r', ' ').Replace('\n', ' ').Replace("\"", "\\\"") : null,
                     status = item.ScheduleStatus.Name,
                     statusClass = item.ScheduleStatus.CssClass,
                     type = item.ScheduleType.Name,

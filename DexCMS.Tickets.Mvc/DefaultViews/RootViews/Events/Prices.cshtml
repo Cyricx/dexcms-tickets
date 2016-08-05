@@ -8,7 +8,7 @@
     </nav>
     <div class="event-body fees">
 
-            @foreach (var cutoff in Model.TicketCutoffs.OrderBy(x => x.OnSellDate))
+            @foreach (var cutoff in Model.TicketCutoffs.OrderBy(x => x.OnSellDate).ThenBy(x => x.DisplayOrder))
             {
                 if (cutoff.TicketPrices.Count > 0)
                 {

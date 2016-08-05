@@ -63,7 +63,6 @@
                 $scope.editTicketCutoff = angular.copy(cutoff);
                 $scope.editTicketCutoff.onSellDate = _fixDate($scope.editTicketCutoff.onSellDate);
                 $scope.editTicketCutoff.cutoffDate = _fixDate($scope.editTicketCutoff.cutoffDate);
-
             };
 
             $scope.cancelEditCutoff = function (cutoff) {
@@ -76,6 +75,7 @@
                 cutoff.name = editCutoff.name;
                 cutoff.onSellDate = editCutoff.onSellDate;
                 cutoff.cutoffDate = editCutoff.cutoffDate;
+                cutoff.displayOrder = editCutoff.displayOrder;
                 TicketCutoffs.updateItem(cutoff).then(function (response) {
                     cutoff.isEditting = false;
                     cutoff.isOpen = false;
