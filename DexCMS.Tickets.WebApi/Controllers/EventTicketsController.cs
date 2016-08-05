@@ -44,6 +44,7 @@ namespace DexCMS.Tickets.WebApi.Controllers
                     TicketAreaID = a.TicketAreaID,
                     IsGA = a.IsGA,
                     Name = a.Name,
+                    DisplayOrder = a.DisplayOrder,
                     MaxCapacity = a.TicketSeats.Count,
                     NewMaxCapacity = a.TicketSeats.Count,
                     Assigned = a.TicketSeats.Count(ts => ts.TicketSeatStatus == TicketSeatStatus.Assigned || ts.TicketSeatStatus == TicketSeatStatus.Complete),
@@ -93,6 +94,7 @@ namespace DexCMS.Tickets.WebApi.Controllers
                     //Updating
                     TicketArea area = await areaRepository.RetrieveAsync(apiArea.TicketAreaID);
                     area.Name = apiArea.Name;
+                    area.DisplayOrder = apiArea.DisplayOrder;
 
                     if (!area.IsGA)
                     {

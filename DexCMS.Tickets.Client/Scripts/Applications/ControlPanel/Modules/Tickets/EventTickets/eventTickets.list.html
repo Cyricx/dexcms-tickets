@@ -37,7 +37,7 @@
                 <div class="panel-body">
                     <!-- AREAS -->
                     <div class="form-group" ng-show="seatingGroup === 'Areas'">
-                        <div ng-class="calculateColumns(currentItem.ticketAreas, area.editting)" 
+                        <div ng-class="calculateColumns(currentItem.ticketAreas, area.editting)"
                              ng-repeat="area in currentItem.ticketAreas">
                             <div class="well"
                                  dexcms-attention="!area.ticketAreaID"
@@ -84,13 +84,16 @@
                             <form class="well" name="managingAreaForm"
                                   dexcms-attention="!area.ticketAreaID"
                                   attention-message="This item has not been saved."
-                                  novalidate ng-if="area.editting" angular-validator
-                                  >
+                                  novalidate ng-if="area.editting" angular-validator>
                                 <div class="form-group">
                                     <label>Name:</label>
-                                    <input ng-if="!editArea.ticketAreaID" class="form-control" required required-message="'Name is required.'" validate-on="dirty"
+                                    <input class="form-control" required required-message="'Name is required.'" validate-on="dirty"
                                            ng-model="editArea.name" />
-                                    <span ng-if="editArea.ticketAreaID" ng-bind="editArea.name"></span>
+                                    <!--<span ng-if="editArea.ticketAreaID" ng-bind="editArea.name"></span>-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Display Order:</label>
+                                    <input class="form-control" type="number" ng-model="editArea.displayOrder" />
                                 </div>
                                 <div class="form-group checkbox">
                                     <label>
@@ -115,6 +118,7 @@
                                            ng-model="editArea.newMaxCapacity" required />
                                     <small class="text-info">Minimum Capacity is {{editArea.maxCapacity}}</small>
                                 </div>
+
                                 <div class="form-group" ng-if="editArea.isGA">
                                     <div class="row">
                                         <div class="col-xs-6">
@@ -134,17 +138,17 @@
                                     </div>
                                 </div>
                                 <div class="pull-right">
-                                    <button class="btn btn-primary btn-sm" 
-                                          ng-disabled="managingAreaForm.$invalid"
-                                          ng-click="updateArea(area, editArea, $index)">
+                                    <button class="btn btn-primary btn-sm"
+                                            ng-disabled="managingAreaForm.$invalid"
+                                            ng-click="updateArea(area, editArea, $index)">
                                         <i class="fa fa-floppy-o"></i>
                                     </button>
                                     <span class="btn btn-primary btn-sm" ng-click="switchEdit('Area', area, $index)">
                                         <i class="fa fa-ban"></i>
                                     </span>
-                                    <span ng-if="!area.ticketAreaID" 
+                                    <span ng-if="!area.ticketAreaID"
                                           class="btn btn-danger btn-sm"
-                                          ng-disabled="enableClick('Area', $index)" 
+                                          ng-disabled="enableClick('Area', $index)"
                                           ng-click="deleteArea(area, $index)">
                                         <i class="fa fa-trash-o"></i>
                                     </span>
@@ -161,9 +165,8 @@
                                     </button>
                                 </div>
                             </div>
-                            <form class="well" name="addingAreaForm" ng-show="addingArea" 
-                                  novalidate angular-validator
-                                  >
+                            <form class="well" name="addingAreaForm" ng-show="addingArea"
+                                  novalidate angular-validator>
                                 <div class="form-group">
                                     <label class="control-label">Name:</label>
                                     <input type="text"
@@ -173,6 +176,10 @@
                                            ng-model="newArea.name"
                                            required-message="'Name is required.'"
                                            required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Display Order:</label>
+                                    <input class="form-control" type="number" ng-model="newArea.displayOrder" />
                                 </div>
                                 <div class="form-group checkbox">
                                     <label>
@@ -209,9 +216,9 @@
                                     </div>
                                 </div>
                                 <div class="pull-right">
-                                    <btton class="btn btn-primary btn-sm" 
-                                          ng-disabled="addingAreaForm.$invalid" 
-                                          ng-click="saveArea(newArea)">
+                                    <btton class="btn btn-primary btn-sm"
+                                           ng-disabled="addingAreaForm.$invalid"
+                                           ng-click="saveArea(newArea)">
                                         <i class="fa fa-floppy-o"></i>
                                     </btton>
                                     <span class="btn btn-primary btn-sm" ng-click="switchAdd('Area')">
@@ -256,19 +263,18 @@
                             <form class="well"
                                   dexcms-attention="!section.ticketSectionID"
                                   attention-message="This item has not been saved."
-                                  name="managingSectionForm" 
-                                  novalidate ng-if="section.editting" 
-                                  angular-validator
-                                  >
+                                  name="managingSectionForm"
+                                  novalidate ng-if="section.editting"
+                                  angular-validator>
                                 <div class="form-group">
                                     <label>Name:</label>
                                     <input class="form-control" required required-message="'Name is required.'" validate-on="dirty"
                                            ng-model="editSection.name" />
                                 </div>
                                 <div class="pull-right">
-                                    <button class="btn btn-primary btn-sm" 
-                                          ng-disabled="managingSectionForm.$invalid"
-                                          ng-click="updateSection(section, editSection, $index)">
+                                    <button class="btn btn-primary btn-sm"
+                                            ng-disabled="managingSectionForm.$invalid"
+                                            ng-click="updateSection(section, editSection, $index)">
                                         <i class="fa fa-floppy-o"></i>
                                     </button>
                                     <span class="btn btn-primary btn-sm" ng-click="switchEdit('Section', section, $index)">
@@ -291,9 +297,8 @@
                                     </button>
                                 </div>
                             </div>
-                            <form class="well" name="addingSectionForm" ng-show="addingSection" 
-                                  novalidate angular-validator
-                                  >
+                            <form class="well" name="addingSectionForm" ng-show="addingSection"
+                                  novalidate angular-validator>
                                 <div class="form-group">
                                     <label class="control-label">Name:</label>
                                     <input type="text"
@@ -305,8 +310,8 @@
                                            required>
                                 </div>
                                 <div class="pull-right">
-                                    <button class="btn btn-primary btn-sm" ng-disabled="addingSectionForm.$invalid" 
-                                          ng-click="saveSection(newSection)">
+                                    <button class="btn btn-primary btn-sm" ng-disabled="addingSectionForm.$invalid"
+                                            ng-click="saveSection(newSection)">
                                         <i class="fa fa-floppy-o"></i>
                                     </button>
                                     <span class="btn btn-primary btn-sm" ng-click="switchAdd('Section')">
@@ -363,8 +368,7 @@
                             <form class="well"
                                   dexcms-attention="!row.ticketRowID"
                                   attention-message="This item has not been saved."
-                                  name="managingRowForm" novalidate ng-if="row.editting" angular-validator
-                                  >
+                                  name="managingRowForm" novalidate ng-if="row.editting" angular-validator>
                                 <div class="form-group">
                                     <label>Designation:</label>
                                     <input ng-if="!row.ticketRowID" class="form-control" name="designation" required required-message="'Designation is required.'"
@@ -401,7 +405,7 @@
                                 </div>
                                 <div class="pull-right">
                                     <button class="btn btn-primary btn-sm" ng-disabled="managingRowForm.$invalid"
-                                          ng-click="updateRow(row, editRow, $index)">
+                                            ng-click="updateRow(row, editRow, $index)">
                                         <i class="fa fa-floppy-o"></i>
                                     </button>
                                     <span class="btn btn-primary btn-sm" ng-click="switchEdit('Row', row, $index)">
@@ -424,9 +428,8 @@
                                     </button>
                                 </div>
                             </div>
-                            <form class="well" name="addingRowForm" ng-show="addingRow" 
-                                  novalidate angular-validator
-                                  >
+                            <form class="well" name="addingRowForm" ng-show="addingRow"
+                                  novalidate angular-validator>
                                 <div class="form-group">
                                     <label class="control-label">Designation:</label>
                                     <input type="text"
@@ -465,9 +468,9 @@
                                     </div>
                                 </div>
                                 <div class="pull-right">
-                                    <button class="btn btn-primary btn-sm" 
-                                          ng-disabled="addingRowForm.$invalid" 
-                                          ng-click="saveRow(newRow)">
+                                    <button class="btn btn-primary btn-sm"
+                                            ng-disabled="addingRowForm.$invalid"
+                                            ng-click="saveRow(newRow)">
                                         <i class="fa fa-floppy-o"></i>
                                     </button>
                                     <span class="btn btn-primary btn-sm" ng-click="switchAdd('Row')">

@@ -8,7 +8,7 @@
     </nav>
     <div class="event-body fees">
 
-            @foreach (var cutoff in Model.TicketCutoffs.OrderBy(x => x.OnSellDate))
+        @foreach (var cutoff in Model.TicketCutoffs.OrderBy(x => x.OnSellDate))
             {
                 if (cutoff.TicketPrices.Count > 0)
                 {
@@ -16,12 +16,12 @@
                     <h3>@cutoff.Name</h3>
                     <div class="cutoff-dates">
                         <strong>On sale from: </strong>
-                            <span>@cutoff.OnSellDate.ToString("MMM d, yyyy")</span>
-                            <em>to</em>
-                            <span>@cutoff.CutoffDate.ToString("MMM d, yyyy")</span>
+                        <span>@cutoff.OnSellDate.ToString("MMM d, yyyy")</span>
+                        <em>to</em>
+                        <span>@cutoff.CutoffDate.ToString("MMM d, yyyy")</span>
                     </div>
                     <div class="cutoff-prices">
-                        @foreach (var area in cutoff.TicketPrices.GroupBy(s => s.TicketArea).OrderBy(s => s.TicketArea.DisplayOrder))
+                        @foreach (var area in cutoff.TicketPrices.OrderBy(s => s.TicketArea.DisplayOrder).GroupBy(s => s.TicketArea))
                     {
                             <div class="cutoff-areas">
                                 <h4>@area.Key.Name</h4>
@@ -64,8 +64,8 @@
                         }
                     </div>
                 </div>
-                }
             }
+        }
 
     </div>
 

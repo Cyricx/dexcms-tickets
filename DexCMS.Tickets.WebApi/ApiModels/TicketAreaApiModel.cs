@@ -6,6 +6,7 @@ namespace DexCMS.Tickets.WebApi.ApiModels
     {
         public int? TicketAreaID { get; set; }
         public string Name { get; set; }
+        public int? DisplayOrder { get; set; }
         public bool IsGA { get; set; }
         public List<TicketSectionApiModel> TicketSections { get; set; }
         public int EventID { get; set; }
