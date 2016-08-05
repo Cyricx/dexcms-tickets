@@ -20,6 +20,8 @@ namespace DexCMS.Tickets.Tickets.Models
 
         [Required]
         public bool IsGA { get; set; }
+        
+        public int? DisplayOrder { get; set; }
 
         public virtual Event Event { get; set; }
         
