@@ -34,9 +34,9 @@
                 DTColumnBuilder.newColumn('firstName').withTitle('Holder').renderWith(holderHtml),
                 DTColumnBuilder.newColumn('ticketAreaName').withTitle('Designation').renderWith(designationHtml),
                 DTColumnBuilder.newColumn('ticketDiscountName').withTitle('Discount').renderWith(discountHtml),
-                DTColumnBuilder.newColumn('options').withTitle('options').renderWith(optionHtml),
-                DTColumnBuilder.newColumn('ticketTotalPrice').withTitle('Ticket Price').renderWith(currencyHtml('ticketTotalPrice')),
-                DTColumnBuilder.newColumn('orderTotal').withTitle('Order Total').renderWith(currencyHtml('orderTotal')),
+                DTColumnBuilder.newColumn('options').withTitle('Options').renderWith(optionHtml),
+                DTColumnBuilder.newColumn('ticketTotalPrice').withTitle('Ticket Price').renderWith(currencyHtml),
+                DTColumnBuilder.newColumn('orderTotal').withTitle('Order Total').renderWith(currencyHtml),
             ];
             
             function createdRow(row, data, dataIndex) {
@@ -45,54 +45,53 @@
             }
             function optionHtml(data, type, full, meta) {
                 var html = "<ul>";
-                angular.forEach(data.options, function (option) {
-                    html += "<li><strong>" + option.optionName + "</strong>: " + option.optionChoiceNme + "</li>";
+                angular.forEach(full.options, function (option) {
+                    html += "<li><strong>" + option.optionName + "</strong>: " + option.optionChoiceName + "</li>";
                 });
                 return html;
             };
             
-            function currencyHtml(property) {
-                return function (data, type, full, meta) {
-                    return $filter('currency')(data[property]);
-                };
+            function currencyHtml(data, type, full, meta) {
+                return $filter('currency')(data);
             }
             
             function discountHtml(data, type, full, meta) {
-                var discount = data.ticketDiscountName;
-                if (data.ticketDiscountCode) {
-                    discount += ' ' + data.ticketDiscountCode;
+                var discount = data;
+                if (full.ticketDiscountCode) {
+                    discount += ' (' + full.ticketDiscountCode + ')';
                 }
                 return discount;
             }
-
+            
             function userHtml(data, type, full, meta) {
-                var html = '<span>' + data.userName + '</span>';
-                if (data.preferredName) {
-                    html += '<br /><em>(' + data.preferredName + ')</em>';
+                var html = '<span>' + data + '</span>';
+                if (full.preferredName) {
+                    html += '<br /><em>(' + full.preferredName + ')</em>';
                 }
                 return html;
             }
             
-            function designation(data, type, full, meta) {
-                var designation = data.ticketAreaName;
-                if (data.ticketSectionName) {
-                    designation += ' ' + data.ticketSectionName;
+            function designationHtml(data, type, full, meta) {
+                
+                var designation = data;
+                
+                if (full.ticketSectionName) {
+                    designation += ' ' + full.ticketSectionName;
                 }
-                if (data.ticketRowDesignation) {
-                    designation += ' ' + data.ticketRowDesignation;
+                if (full.ticketRowDesignation) {
+                    designation += ' ' + full.ticketRowDesignation;
                 }
                 return designation;
+      
             }
             
             function holderHtml(data, type, full, meta) {
-                var holder = null;
-                if (data.firstName && data.lastName) {
-                    var holder = data.firstName;
-                    if (data.middleInitial) {
-                        holder += " " + data.middleInitial;
-                    }
-                    holder += " " + data.lastName;
+                var holder = data;
+                if (full.middleInitial) {
+                    holder += " " + full.middleInitial;
                 }
+                holder += " " + full.lastName;
+                
                 return holder;
             }
             

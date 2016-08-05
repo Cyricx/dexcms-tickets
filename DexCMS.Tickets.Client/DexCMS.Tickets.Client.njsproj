@@ -185,6 +185,7 @@
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\EventTickets\eventTickets.list.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\Orders\orders.details.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\Orders\orders.list.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\ReportingTickets\reportingtickets.list.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleItems\scheduleItems.editor.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleItems\scheduleItems.list.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\ScheduleStatuses\scheduleStatuses.editor.html" />
