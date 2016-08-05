@@ -17,23 +17,23 @@ namespace DexCMS.Tickets.Globals
     {
         public static void RegisterServices(IKernel kernel)
         {
-            //! Ticketing.Events
+            //! Tickets.Events
             kernel.Bind<IEventRepository>().To<EventRepository>();
             kernel.Bind<IEventAgeGroupRepository>().To<EventAgeGroupRepository>();
             kernel.Bind<IEventFaqCategoryRepository>().To<EventFaqCategoryRepository>();
             kernel.Bind<IEventFaqItemRepository>().To<EventFaqItemRepository>();
             kernel.Bind<IEventSeriesRepository>().To<EventSeriesRepository>();
 
-            //! Ticket.Orders
+            //! Tickets.Orders
             kernel.Bind<IOrderRepository>().To<OrderRepository>();
             kernel.Bind<ITicketRepository>().To<TicketRepository>();
 
-            //! Ticketing.Schedules
+            //! Tickets.Schedules
             kernel.Bind<IScheduleItemRepository>().To<ScheduleItemRepository>();
             kernel.Bind<IScheduleStatusRepository>().To<ScheduleStatusRepository>();
             kernel.Bind<IScheduleTypeRepository>().To<ScheduleTypeRepository>();
 
-            //! Ticketing.Tickets
+            //! Tickets.Tickets
             kernel.Bind<ITicketAreaRepository>().To<TicketAreaRepository>();
             kernel.Bind<ITicketAreaDiscountRepository>().To<TicketAreaDiscountRepository>();
             kernel.Bind<ITicketDiscountRepository>().To<TicketDiscountRepository>();
@@ -45,7 +45,7 @@ namespace DexCMS.Tickets.Globals
             kernel.Bind<ITicketOptionDiscountRepository>().To<TicketOptionDiscountRepository>();
             kernel.Bind<ITicketOptionChoiceRepository>().To<TicketOptionChoiceRepository>();
 
-            //! Ticketing.Venues
+            //! Tickets.Venues
             kernel.Bind<IVenueRepository>().To<VenueRepository>();
             kernel.Bind<IVenueAreaRepository>().To<VenueAreaRepository>();
             kernel.Bind<IVenueRowRepository>().To<VenueRowRepository>();

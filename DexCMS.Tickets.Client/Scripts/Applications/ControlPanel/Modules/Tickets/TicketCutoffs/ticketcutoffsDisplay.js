@@ -11,7 +11,7 @@
                 scope: {
                     "ticketCutoff": "="
                 },
-                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.display.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/tickets/ticketcutoffs/_ticketcutoffs.display.html',
                 controller: ['$scope', 'TicketCutoffs', function ($scope, TicketCutoffs) {
                     //! Added temporarily
                     $scope.ticketCutoff.showContents = true;

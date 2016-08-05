@@ -743,7 +743,7 @@ item.TicketSeats.Count(
             //bad code
             if (discount == null)
             {
-                await Logger.WriteLog(LogType.Error, string.Format("TICKETING - Bad Code {0} attempted by {1}", model.Code, HttpContext.Current.Request.UserHostAddress));
+                await Logger.WriteLog(LogType.Error, string.Format("TICKETS - Bad Code {0} attempted by {1}", model.Code, HttpContext.Current.Request.UserHostAddress));
                 return BadRequest("BadCode");
 
             }
@@ -751,7 +751,7 @@ item.TicketSeats.Count(
             //expired
             if (discount.CutoffDate < cstTime)
             {
-                await Logger.WriteLog(LogType.Warning, string.Format("TICKETING - Expired Discount {0} requested to be used by {1}", discount.Name, HttpContext.Current.Request.UserHostAddress));
+                await Logger.WriteLog(LogType.Warning, string.Format("TICKETS - Expired Discount {0} requested to be used by {1}", discount.Name, HttpContext.Current.Request.UserHostAddress));
                 return BadRequest("ExpiredCode");
             }
             int? maxAvailable = discount.MaximumAvailable.HasValue ?
@@ -765,7 +765,7 @@ item.TicketSeats.Count(
             //    && discount.MaximumAvailable <= discount.TicketSeats.Count(x => x.TicketSeatStatus == TicketSeatStatus.Assigned || x.TicketSeatStatus == TicketSeatStatus.Complete))
             if (maxAvailable.HasValue && maxAvailable <= 0)
             {
-                await Logger.WriteLog(LogType.Warning, string.Format("TICKETING - Discount has no tickets left {0} requested to be used by {1}", discount.Name, HttpContext.Current.Request.UserHostAddress));
+                await Logger.WriteLog(LogType.Warning, string.Format("TICKETS - Discount has no tickets left {0} requested to be used by {1}", discount.Name, HttpContext.Current.Request.UserHostAddress));
                 return BadRequest("NoneLeft");
 
             }

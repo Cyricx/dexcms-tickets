@@ -11,7 +11,7 @@
                 scope: {
                     "ticketCutoff": "="
                 },
-                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.add.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/tickets/ticketcutoffs/_ticketcutoffs.add.html',
                 controller: [
                     '$scope',
                     'TicketCutoffs',
@@ -19,7 +19,7 @@
                     'ngToast',
                     function ($scope, TicketCutoffs, $stateParams, ngToast) {
 
-                    $scope.formInputs = dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.form.html';
+                    $scope.formInputs = dexcmsSettings.startingRoute + '/modules/tickets/ticketcutoffs/_ticketcutoffs.form.html';
 
                     var eventID = $stateParams.id;
 

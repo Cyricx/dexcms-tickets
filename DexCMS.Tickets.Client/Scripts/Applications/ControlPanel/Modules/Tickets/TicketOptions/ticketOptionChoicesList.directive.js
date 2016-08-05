@@ -13,7 +13,7 @@
                 scope: {
                     "ticketOption": "="
                 },
-                templateUrl: dexcmsSettings.startingRoute + './modules/ticketing/ticketoptions/_ticketoptionchoiceslist.html',
+                templateUrl: dexcmsSettings.startingRoute + './modules/tickets/ticketoptions/_ticketoptionchoiceslist.html',
                 controller: [
                     '$scope',
                     'TicketOptionChoices',

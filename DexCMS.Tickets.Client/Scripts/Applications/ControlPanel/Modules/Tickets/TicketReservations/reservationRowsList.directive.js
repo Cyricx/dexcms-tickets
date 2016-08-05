@@ -14,7 +14,7 @@
                     "execOnChange": "&",
                     "config":"="
                 },
-                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketreservations/views/_reservationrows.list.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/tickets/ticketreservations/views/_reservationrows.list.html',
                 controller: [
                     '$scope',
                     'TicketReservations',

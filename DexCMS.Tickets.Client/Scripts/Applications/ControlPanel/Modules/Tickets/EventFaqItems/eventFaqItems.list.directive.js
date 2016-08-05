@@ -10,7 +10,7 @@
                 scope: {
                     "faqCategory": "="
                 },
-                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/eventfaqitems/_eventfaqitems.list.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/tickets/eventfaqitems/_eventfaqitems.list.html',
                 controller: [
         '$scope',
         'EventFaqItems',

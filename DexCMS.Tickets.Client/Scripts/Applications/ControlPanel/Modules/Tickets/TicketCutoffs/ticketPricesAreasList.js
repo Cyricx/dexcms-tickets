@@ -11,7 +11,7 @@
                 scope: {
                     "ticketAreas":"="
                 },
-                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketpricesareas.list.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/tickets/ticketcutoffs/_ticketpricesareas.list.html',
                 controller: [
                     '$scope',
                     function ($scope) {

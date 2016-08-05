@@ -11,14 +11,14 @@
                 scope: {
                     "ticketCutoff": "="
                 },
-                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.edit.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/tickets/ticketcutoffs/_ticketcutoffs.edit.html',
                 controller: [
                     '$scope',
                     'TicketCutoffs',
                     'ngToast',
                     function ($scope, TicketCutoffs, ngToast) {
 
-                    $scope.formInputs = dexcmsSettings.startingRoute + '/modules/ticketing/ticketcutoffs/_ticketcutoffs.form.html';
+                    $scope.formInputs = dexcmsSettings.startingRoute + '/modules/tickets/ticketcutoffs/_ticketcutoffs.form.html';
 
                     var init = function () {
                         $scope.currentItem = angular.copy($scope.ticketCutoff);

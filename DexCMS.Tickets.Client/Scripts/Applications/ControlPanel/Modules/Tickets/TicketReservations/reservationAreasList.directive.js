@@ -12,7 +12,7 @@
                     "ticketAreas": "=",
                     "config": "=",
                 },
-                templateUrl: dexcmsSettings.startingRoute + '/modules/ticketing/ticketreservations/views/_reservationareas.list.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/tickets/ticketreservations/views/_reservationareas.list.html',
                 controller: [
                     '$scope',
                     'TicketReservations',
