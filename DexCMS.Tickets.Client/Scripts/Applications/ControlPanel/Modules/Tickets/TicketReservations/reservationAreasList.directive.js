@@ -3,7 +3,7 @@
     'controlpanel-app',
 ], function (angular, module) {
     module.directive('dexcmsReservationAreasList', [
-        'dexcmsSettings',
+        'dexCMSControlPanelSettings',
         function (dexcmsSettings) {
             return {
                 restrict: "E",
@@ -12,7 +12,7 @@
                     "ticketAreas": "=",
                     "config": "=",
                 },
-                templateUrl: dexcmsSettings.startingRoute + '/modules/tickets/ticketreservations/views/_reservationareas.list.html',
+                templateUrl: dexcmsSettings.startingRoute + '/modules/tickets/ticketreservations/_reservationareas.list.html',
                 controller: [
                     '$scope',
                     'TicketReservations',
