@@ -4,51 +4,40 @@
     app.controller('venuesListCtrl', [
         '$scope',
         'Venues',
-        'DTOptionsBuilder',
-        'DTColumnBuilder',
-        '$compile',
         '$window',
-        function ($scope, Venues, DTOptionsBuilder, DTColumnBuilder, $compile, $window) {
+        'dexCMSControlPanelSettings',
+        function ($scope, Venues, $window, dexcmsSettings) {
             $scope.title = "View Venues";
 
-            $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
-                return Venues.getList();
-            }).withBootstrap().withOption('createdRow', createdRow);
-
-            $scope.dtColumns = [
-                DTColumnBuilder.newColumn('venueID').withTitle('ID'),
-                DTColumnBuilder.newColumn('name').withTitle('Name'),
-                DTColumnBuilder.newColumn(null).withTitle('Schedule Locations').notSortable().renderWith(locationsHtml),
-                DTColumnBuilder.newColumn(null).withTitle('').notSortable().renderWith(actionsHtml)
-            ];
-
-            function createdRow(row, data, dataIndex) {
-                // Recompiling so we can bind Angular directive to the DT
-                $compile(angular.element(row).contents())($scope);
-            }
-
-            function actionsHtml(data, type, full, meta) {
-                var buttons = '<a class="btn btn-warning" ui-sref="venues/:id({id:' + data.venueID + '})">' +
-                   '   <i class="fa fa-edit"></i>' +
-                   '</a>';
-                buttons += ' <button class="btn btn-danger" ng-click="delete(' + data.venueID + ')">' +
-                   '   <i class="fa fa-trash-o"></i>' +
-                   '</button>';
-                return buttons;
-            }
-
-            function locationsHtml(data, type, full, meta) {
-                return '<a class="btn btn-primary" ui-sref="venueschedulelocations/:id({id:' + data.venueID + '})">' +
-                    'View</a>';
-            }
-
-            $scope.delete = function (id) {
-                if (confirm('Are you sure?')) {
-                    Venues.deleteItem(id).then(function (response) {
-                        $window.location.reload();
-                    });
-                }
+            $scope.table = {
+                columns: [
+                    { property: 'venueID', title: 'ID' },
+                    { property: 'name', title: 'Name' },
+                    {
+                        property: '', title: 'Schedule Locations', disableSorting: true,
+                        dataTemplate: dexcmsSettings.startingRoute + 'modules/tickets/venues/_venues.list.schedulelocations.html'
+                    },
+                    {
+                        property: '', title: '', disableSorting: true,
+                        dataTemplate: dexcmsSettings.startingRoute + 'modules/tickets/venues/_venues.list.buttons.html'
+                    }
+                ],
+                defaultSort: 'venueID',
+                functions: {
+                    remove: function (id) {
+                        if (confirm('Are you sure?')) {
+                            Venues.deleteItem(id).then(function (response) {
+                                $window.location.reload();
+                            });
+                        }
+                    }
+                },
+                filePrefix: 'Venues'
             };
+
+            Venues.getList().then(function (data) {
+                $scope.table.promiseData = data;
+            });
         }
     ]);
 });

@@ -4,55 +4,53 @@
 	app.controller('ordersListCtrl', [
         '$scope',
         'Orders',
-        'DTOptionsBuilder',
-        'DTColumnBuilder',
-        '$compile',
         '$filter',
         '$window',
-        function ($scope, Orders, DTOptionsBuilder, DTColumnBuilder, $compile, $filter, $window) {
+        'dexCMSControlPanelSettings',
+        function ($scope, Orders, $filter, $window, dexcmsSettings) {
         	$scope.title = "View Orders";
 
-        	$scope.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
-        		return Orders.getList();
-        	}).withBootstrap().withOption('createdRow', createdRow);
-
-        	$scope.dtColumns = [
-                DTColumnBuilder.newColumn('orderID').withTitle('ID'),
-                DTColumnBuilder.newColumn('userName').withTitle('Name'),
-                DTColumnBuilder.newColumn('orderStatusName').withTitle('Status'),
-                DTColumnBuilder.newColumn('enteredOn').withTitle('Entered').renderWith(dateHtml),
-                DTColumnBuilder.newColumn('orderTotal').withTitle('Total').renderWith(currencyHtml),
-                DTColumnBuilder.newColumn('ticketCount').withTitle('Tickets'),
-                DTColumnBuilder.newColumn(null).withTitle('').notSortable().renderWith(actionsHtml)
-        	];
-
-        	function createdRow(row, data, dataIndex) {
-        		// Recompiling so we can bind Angular directive to the DT
-        		$compile(angular.element(row).contents())($scope);
-        	}
-
-        	function actionsHtml(data, type, full, meta) {
-        		var buttons = '<a class="btn btn-success" ui-sref="orders/details/:id({id: +' + data.orderID + '})">' +
-                   '   <i class="fa fa-search"></i>' +
-                   '</a>';
-        		return buttons;
-        	}
-
-        	function dateHtml(data, type, full, meta) {
-        		return new Date(data).toLocaleString();
-        	}
-
-        	function currencyHtml(data, type, full, meta) {
-        	    return $filter('currency')(data);
-        	}
-
-        	$scope.cleanOrders = function () {
-        		$scope.processing = true;
-        		Orders.deleteExpired().then(function (response) {
-        			$scope.processing = false;
-        	        $window.location.reload();
-        	    });
+        	var _renderDate = function (value, item) {
+        	    if (value != null) {
+        	        return $filter('date')(value, "MM/dd/yyyy h:mm a");
+        	    } else {
+        	        return null;
+        	    }
         	};
+
+        	$scope.table = {
+        	    columns: [
+                    { property: 'orderID', title: 'ID' },
+                    { property: 'userName', title: 'Name' },
+                    { property: 'orderStatusName', title: 'Status' },
+                    { property: 'enteredOn', title: 'Entered', dataFunction: _renderDate },
+                    {
+                        property: 'orderTotal', title: 'Total', dataFunction: function (data, item) {
+                            return $filter('currency')(data);
+                        }
+                    },
+                    { property: 'ticketCount', title: 'Tickets' },
+                    {
+                        property: '', title: '', disableSorting: true,
+                        dataTemplate: dexcmsSettings.startingRoute + 'modules/tickets/orders/_orders.list.buttons.html'
+                    }
+        	    ],
+        	    defaultSort: 'orderID',
+                filePrefix: 'Orders'
+        	};
+
+        	Orders.getList().then(function (data) {
+        	    $scope.table.promiseData = data;
+        	});
+
+            //ToDo: possible bugs with server side implementation
+        	//$scope.cleanOrders = function () {
+        	//	$scope.processing = true;
+        	//	Orders.deleteExpired().then(function (response) {
+        	//		$scope.processing = false;
+        	//        $window.location.reload();
+        	//    });
+        	//};
         }
 	]);
 });

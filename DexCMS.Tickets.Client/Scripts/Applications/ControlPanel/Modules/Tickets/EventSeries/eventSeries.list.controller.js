@@ -4,46 +4,37 @@
     app.controller('eventSeriesListCtrl', [
         '$scope',
         'EventSeries',
-        'DTOptionsBuilder',
-        'DTColumnBuilder',
-        '$compile',
         '$window',
-        function ($scope, EventSeries, DTOptionsBuilder, DTColumnBuilder, $compile, $window) {
-            $scope.title = "View EventSeries";
+        'dexCMSControlPanelSettings',
+        function ($scope, EventSeries, $window, dexcmsSettings) {
+            $scope.title = "View Event Series";
 
-            $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
-                return EventSeries.getList();
-            }).withBootstrap().withOption('createdRow', createdRow);
-
-            $scope.dtColumns = [
-                DTColumnBuilder.newColumn('eventSeriesID').withTitle('ID'),
-                DTColumnBuilder.newColumn('seriesName').withTitle('Name'),
-                DTColumnBuilder.newColumn('isActive').withTitle('Is Active?'),
-                DTColumnBuilder.newColumn(null).withTitle('').notSortable().renderWith(actionsHtml)
-            ];
-
-            function createdRow(row, data, dataIndex) {
-                // Recompiling so we can bind Angular directive to the DT
-                $compile(angular.element(row).contents())($scope);
-            }
-
-            function actionsHtml(data, type, full, meta) {
-                var buttons = '<a class="btn btn-warning" ui-sref="eventseries/:id({id: +' + data.eventSeriesID + '})">' +
-                   '   <i class="fa fa-edit"></i>' +
-                   '</a>';
-                    buttons += ' <button class="btn btn-danger" ng-click="delete(' + data.eventSeriesID + ')">' +
-                   '   <i class="fa fa-trash-o"></i>' +
-                   '</button>';
-                return buttons;
-            }
-
-            $scope.delete = function (id) {
-                if (confirm('Are you sure?')) {
-                    EventSeries.deleteItem(id).then(function (response) {
-                        $window.location.reload();
-                    });
-                }
+            $scope.table = {
+                columns: [
+                    { property: 'eventSeriesID', title: 'ID' },
+                    { property: 'seriesName', title: 'Name' },
+                    { property: 'isActive', title: 'Is Active?' },
+                    {
+                        property: '', title: '', disableSorting: true,
+                        dataTemplate: dexcmsSettings.startingRoute + 'modules/tickets/eventseries/_eventseries.list.buttons.html'
+                    }
+                ],
+                defaultSort: 'eventSeriesID',
+                functions: {
+                    remove: function (id) {
+                        if (confirm('Are you sure?')) {
+                            EventSeries.deleteItem(id).then(function (response) {
+                                $window.location.reload();
+                            });
+                        }
+                    }
+                },
+                filePrefix: 'Event-Series'
             };
+
+            EventSeries.getList().then(function (data) {
+                $scope.table.promiseData = data;
+            });
         }
     ]);
 });

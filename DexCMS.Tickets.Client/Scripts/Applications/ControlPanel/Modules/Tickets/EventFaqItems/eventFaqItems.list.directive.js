@@ -14,11 +14,7 @@
                 controller: [
         '$scope',
         'EventFaqItems',
-        'DTOptionsBuilder',
-        'DTColumnBuilder',
-        '$compile',
-        '$window',
-        function ($scope, EventFaqItems, DTOptionsBuilder, DTColumnBuilder, $compile, $window) {
+        function ($scope, EventFaqItems) {
             $scope.title = null;
             $scope.faqItems = [];
 

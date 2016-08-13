@@ -7,14 +7,10 @@
     app.controller('eventFaqCategoriesListCtrl', [
         '$scope',
         'EventFaqCategories',
-        'DTOptionsBuilder',
-        'DTColumnBuilder',
-        '$compile',
-        '$window',
         '$stateParams',
         '$state',
         'EventsNavigation',
-        function ($scope, EventFaqCategories, DTOptionsBuilder, DTColumnBuilder, $compile, $window, $stateParams, $state, EventsNavigation) {
+        function ($scope, EventFaqCategories, $stateParams, $state, EventsNavigation) {
             $scope.title = "Faq Categories";
             $scope.selectedCategory = null;
 

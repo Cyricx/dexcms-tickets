@@ -28,7 +28,7 @@
                     $scope.order = response.data;
                     $scope.ticketHoldersForm.$setPristine();
                     $scope.isProcessing = false;
-                    if (someoneHasNotArrived) {
+                    if (someoneHasNotArrived && userData.isCashier) {
                         alert('One or more attendees were marked as not arrived!');
                     }
                 });

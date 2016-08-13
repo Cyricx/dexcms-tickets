@@ -6,15 +6,11 @@
     app.controller('eventTicketsListCtrl', [
         '$scope',
         'EventTickets',
-        'DTOptionsBuilder',
-        'DTColumnBuilder',
-        '$compile',
-        '$window',
         '$stateParams',
         'Venues',
         '$state',
         'EventsNavigation',
-        function ($scope, EventTickets, DTOptionsBuilder, DTColumnBuilder, $compile, $window, $stateParams, Venues, $state, EventsNavigation) {
+        function ($scope, EventTickets, $stateParams, Venues, $state, EventsNavigation) {
             var eventID = $stateParams.id;
             
             $scope.isLoading = true;

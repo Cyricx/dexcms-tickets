@@ -5,39 +5,49 @@
     app.controller('eventAgeGroupsListCtrl', [
         '$scope',
         'EventAgeGroups',
-        'DTOptionsBuilder',
-        'DTColumnBuilder',
-        '$compile',
         '$window',
         '$stateParams',
         'EventsNavigation',
         '$state',
-        function ($scope, EventAgeGroups, DTOptionsBuilder, DTColumnBuilder, $compile, $window, $stateParams, EventsNavigation, $state) {
+        'dexCMSControlPanelSettings',
+        function ($scope, EventAgeGroups, $window, $stateParams, EventsNavigation, $state, dexcmsSettings) {
             $scope.subtitle = "View Age Groups";
             
             $scope.eventID = $stateParams.id;
 
+            $scope.table = {
+                columns: [
+                    { property: 'eventAgeGroupID', title: 'ID' },
+                    { property: 'name', title: 'Name' },
+                    { property: 'minimumAge', title: 'Minimum Age' },
+                    { property: 'maximumAge', title: 'Maximum Age' },
+                    {
+                        property: '', title: '', disableSorting: true,
+                        dataTemplate: dexcmsSettings.startingRoute + 'modules/tickets/eventagegroups/_eventagegroups.list.buttons.html'
+                    }
+                ],
+                defaultSort: 'eventAgeGroupID',
+                functions: {
+                    remove: function (id) {
+                        if (confirm('Are you sure?')) {
+                            EventAgeGroups.deleteItem(id).then(function (response) {
+                                $window.location.reload();
+                            });
+                        }
+                    }
+                }
+            };
+
             EventsNavigation.getNavigation($stateParams.id, function (data) {
                 $scope.navigation = data;
+                $scope.table.filePrefix = data.title.replace('Manage ','').replace(/ /g, '-') + '-Event-Age-Groups';
                 EventsNavigation.setActive($state.current.name);
             });
 
-            $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
-                return EventAgeGroups.getListByEvent($scope.eventID);
-            }).withBootstrap().withOption('createdRow', createdRow);
 
-            $scope.dtColumns = [
-                DTColumnBuilder.newColumn('eventAgeGroupID').withTitle('ID'),
-                DTColumnBuilder.newColumn('name').withTitle('Name'),
-                DTColumnBuilder.newColumn('minimumAge').withTitle('Minimum Age'),
-                DTColumnBuilder.newColumn('maximumAge').withTitle('Maximum Age'),
-                DTColumnBuilder.newColumn(null).withTitle('').notSortable().renderWith(actionsHtml)
-            ];
-
-            function createdRow(row, data, dataIndex) {
-                // Recompiling so we can bind Angular directive to the DT
-                $compile(angular.element(row).contents())($scope);
-            }
+            EventAgeGroups.getListByEvent($scope.eventID).then(function (data) {
+                $scope.table.promiseData = data;
+            });
 
             function actionsHtml(data, type, full, meta) {
                 var buttons = '<a class="btn btn-warning" ui-sref="eventagegroups/:id/:eageID({id: +' + data.eventID + ', eageID: ' + data.eventAgeGroupID + '})">' +
@@ -54,14 +64,6 @@
 
                 return buttons;
             }
-
-            $scope.delete = function (id) {
-                if (confirm('Are you sure?')) {
-                    EventAgeGroups.deleteItem(id).then(function (response) {
-                        $window.location.reload();
-                    });
-                }
-            };
         }
     ]);
 });

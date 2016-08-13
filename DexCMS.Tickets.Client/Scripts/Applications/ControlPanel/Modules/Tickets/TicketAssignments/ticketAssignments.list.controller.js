@@ -5,40 +5,33 @@
     app.controller('ticketAssignmentsListCtrl', [
         '$scope',
         'Tickets',
-        'DTOptionsBuilder',
-        'DTColumnBuilder',
-        '$compile',
         '$filter',
-        function ($scope, Tickets, DTOptionsBuilder, DTColumnBuilder, $compile, $filter) {
+        'dexCMSControlPanelSettings',
+        function ($scope, Tickets, $filter, dexcmsSettings) {
             $scope.title = "View Ticket Assignments";
             
-            $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
-                return Tickets.getList();
-            }).withBootstrap().withOption('createdRow', createdRow);
+            $scope.table = {
+                columns: [
+                    { property: 'eventID', title: 'ID' },
+                    { property: 'pageContentHeading', title: 'Event' },
+                    { property: 'eventSeriesName', title: 'Series' },
+                    { property: 'availableCount', title: 'Available' },
+                    { property: 'disabledCount', title: 'Disabled' },
+                    { property: 'reservedCount', title: 'Reserved' },
+                    { property: 'assignedCount', title: 'Assigned' },
+                    { property: 'completeCount', title: 'Complete' },
+                    {
+                        property: '', title: '', disableSorting: true,
+                        dataTemplate: dexcmsSettings.startingRoute + 'modules/tickets/ticketassignments/_ticketassignments.list.buttons.html'
+                    }
+                ],
+                defaultSort: 'eventID',
+                filePrefix: 'Ticket-Assignments'
+            };
 
-            $scope.dtColumns = [
-                DTColumnBuilder.newColumn('eventID').withTitle('ID'),
-                DTColumnBuilder.newColumn('pageContentHeading').withTitle('ID'),
-                DTColumnBuilder.newColumn('eventSeriesName').withTitle('Series'),
-                DTColumnBuilder.newColumn('availableCount').withTitle('Available'),
-                DTColumnBuilder.newColumn('disabledCount').withTitle('Disabled'),
-                DTColumnBuilder.newColumn('reservedCount').withTitle('Reserved'),
-                DTColumnBuilder.newColumn('assignedCount').withTitle('Assigned'),
-                DTColumnBuilder.newColumn('completeCount').withTitle('Complete'),
-                DTColumnBuilder.newColumn(null).withTitle('').notSortable().renderWith(actionsHtml)
-            ];
-            
-            function createdRow(row, data, dataIndex) {
-                // Recompiling so we can bind Angular directive to the DT
-                $compile(angular.element(row).contents())($scope);
-            }
-            
-            function actionsHtml(data, type, full, meta) {
-                var buttons = '<a class="btn btn-warning" ui-sref="ticketassignments/:id({id: +' + data.eventID + '})">' +
-                   '   <i class="fa fa-search"></i>' +
-                   '</a>';
-                return buttons;
-            }
+            Tickets.getList().then(function (data) {
+                $scope.table.promiseData = data;
+            });
         }
     ]);
 });

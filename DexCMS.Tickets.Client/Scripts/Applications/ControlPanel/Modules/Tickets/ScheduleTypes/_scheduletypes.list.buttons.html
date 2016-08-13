@@ -1,0 +1,11 @@
+﻿<a class="btn btn-warning" ui-sref="scheduletypes/:id({id:item.scheduleTypeID})">
+    <i class="fa fa-edit"></i>
+</a>
+
+<button ng-if="data.scheduleItemCount === 0" class="btn btn-danger" 
+        ng-click="table.functions.remove(item.scheduleTypeID)">
+    <i class="fa fa-trash-o"></i>
+</button>
+<button ng-if="data.scheduleItemCount !== 0" class="btn btn-danger" ng-disabled="true">
+    Currently in use
+</button>
