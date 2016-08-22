@@ -1,6 +1,6 @@
 var libs = '../../../../libs/';
 require.config({
-    urlArgs: "v=1.6.2",
+    urlArgs: "v=2016.08.14.15.34.22",
     waitSeconds: 120,
     paths: {
         'registration-app': './registration',
@@ -9,6 +9,7 @@ require.config({
         'dexcms-globals-tickets': '../../globals/tickets/index',
         'angular': libs + 'angular/angular.min',
         'angular-sanitize': libs + 'angular-sanitize/angular-sanitize.min',
+        'angular-smart-table': libs + 'angular-smart-table/smart-table.min',
         'angular-ui-router': libs + 'angular-ui-router/angular-ui-router.min',
         'angular-resource': libs + 'angular-resource/angular-resource.min',
         'jquery': libs + 'jquery/jquery.min',
@@ -17,6 +18,7 @@ require.config({
         'moment': libs + 'moment/moment.min',
         'ngStorage': libs + 'ngstorage/ngStorage.min',
         'ngtoast': libs + 'ngtoast/ngtoast.min',
+        "ng-csv": libs + 'ng-csv/ng-csv.min',
         'oclazyload': libs + 'oclazyload/ocLazyLoad.require.min',
         'tg-angular-validator': libs + 'tg-angular-validator/angular-validator.min',
         'underscore': libs + 'underscore/underscore-min'
@@ -38,6 +40,9 @@ require.config({
         'angular-sanitize': {
             deps: ['angular']
         },
+        'angular-smart-table': {
+            deps: ['angular']
+        },
         'angular-ui-router': {
             deps: ['angular']
         },
@@ -46,6 +51,9 @@ require.config({
         },
         'ngtoast': {
             deps: ['angular']
+        },
+        'ng-csv': {
+            deps: ['angular', 'angular-sanitize']
         },
         'oclazyload': {
             deps: ['angular']
