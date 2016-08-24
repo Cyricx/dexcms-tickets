@@ -277,37 +277,43 @@ namespace DexCMS.Tickets.WebApi.Controllers
             else
             {
                 //deal with reserved tickets
-                var areaGroups = discount.TicketSeats.GroupBy(x => x.TicketArea);
+                var areaGroups = discount.TicketSeats.Where(x => x.TicketSeatStatus == TicketSeatStatus.Reserved).GroupBy(x => x.TicketArea);
 
                 foreach (var areaGroup in areaGroups)
                 {
                     var area = areaGroup.Key;
-
-                    var areaItem = new RegistrationAreaApiModel
+                    if (discount.TicketSeats.Where(x => x.TicketAreaID == area.TicketAreaID).Count() > 0)
                     {
-                        RegistrationAreaID = areaGroup.Key.TicketAreaID,
-                        IsGA = areaGroup.Key.IsGA,
-                        Name = areaGroup.Key.Name,
-                        AvailableTickets = areaGroup.Key.TicketSeats.Count(
-                            x => x.TicketSeatStatus == TicketSeatStatus.Reserved
-                            && (!x.PendingPurchaseExpiration.HasValue || x.PendingPurchaseExpiration < cstTime)),
-                        RegistrationSections = area.TicketSections.Select(s => new RegistrationSectionApiModel
+
+                        var areaItem = new RegistrationAreaApiModel
                         {
-                            RegistrationSectionID = s.TicketSectionID,
-                            Name = s.Name,
-                            AvailableTickets = s.TicketRows.Sum(r => r.TicketSeats.Count(st =>
-                                st.TicketSeatStatus == TicketSeatStatus.Reserved
-                                && (!st.PendingPurchaseExpiration.HasValue || st.PendingPurchaseExpiration < cstTime))),
-                            RegistrationRows = s.TicketRows.Select(r => new RegistrationRowApiModel
+                            RegistrationAreaID = areaGroup.Key.TicketAreaID,
+                            IsGA = areaGroup.Key.IsGA,
+                            Name = areaGroup.Key.Name,
+                            AvailableTickets = areaGroup.Key.TicketSeats.Count(
+                                x => x.TicketSeatStatus == TicketSeatStatus.Reserved
+                                && (x.TicketDiscountID == discount.TicketDiscountID)
+                                && (!x.PendingPurchaseExpiration.HasValue || x.PendingPurchaseExpiration < cstTime)),
+                            RegistrationSections = area.TicketSections.Select(s => new RegistrationSectionApiModel
                             {
-                                RegistrationRowID = r.TicketRowID,
-                                Designation = r.Designation,
-                                AvailableTickets = r.TicketSeats.Count(st => st.TicketSeatStatus == TicketSeatStatus.Reserved
-                                    && (!st.PendingPurchaseExpiration.HasValue || st.PendingPurchaseExpiration < cstTime))
+                                RegistrationSectionID = s.TicketSectionID,
+                                Name = s.Name,
+                                AvailableTickets = s.TicketRows.Sum(r => r.TicketSeats.Count(st =>
+                                    st.TicketSeatStatus == TicketSeatStatus.Reserved
+                                    && (st.TicketDiscountID == discount.TicketDiscountID)
+                                    && (!st.PendingPurchaseExpiration.HasValue || st.PendingPurchaseExpiration < cstTime))),
+                                RegistrationRows = s.TicketRows.Select(r => new RegistrationRowApiModel
+                                {
+                                    RegistrationRowID = r.TicketRowID,
+                                    Designation = r.Designation,
+                                    AvailableTickets = r.TicketSeats.Count(st => st.TicketSeatStatus == TicketSeatStatus.Reserved
+                                                                    && (st.TicketDiscountID == discount.TicketDiscountID)
+                                        && (!st.PendingPurchaseExpiration.HasValue || st.PendingPurchaseExpiration < cstTime))
+                                }).ToList()
                             }).ToList()
-                        }).ToList()
-                    };
-                    items.Add(areaItem);
+                        };
+                        items.Add(areaItem);
+                    }
                 }
 
             }
@@ -522,6 +528,67 @@ namespace DexCMS.Tickets.WebApi.Controllers
         }
 
         [HttpGet]
+        [ResponseType(typeof(RegistrationCutoffApiModel))]
+        public IHttpActionResult RegistrationPrices(string segment, int id)
+        {
+
+            Event evt = RetrieveEvent(segment);
+            if (evt == null)
+            {
+                return NotFound();
+            }
+
+            if (!CanAccessRegistration(evt))
+            {
+                return BadRequest(GetDisabledMessage(evt));
+            }
+
+            TicketDiscount discount = evt.TicketDiscounts.Where(x => x.TicketDiscountID == id).SingleOrDefault();
+            if (discount == null)
+            {
+                return NotFound();
+            }
+
+            //get areas that have available tickets for the selected age group
+            var cutoff = evt.TicketCutoffs.Where(x =>
+                cstTime > x.OnSellDate && cstTime < x.CutoffDate).SingleOrDefault();
+            if (cutoff == null)
+            {
+                return Ok(new List<RegistrationCutoffAreaApiModel>());
+            }
+
+            RegistrationCutoffApiModel item = new RegistrationCutoffApiModel
+            {
+                CutoffDate = cutoff.CutoffDate.ToShortDateString(),
+                OnSellDate = cutoff.OnSellDate.ToShortDateString(),
+                Areas = new List<RegistrationCutoffAreaApiModel>()
+            };
+
+            List<int> discountAreas = discount.TicketSeats.Select(x => x.TicketAreaID).Distinct().ToList();
+            foreach (var area in cutoff.TicketPrices.Where(x => discountAreas.Contains(x.TicketAreaID)).GroupBy(x => x.TicketArea))
+            {
+                TicketAreaDiscount areaDiscount = discount.TicketAreaDiscounts.Where(x => x.TicketAreaID == area.Key.TicketAreaID).Single();
+
+    var prices = cutoff.TicketPrices.Where(x => x.TicketAreaID == area.Key.TicketAreaID).OrderBy(x => x.EventAgeGroup.MinimumAge);
+                item.Areas.Add(new RegistrationCutoffAreaApiModel
+                {
+                    AreaID = area.Key.TicketAreaID,
+                    Name = area.Key.Name,
+                    // TODO: Adjust price by discount
+                    Prices = prices.Select(x => new RegistrationCutoffPriceApiModel
+                    {
+                        AgeName = x.EventAgeGroup.Name,
+                        AgeRange = (x.EventAgeGroup.MaximumAge.HasValue ? x.EventAgeGroup.MinimumAge + " - " + x.EventAgeGroup.MaximumAge : x.EventAgeGroup.MinimumAge + "+"),
+                        BasePrice = CalculateDiscountedPrice(areaDiscount.AdjustmentType, x.BasePrice, areaDiscount.AdjustmentAmount)
+                    }).ToList()
+                });
+            }
+
+            return Ok(item);
+        }
+
+
+        [HttpGet]
         [ResponseType(typeof(string))]
         public IHttpActionResult CheckEventDisabled(string segment)
         {
@@ -600,18 +667,7 @@ namespace DexCMS.Tickets.WebApi.Controllers
                             if (discountArea != null)
                             {
                                 //apply discount
-                                switch (discountArea.AdjustmentType)
-                                {
-                                    case AdjustmentType.Percent:
-                                        areaPrice.BasePrice = areaPrice.BasePrice - (areaPrice.BasePrice * (discountArea.AdjustmentAmount / 100));
-
-                                        break;
-                                    case AdjustmentType.Flat:
-                                        areaPrice.BasePrice = areaPrice.BasePrice - discountArea.AdjustmentAmount;
-                                        break;
-                                }
-                                areaPrice.BasePrice = areaPrice.BasePrice < 0 ? 0 : areaPrice.BasePrice;
-
+                                areaPrice.BasePrice = CalculateDiscountedPrice(discountArea.AdjustmentType, areaPrice.BasePrice, discountArea.AdjustmentAmount);
                             }
 
                             regArea.Prices.Add(areaPrice);
@@ -679,7 +735,23 @@ namespace DexCMS.Tickets.WebApi.Controllers
 
             return Ok(item);
         }
-        
+
+        private static decimal CalculateDiscountedPrice(AdjustmentType adjustmentType, decimal basePrice, decimal adjustmentAmount)
+        {
+            switch (adjustmentType)
+            {
+                case AdjustmentType.Percent:
+                    basePrice = basePrice - (basePrice * (adjustmentAmount / 100));
+
+                    break;
+                case AdjustmentType.Flat:
+                    basePrice = basePrice - adjustmentAmount;
+                    break;
+            }
+            basePrice = basePrice < 0 ? 0 : basePrice;
+            return basePrice;
+        }
+
         [HttpGet]
         public IHttpActionResult RetrieveDiscounts(string segment)
         {
