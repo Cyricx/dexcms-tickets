@@ -7,8 +7,8 @@
   "bugs": "https://github.com/Cyricx/dexcms-tikets/issues",
   "license": "MIT",
   "dependencies": {
-    "dexcms-base": "https://github.com/Cyricx/dexcms-base.git#0.1.0-alpha",
-    "dexcms-core": "https://github.com/Cyricx/dexcms-core.git#0.1.0-alpha"
+    "dexcms-base": "https://github.com/Cyricx/dexcms-base.git#development",
+    "dexcms-core": "https://github.com/Cyricx/dexcms-core.git#development"
   },
   "devDependencies": {
     "grunt": "1.0.1",

@@ -91,6 +91,7 @@
     <None Include="DefaultViews\RootViews\Events\Registration.cshtml" />
     <None Include="DefaultViews\RootViews\Events\Schedule.cshtml" />
     <None Include="DefaultViews\RootViews\Events\_EventsNavigation.cshtml" />
+    <None Include="DefaultViews\RootViews\Shared\Tickets\_NavigationLinks.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,9 @@
+﻿@using DexCMS.Core.Infrastructure;
+
+@if (SiteSettings.Resolve.GetSetting("ShowPublicEvents").ToLower() == "true")
+    {
+    <li class="submenu">
+        <a href="#">Events <span class="fa"></span></a>
+        @Html.BuildEventList()
+    </li>
+    }
