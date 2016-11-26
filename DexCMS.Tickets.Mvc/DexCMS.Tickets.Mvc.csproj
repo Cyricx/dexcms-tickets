@@ -88,6 +88,8 @@
   <ItemGroup>
     <Compile Include="Controllers\EventFaqItemsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Extensions\HtmlExtensions.cs" />
+    <Compile Include="Filters\GetPublicOpenEvents.cs" />
     <Compile Include="Initializers\SettingGroupInitializer.cs" />
     <Compile Include="Initializers\SettingInitializer.cs" />
     <Compile Include="Initializers\TicketsMvcInitializer.cs" />
