@@ -90,7 +90,7 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Initializers\SettingGroupInitializer.cs" />
     <Compile Include="Initializers\SettingInitializer.cs" />
-    <Compile Include="Initializers\TicketsInitializer.cs" />
+    <Compile Include="Initializers\TicketsMvcInitializer.cs" />
     <Compile Include="Models\DisplayFAQ.cs" />
     <Compile Include="Models\DisplayScheduleItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

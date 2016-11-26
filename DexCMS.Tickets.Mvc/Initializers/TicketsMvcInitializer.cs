@@ -3,9 +3,9 @@ using DexCMS.Tickets.Contexts;
 
 namespace DexCMS.Tickets.Mvc.Initializers
 {
-    public class TicketsInitializer: DexCMSInitializer<IDexCMSTicketsContext>
+    public class TicketsMvcInitializer: DexCMSInitializer<IDexCMSTicketsContext>
     {
-        public TicketsInitializer(IDexCMSTicketsContext context) : base(context)
+        public TicketsMvcInitializer(IDexCMSTicketsContext context) : base(context)
         {
 
         }
