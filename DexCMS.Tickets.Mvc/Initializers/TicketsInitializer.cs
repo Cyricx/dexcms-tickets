@@ -1,7 +1,7 @@
 ﻿using DexCMS.Core.Infrastructure.Globals;
 using DexCMS.Tickets.Contexts;
 
-namespace DexCMS.Tickets.Initializers
+namespace DexCMS.Tickets.Mvc.Initializers
 {
     public class TicketsInitializer: DexCMSInitializer<IDexCMSTicketsContext>
     {

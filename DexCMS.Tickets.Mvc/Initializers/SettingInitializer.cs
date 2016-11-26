@@ -2,10 +2,9 @@
 using DexCMS.Core.Infrastructure.Globals;
 using DexCMS.Core.Infrastructure.Models;
 using DexCMS.Tickets.Contexts;
-using System;
 using System.Linq;
 
-namespace DexCMS.Tickets.Initializers
+namespace DexCMS.Tickets.Mvc.Initializers
 {
     class SettingInitializer : DexCMSInitializer<IDexCMSTicketsContext>
     {

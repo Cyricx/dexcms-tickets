@@ -1,14 +1,9 @@
 ﻿using DexCMS.Core.Infrastructure.Globals;
 using DexCMS.Core.Infrastructure.Models;
 using DexCMS.Tickets.Contexts;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DexCMS.Tickets.Initializers
+namespace DexCMS.Tickets.Mvc.Initializers
 {
     class SettingGroupInitializer: DexCMSInitializer<IDexCMSTicketsContext>
     {
