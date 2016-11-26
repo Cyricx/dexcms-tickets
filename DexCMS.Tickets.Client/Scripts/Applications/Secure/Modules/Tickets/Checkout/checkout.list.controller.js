@@ -18,7 +18,7 @@
 
             $scope.displayType = 'pay';
             
-            $scope.hideSummary = userData.isCashier === 'True';
+            $scope.hideSummary = userData.isCashier;
 
             $scope.tickets = Tickets.getTickets();
 
