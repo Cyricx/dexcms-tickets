@@ -1,10 +1,11 @@
 ﻿@using DexCMS.Core.Infrastructure;
 @using DexCMS.Tickets.Mvc.Extensions;
 
+@Html.Partial("Core/_NavigationLinks")
 @if (SiteSettings.Resolve.GetSetting("ShowPublicEvents").ToLower() == "true")
 {
-<li class="submenu">
-    <a href="#">Events <span class="fa"></span></a>
-    @Html.BuildEventList(ViewBag.Events)
-</li>
+    <li class="submenu">
+        <a href="#">Events <span class="fa"></span></a>
+        @Html.BuildEventList((List<DexCMS.Tickets.Events.Models.Event>)ViewBag.Events)
+    </li>
 }

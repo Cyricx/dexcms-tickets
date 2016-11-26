@@ -1,5 +1,6 @@
 ﻿using DexCMS.Tickets.Events.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -19,6 +20,10 @@ namespace DexCMS.Tickets.Mvc.Filters
             if (!filterContext.HttpContext.Request.IsAjaxRequest() && filterContext.Controller.ViewBag.OpenEvents == null)
             {
                 filterContext.Controller.ViewBag.OpenEvents = repository.Items.Where(x => x.IsPublic && x.EventEnd > DateTime.Now).OrderBy(x => x.PageContent.Heading).ToList();
+            }
+            else
+            {
+                filterContext.Controller.ViewBag.OpenEvents = new List<Events.Models.Event>();
             }
         }
     }

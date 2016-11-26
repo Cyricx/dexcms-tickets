@@ -6,11 +6,10 @@ namespace DexCMS.Tickets.Mvc.Extensions
 {
     public static class HtmlExtensions
     {
-        public static MvcHtmlString BuildEventList(this HtmlHelper html, object events)
+        public static MvcHtmlString BuildEventList(this HtmlHelper html, List<DexCMS.Tickets.Events.Models.Event> evts)
         {
-            if (events != null)
+            if (evts != null)
             {
-                List<Events.Models.Event> evts = (List<Events.Models.Event>)events;
                 TagBuilder ulTag = new TagBuilder("ul");
                 foreach (var evt in evts)
                 {
