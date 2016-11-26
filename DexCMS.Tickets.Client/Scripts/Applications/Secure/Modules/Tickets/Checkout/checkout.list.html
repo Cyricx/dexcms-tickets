@@ -38,14 +38,11 @@
 
             </li>
         </ul>
-        <dexcms-ticket-summary ng-if="!hideSummary"
-                               display-type="displayType" 
+        <dexcms-ticket-summary display-type="displayType" 
                               go-to-no-pay="goToNoPay(tickets)"
                               go-to-pay="goToPay(tickets)"></dexcms-ticket-summary>
         <div ng-if="hideSummary">
-            <div class="registration-total">
-                <strong>Total</strong>
-                <em>{{totalPrice() | currency}}</em>
+            <div class="registration-total" style="clear:right;">
                 <div>
                     <a class="pseudo-btn"
                        ng-disabled="isProcessing"
