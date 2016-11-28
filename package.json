@@ -6,9 +6,13 @@
   "author": "Chris Byram",
   "bugs": "https://github.com/Cyricx/dexcms-tikets/issues",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Cyricx/dexcms-tickets.git"
+  },
   "dependencies": {
-    "dexcms-base": "https://github.com/Cyricx/dexcms-base.git#development",
-    "dexcms-core": "https://github.com/Cyricx/dexcms-core.git#development"
+    "dexcms-base": "git+https://git@github.com/Cyricx/dexcms-base.git#development",
+    "dexcms-core": "git+https://git@github.com/Cyricx/dexcms-core.git#development"
   },
   "devDependencies": {
     "grunt": "1.0.1",
