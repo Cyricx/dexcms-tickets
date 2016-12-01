@@ -22,6 +22,7 @@ namespace DexCMS.Tickets.WebApi.ApiModels
         public string TicketDiscountCode { get; set; }
         public decimal TicketTotalPrice { get; set; }
         public decimal OrderTotal { get; set; }
+        public DateTime? ArrivalTime { get; set; }
         public List<ReportingTicketOptionApiModel> Options { get; set; }
     }
 

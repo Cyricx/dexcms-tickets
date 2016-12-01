@@ -68,6 +68,7 @@ namespace DexCMS.Tickets.WebApi.Controllers
                     TicketDiscountCode  = x.TicketDiscountID.HasValue ? x.TicketDiscount.Code : null,
                     TicketTotalPrice = x.TicketTotalPrice,
                     OrderTotal = x.Order.OrderTotal,
+                    ArrivalTime = x.ArrivalTime,
                     Options = x.TicketOptionChoices.Select(y => new ReportingTicketOptionApiModel
                     {
                         OptionName = y.TicketOption.Name,
