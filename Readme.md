@@ -19,6 +19,9 @@ aggregation of shared code across several small websites. Soon it will be awesom
 * Before submitting a pull request, be sure you have installed the node packages and build the project in Release.
     * This includes the compiled dll into a /dist/ folder that consuming applications can use if I cut a new version off of your pull request.
 
+## 0.2.2-alpha
+* Few minor html fixes and added arrival time to tickets report
+
 ## 0.2.1-alpha
 * Fixed bug with discount registration tickets
 

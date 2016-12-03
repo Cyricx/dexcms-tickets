@@ -25,6 +25,14 @@
             var _getCurrencyValue = function (value, item) {
                 return $filter('currency')(value);
             };
+            
+            var _renderDate = function (value, item) {
+                if (value != null) {
+                    return $filter('date')(value, "MM/dd/yyyy h:mm a");
+                } else {
+                    return null;
+                }
+            };
 
             $scope.table = {
                 columns: [
@@ -35,6 +43,7 @@
                     { property: 'ticketAreaName', title: 'Designation', dataTemplate: _getTemplate('designation') },
                     { property: 'ticketDiscountName', title: 'Discount', dataTemplate: _getTemplate('discount') },
                     { property: 'options', title: 'Options', dataTemplate: _getTemplate('options') },
+                    { property: 'arrivalTime', title: 'Arrival', dataFunction: _renderDate },
                     { property: 'ticketTotalPrice', title: 'Ticket Price', dataFunction: _getCurrencyValue },
                     { property: 'orderTotal', title: 'Order Total', dataFunction: _getCurrencyValue },
                 ],
