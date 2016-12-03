@@ -1,7 +1,6 @@
 ﻿@using DexCMS.Core.Infrastructure;
 @using DexCMS.Tickets.Mvc.Extensions;
 
-@Html.Partial("Core/_NavigationLinks")
 @if (SiteSettings.Resolve.GetSetting("ShowPublicEvents").ToLower() == "true")
 {
     <li class="submenu">
