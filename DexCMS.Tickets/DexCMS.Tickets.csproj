@@ -63,10 +63,6 @@
   <ItemGroup>
     <Compile Include="Abstracts\ISeatable.cs" />
     <Compile Include="Contexts\IDexCMSTicketsContext.cs" />
-    <Compile Include="Initializers\Helpers\TicketSettingGroupsReference.cs" />
-    <Compile Include="Initializers\SettingGroupInitializer.cs" />
-    <Compile Include="Initializers\SettingsInitializer.cs" />
-    <Compile Include="Initializers\TicketsInitializer.cs" />
     <Compile Include="Repositories\Events\EventAgeGroupRepository.cs" />
     <Compile Include="Repositories\Events\EventFaqCategoryRepository.cs" />
     <Compile Include="Repositories\Events\EventFaqItemRepository.cs" />
