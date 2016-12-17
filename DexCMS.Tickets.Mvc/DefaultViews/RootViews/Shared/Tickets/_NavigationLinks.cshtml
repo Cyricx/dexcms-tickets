@@ -1,10 +1,13 @@
 ﻿@using DexCMS.Core.Infrastructure;
 @using DexCMS.Tickets.Mvc.Extensions;
+@{
+    var events = (List<DexCMS.Tickets.Events.Models.Event>)ViewBag.Events;
+}
 
-@if (SiteSettings.Resolve.GetSetting("ShowPublicEvents").ToLower() == "true")
+@if (SiteSettings.Resolve.GetSetting("ShowPublicEvents").ToLower() == "true" && events != null && events.Count > 0)
 {
     <li class="submenu">
         <a href="#">Events <span class="fa"></span></a>
-        @Html.BuildEventList((List<DexCMS.Tickets.Events.Models.Event>)ViewBag.Events)
+        @Html.BuildEventList(events)
     </li>
 }
