@@ -6,10 +6,11 @@ using System.Web.Mvc;
 using DexCMS.Tickets.Events.Interfaces;
 using DexCMS.Tickets.Events.Models;
 using DexCMS.Tickets.Mvc.Models;
+using DexCMS.Core.Mvc.Globals;
 
 namespace DexCMS.Tickets.Mvc.Controllers
 {
-    public class EventsController : Controller
+    public class EventsController : DexCMSController
     {
         private IEventRepository eventRepository;
         private IEventSeriesRepository seriesRepository;
