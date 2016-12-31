@@ -1,5 +1,5 @@
 {
-  "version": "0.2.2-alpha",
+  "version": "0.3.0-alpha",
   "name": "dexcms-tickets",
   "description": "Tickets library for Dex CMS",
   "keywords": [ ".net", "cms", "framework" ],
@@ -11,8 +11,8 @@
     "url": "git://github.com/Cyricx/dexcms-tickets.git"
   },
   "dependencies": {
-    "dexcms-base": "git+https://git@github.com/Cyricx/dexcms-base.git#development",
-    "dexcms-core": "git+https://git@github.com/Cyricx/dexcms-core.git#development"
+    "dexcms-base": "git+https://git@github.com/Cyricx/dexcms-base.git#0.5.0-alpha",
+    "dexcms-core": "git+https://git@github.com/Cyricx/dexcms-core.git#0.5.0-alpha"
   },
   "devDependencies": {
     "grunt": "1.0.1",
