@@ -6,7 +6,7 @@
         '$http',
         'DexCmsDateCleaner',
         function ($resource, $http, DateCleaner) {
-            var baseUrl = '../api/ticketDiscounts';
+            var baseUrl = '../api/ticketdiscounts';
 
             var _forServer = function (item) {
                 var adjustedItem = angular.copy(item);

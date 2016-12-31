@@ -5,7 +5,7 @@
         '$resource',
         '$http',
         function ($resource, $http) {
-            var baseUrl = '../api/ticketOptionDiscounts';
+            var baseUrl = '../api/ticketoptiondiscounts';
 
             return {
                 //Create new record

@@ -5,7 +5,7 @@
         '$resource',
         '$http',
         function ($resource, $http) {
-            var baseUrl = '../api/eventAgeGroups';
+            var baseUrl = '../api/eventagegroups';
             
 
             return {

@@ -5,7 +5,7 @@
         '$resource',
         '$http',
         function ($resource, $http) {
-            var baseUrl = '../api/ticketAreas';
+            var baseUrl = '../api/ticketareas';
 
             return {
                 getListByEvent: function (id) {

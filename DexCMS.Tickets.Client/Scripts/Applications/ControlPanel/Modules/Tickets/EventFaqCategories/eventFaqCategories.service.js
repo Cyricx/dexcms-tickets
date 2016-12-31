@@ -5,7 +5,7 @@
         '$resource',
         '$http',
         function ($resource, $http) {
-            var baseUrl = '../api/eventFaqCategories';
+            var baseUrl = '../api/eventfaqcategories';
 
             return {
                 //Create new record

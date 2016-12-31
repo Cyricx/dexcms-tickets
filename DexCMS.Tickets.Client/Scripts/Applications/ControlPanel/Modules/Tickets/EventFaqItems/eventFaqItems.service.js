@@ -6,7 +6,7 @@
         '$http',
         '$rootScope',
         function ($resource, $http, $rootScope) {
-            var baseUrl = '../api/eventFaqItems';
+            var baseUrl = '../api/eventfaqitems';
 
             return {
                 //Create new record

@@ -5,7 +5,7 @@
         '$resource',
         '$http',
         function ($resource, $http) {
-            var baseUrl = '../api/publicEvents';
+            var baseUrl = '../api/publicevents';
 
             return {
                 //Get All 

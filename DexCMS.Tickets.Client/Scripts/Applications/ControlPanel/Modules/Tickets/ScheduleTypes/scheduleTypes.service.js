@@ -5,7 +5,7 @@
         '$resource',
         '$http',
         function ($resource, $http) {
-            var baseUrl = '../api/scheduleTypes';
+            var baseUrl = '../api/scheduletypes';
 
             return {
                 //Create new record
