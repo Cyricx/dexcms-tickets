@@ -32,11 +32,11 @@
   <ItemGroup>
     <Reference Include="DexCMS.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\node_modules\dexcms-base\dist\DexCMS.Base.dll</HintPath>
+      <HintPath>..\..\dexcms.base\DexCMS.Base\bin\release\DexCMS.Base.dll</HintPath>
     </Reference>
     <Reference Include="DexCMS.Core.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\node_modules\dexcms-core\dist\DexCMS.Core.Infrastructure.dll</HintPath>
+      <HintPath>..\..\dexcms.core\DexCMS.Core.Infrastructure\bin\release\DexCMS.Core.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -63,6 +63,14 @@
   <ItemGroup>
     <Compile Include="Abstracts\ISeatable.cs" />
     <Compile Include="Contexts\IDexCMSTicketsContext.cs" />
+    <Compile Include="Initializers\Helpers\VenueSectionsReference.cs" />
+    <Compile Include="Initializers\Helpers\VenueAreasReference.cs" />
+    <Compile Include="Initializers\Helpers\VenuesReference.cs" />
+    <Compile Include="Initializers\TicketsInitializer.cs" />
+    <Compile Include="Initializers\VenueRowInitializer.cs" />
+    <Compile Include="Initializers\VenueSectionInitializer.cs" />
+    <Compile Include="Initializers\VenueAreaInitializer.cs" />
+    <Compile Include="Initializers\VenueInitializer.cs" />
     <Compile Include="Repositories\Events\EventAgeGroupRepository.cs" />
     <Compile Include="Repositories\Events\EventFaqCategoryRepository.cs" />
     <Compile Include="Repositories\Events\EventFaqItemRepository.cs" />
