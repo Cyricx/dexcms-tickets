@@ -2,10 +2,10 @@
     <i class="fa fa-edit"></i>
 </a>
 
-<button ng-if="data.scheduleItemCount === 0" class="btn btn-danger"
+<button ng-if="item.scheduleItemCount === 0" class="btn btn-danger"
         ng-click="table.functions.remove(item.venueScheduleLocationID)">
     <i class="fa fa-trash-o"></i>
 </button>
-<button ng-if="data.scheduleItemCount !== 0" class="btn btn-danger" ng-disabled="true">
+<button ng-if="item.scheduleItemCount !== 0" class="btn btn-danger" ng-disabled="true">
     Currently in use
 </button>
