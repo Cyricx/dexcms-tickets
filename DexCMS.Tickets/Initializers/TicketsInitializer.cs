@@ -13,6 +13,7 @@ namespace DexCMS.Tickets.Initializers
             (new VenueAreaInitializer(Context)).Run();
             (new VenueSectionInitializer(Context)).Run();
             (new VenueRowInitializer(Context)).Run();
+            (new VenueScheduleLocationInitializer(Context)).Run();
         }
     }
 }
