@@ -15,6 +15,7 @@ namespace DexCMS.Tickets.Initializers
             (new VenueRowInitializer(Context)).Run();
             (new VenueScheduleLocationInitializer(Context)).Run();
             (new ScheduleStatusInitializer(Context)).Run();
+            (new ScheduleTypeInitializer(Context)).Run();
         }
     }
 }
