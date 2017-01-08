@@ -67,6 +67,7 @@
     <Compile Include="Initializers\Helpers\VenueAreasReference.cs" />
     <Compile Include="Initializers\Helpers\VenuesReference.cs" />
     <Compile Include="Initializers\TicketsInitializer.cs" />
+    <Compile Include="Initializers\ScheduleStatusInitializer.cs" />
     <Compile Include="Initializers\VenueScheduleLocationInitializer.cs" />
     <Compile Include="Initializers\VenueRowInitializer.cs" />
     <Compile Include="Initializers\VenueSectionInitializer.cs" />

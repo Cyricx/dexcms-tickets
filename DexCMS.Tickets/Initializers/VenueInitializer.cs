@@ -3,11 +3,6 @@ using DexCMS.Core.Infrastructure.Globals;
 using DexCMS.Core.Infrastructure.Initializers.Helpers;
 using DexCMS.Tickets.Contexts;
 using DexCMS.Tickets.Venues.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DexCMS.Tickets.Initializers
 {

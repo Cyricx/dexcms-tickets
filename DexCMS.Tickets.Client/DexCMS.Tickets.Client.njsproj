@@ -228,7 +228,7 @@
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\TicketReservations\_reservationSections.list.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\VenueScheduleLocations\venueScheduleLocations.editor.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\VenueScheduleLocations\venueScheduleLocations.list.html" />
-    <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\VenueScheduleLocations\_venueschedulelocation.list.buttons.html" />
+    <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\VenueScheduleLocations\_venueschedulelocations.list.buttons.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\Venues\venues.editor.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\Venues\venues.list.html" />
     <Content Include="Scripts\Applications\ControlPanel\Modules\Tickets\Venues\_venueAreas.html" />
