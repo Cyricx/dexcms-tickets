@@ -78,6 +78,7 @@
             $scope.save = function (item) {
                 $scope.processing = true;
                 $scope.modelError = null;
+                item.pageContent.layoutTypeID = 8;
                 if (item.eventSeriesID) {
                     angular.forEach($scope.eventSeries, function (series) {
                         if (series.eventSeriesID == item.eventSeriesID) {
