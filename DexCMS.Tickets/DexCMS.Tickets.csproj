@@ -63,12 +63,15 @@
   <ItemGroup>
     <Compile Include="Abstracts\ISeatable.cs" />
     <Compile Include="Contexts\IDexCMSTicketsContext.cs" />
+    <Compile Include="Initializers\Helpers\ScheduleTypesReference.cs" />
     <Compile Include="Initializers\Helpers\VenueSectionsReference.cs" />
     <Compile Include="Initializers\Helpers\VenueAreasReference.cs" />
+    <Compile Include="Initializers\Helpers\ScheduleStatusesReference.cs" />
     <Compile Include="Initializers\Helpers\VenuesReference.cs" />
     <Compile Include="Initializers\ScheduleTypeInitializer.cs" />
     <Compile Include="Initializers\TicketsInitializer.cs" />
     <Compile Include="Initializers\ScheduleStatusInitializer.cs" />
+    <Compile Include="Initializers\EventSeriesInitializer.cs" />
     <Compile Include="Initializers\VenueScheduleLocationInitializer.cs" />
     <Compile Include="Initializers\VenueRowInitializer.cs" />
     <Compile Include="Initializers\VenueSectionInitializer.cs" />
