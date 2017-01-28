@@ -11,7 +11,7 @@ namespace DexCMS.Tickets.Initializers
         public ScheduleStatusInitializer(IDexCMSTicketsContext context) : base(context) {
         }
 
-        public override void Run()
+        public override void Run(bool addDemoContent = true)
         {
             Context.ScheduleStatuses.AddIfNotExists(x => x.Name,
                 new ScheduleStatus { Name = "Tentative", IsActive = true },

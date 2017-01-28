@@ -14,12 +14,15 @@ namespace DexCMS.Tickets.Initializers
             States = new StatesReference(context);
         }
 
-        public override void Run()
+        public override void Run(bool addDemoContent = true)
         {
-            Context.Venues.AddIfNotExists(x => x.Name,
-                new Venue { Name = "Example Venue", Address = "123 Street", City = "Some City", StateID = States.KS, ZipCode = "12345" }
-            );
-            Context.SaveChanges();
+            if (addDemoContent)
+            {
+                Context.Venues.AddIfNotExists(x => x.Name,
+                    new Venue { Name = "Example Venue", Address = "123 Street", City = "Some City", StateID = States.KS, ZipCode = "12345" }
+                );
+                Context.SaveChanges();
+            }
         }
     }
 }

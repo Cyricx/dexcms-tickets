@@ -11,7 +11,7 @@ namespace DexCMS.Tickets.Mvc.Initializers
         public SettingInitializer(IDexCMSTicketsContext context) : base(context)
         {
         }
-        public override void Run()
+        public override void Run(bool addDemoContent = true)
         {
             int TicketsGroup = Context.SettingGroups.Where(x => x.SettingGroupName == "Tickets").Select(x => x.SettingGroupID).Single();
             int BoolDataType = Context.SettingDataTypes.Where(x => x.Name == "Bool").Select(x => x.SettingDataTypeID).Single();

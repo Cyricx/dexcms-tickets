@@ -13,17 +13,20 @@ namespace DexCMS.Tickets.Initializers
         {
             VenueAreas = new VenueAreasReference(context);
         }
-        public override void Run()
+        public override void Run(bool addDemoContent = true)
         {
-            Context.VenueSections.AddIfNotExists(x => new { x.VenueAreaID, x.Name },
-                new VenueSection { Name = "L", VenueAreaID = VenueAreas.Balcony },
-                new VenueSection { Name = "M", VenueAreaID = VenueAreas.Balcony },
-                new VenueSection { Name = "R", VenueAreaID = VenueAreas.Balcony },
-                new VenueSection { Name = "L", VenueAreaID = VenueAreas.LowerSeating },
-                new VenueSection { Name = "M", VenueAreaID = VenueAreas.LowerSeating },
-                new VenueSection { Name = "R", VenueAreaID = VenueAreas.LowerSeating }
-            );
-            Context.SaveChanges();
+            if (addDemoContent)
+            {
+                Context.VenueSections.AddIfNotExists(x => new { x.VenueAreaID, x.Name },
+                    new VenueSection { Name = "L", VenueAreaID = VenueAreas.Balcony },
+                    new VenueSection { Name = "M", VenueAreaID = VenueAreas.Balcony },
+                    new VenueSection { Name = "R", VenueAreaID = VenueAreas.Balcony },
+                    new VenueSection { Name = "L", VenueAreaID = VenueAreas.LowerSeating },
+                    new VenueSection { Name = "M", VenueAreaID = VenueAreas.LowerSeating },
+                    new VenueSection { Name = "R", VenueAreaID = VenueAreas.LowerSeating }
+                );
+                Context.SaveChanges();
+            }
         }
     }
 }

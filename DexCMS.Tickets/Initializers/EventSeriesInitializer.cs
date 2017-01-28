@@ -13,12 +13,15 @@ namespace DexCMS.Tickets.Initializers
         public EventSeriesInitializer(IDexCMSTicketsContext context) : base(context) {
         }
 
-        public override void Run()
+        public override void Run(bool addDemoContent = true)
         {
-            Context.EventSeries.AddIfNotExists(x => x.SeriesName,
-                new EventSeries { SeriesName = "Summer Rockin", AllowMultiplePublic = false, IsActive = true, SeriesUrlSegment = "summer-rockin" }
-            );
-            Context.SaveChanges();
+            if (addDemoContent)
+            {
+                Context.EventSeries.AddIfNotExists(x => x.SeriesName,
+                    new EventSeries { SeriesName = "Summer Rockin", AllowMultiplePublic = false, IsActive = true, SeriesUrlSegment = "summer-rockin" }
+                );
+                Context.SaveChanges();
+            }
         }
     }
 }

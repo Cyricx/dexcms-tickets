@@ -13,23 +13,26 @@ namespace DexCMS.Tickets.Initializers
         {
             VenueSections = new VenueSectionsReference(context);
         }
-        public override void Run()
+        public override void Run(bool addDemoContent = true)
         {
-            Context.VenueRows.AddIfNotExists(x => new { x.VenueSectionID, x.Designation },
-                new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.BalconyL },
-                new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.BalconyL },
-                new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.BalconyM },
-                new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.BalconyM },
-                new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.BalconyR },
-                new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.BalconyR },
-                new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingL },
-                new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingL },
-                new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingM },
-                new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingM },
-                new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingR },
-                new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingR }
-            );
-            Context.SaveChanges();
+            if (addDemoContent)
+            {
+                Context.VenueRows.AddIfNotExists(x => new { x.VenueSectionID, x.Designation },
+                    new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.BalconyL },
+                    new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.BalconyL },
+                    new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.BalconyM },
+                    new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.BalconyM },
+                    new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.BalconyR },
+                    new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.BalconyR },
+                    new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingL },
+                    new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingL },
+                    new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingM },
+                    new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingM },
+                    new VenueRow { Designation = "A", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingR },
+                    new VenueRow { Designation = "B", SeatCount = 10, VenueSectionID = VenueSections.LowerSeatingR }
+                );
+                Context.SaveChanges();
+            }
         }
     }
 }

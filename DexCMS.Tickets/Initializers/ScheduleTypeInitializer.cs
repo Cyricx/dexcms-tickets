@@ -11,13 +11,16 @@ namespace DexCMS.Tickets.Initializers
         public ScheduleTypeInitializer(IDexCMSTicketsContext context) : base(context) {
         }
 
-        public override void Run()
+        public override void Run(bool addDemoContent = true)
         {
-            Context.ScheduleTypes.AddIfNotExists(x => x.Name,
-                new ScheduleType { Name = "Concert", IsActive = true },
-                new ScheduleType { Name = "Drawing", IsActive = true }
-            );
-            Context.SaveChanges();
+            if (addDemoContent)
+            {
+                Context.ScheduleTypes.AddIfNotExists(x => x.Name,
+                    new ScheduleType { Name = "Concert", IsActive = true },
+                    new ScheduleType { Name = "Drawing", IsActive = true }
+                );
+                Context.SaveChanges();
+            }
         }
     }
 }

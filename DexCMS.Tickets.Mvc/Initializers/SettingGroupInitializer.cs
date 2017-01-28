@@ -12,7 +12,7 @@ namespace DexCMS.Tickets.Mvc.Initializers
 
         }
 
-        public override void Run()
+        public override void Run(bool addDemoContent = true)
         {
             Context.SettingGroups.AddOrUpdate(x => x.SettingGroupName,
                 new SettingGroup { SettingGroupName = "Tickets" }

@@ -1,19 +1,28 @@
-﻿using DexCMS.Core.Infrastructure.Globals;
+﻿using System;
+using System.Collections.Generic;
+using DexCMS.Core.Infrastructure.Globals;
 using DexCMS.Tickets.Contexts;
 
 namespace DexCMS.Tickets.Mvc.Initializers
 {
-    public class TicketsMvcInitializer: DexCMSInitializer<IDexCMSTicketsContext>
+    public class TicketsMvcInitializer: DexCMSLibraryInitializer<IDexCMSTicketsContext>
     {
         public TicketsMvcInitializer(IDexCMSTicketsContext context) : base(context)
         {
 
         }
 
-        public override void Run()
+        public override List<Type> Initializers
         {
-            (new SettingGroupInitializer(Context)).Run();
-            (new SettingInitializer(Context)).Run();
+            get
+            {
+                return new List<Type>
+                {
+                    typeof(SettingGroupInitializer),
+                    typeof(SettingInitializer)
+                };
+            }
         }
+
     }
 }

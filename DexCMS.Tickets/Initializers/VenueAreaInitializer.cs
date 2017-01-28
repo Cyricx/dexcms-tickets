@@ -13,14 +13,17 @@ namespace DexCMS.Tickets.Initializers
         {
             Venues = new VenuesReference(context);
         }
-        public override void Run()
+        public override void Run(bool addDemoContent = true)
         {
-            Context.VenueAreas.AddIfNotExists(x => new { x.VenueID, x.Name },
-                new VenueArea { Name = "Balcony", IsGA = false, VenueID = Venues.Example },
-                new VenueArea { Name = "Lower Seating", IsGA = false, VenueID = Venues.Example },
-                new VenueArea { Name = "Floor", IsGA = true, VenueID = Venues.Example, GASeatCount = 20 }
-            );
-            Context.SaveChanges();
+            if (addDemoContent)
+            {
+                Context.VenueAreas.AddIfNotExists(x => new { x.VenueID, x.Name },
+                    new VenueArea { Name = "Balcony", IsGA = false, VenueID = Venues.Example },
+                    new VenueArea { Name = "Lower Seating", IsGA = false, VenueID = Venues.Example },
+                    new VenueArea { Name = "Floor", IsGA = true, VenueID = Venues.Example, GASeatCount = 20 }
+                );
+                Context.SaveChanges();
+            }
         }
     }
 }
