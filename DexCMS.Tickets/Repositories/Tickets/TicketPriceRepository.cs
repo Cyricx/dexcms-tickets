@@ -1,5 +1,5 @@
-﻿using DexCMS.Core.Infrastructure.Contexts;
-using DexCMS.Core.Infrastructure.Repositories;
+﻿using DexCMS.Core.Contexts;
+using DexCMS.Core.Repositories;
 using DexCMS.Tickets.Contexts;
 using DexCMS.Tickets.Tickets.Interfaces;
 using DexCMS.Tickets.Tickets.Models;

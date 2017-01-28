@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using DexCMS.Base.Models;
 using DexCMS.Tickets.Tickets.Models;
 using DexCMS.Tickets.Venues.Models;
-using DexCMS.Core.Infrastructure.Attributes;
+using DexCMS.Core.Attributes;
 using DexCMS.Tickets.Schedules.Models;
 
 namespace DexCMS.Tickets.Events.Models

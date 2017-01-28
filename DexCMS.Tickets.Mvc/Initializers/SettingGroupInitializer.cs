@@ -1,5 +1,5 @@
-﻿using DexCMS.Core.Infrastructure.Globals;
-using DexCMS.Core.Infrastructure.Models;
+﻿using DexCMS.Core.Globals;
+using DexCMS.Core.Models;
 using DexCMS.Tickets.Contexts;
 using System.Data.Entity.Migrations;
 

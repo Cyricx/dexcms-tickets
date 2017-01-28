@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using DexCMS.Core.Infrastructure.Attributes;
+using DexCMS.Core.Attributes;
 using DexCMS.Tickets.Events.Models;
 using DexCMS.Tickets.Venues.Models;
 

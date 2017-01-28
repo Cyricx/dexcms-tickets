@@ -1,5 +1,5 @@
-﻿using DexCMS.Core.Infrastructure.Extensions;
-using DexCMS.Core.Infrastructure.Globals;
+﻿using DexCMS.Core.Extensions;
+using DexCMS.Core.Globals;
 using DexCMS.Tickets.Contexts;
 using DexCMS.Tickets.Initializers.Helpers;
 using DexCMS.Tickets.Venues.Models;

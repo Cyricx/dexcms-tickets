@@ -12,7 +12,7 @@ using System.Web.Http.Description;
 using DexCMS.Tickets.WebApi.ApiModels;
 using DexCMS.Tickets.Tickets.Models;
 using System.Threading.Tasks;
-using DexCMS.Core.Infrastructure.Globals;
+using DexCMS.Core.Globals;
 
 namespace DexCMS.Tickets.WebApi.Controllers
 {

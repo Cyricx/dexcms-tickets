@@ -1,6 +1,6 @@
 ﻿using System.Web.Routing;
 using System.Web.Mvc;
-using DexCMS.Core.Infrastructure.Models;
+using DexCMS.Core.Models;
 
 namespace DexCMS.Tickets.Mvc
 {

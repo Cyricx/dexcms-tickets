@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DexCMS.Core.Infrastructure.Repositories;
+using DexCMS.Core.Repositories;
 using DexCMS.Tickets.Events.Models;
 using DexCMS.Tickets.Events.Interfaces;
 using System.Data.Entity;
 using DexCMS.Tickets.Contexts;
-using DexCMS.Core.Infrastructure.Contexts;
+using DexCMS.Core.Contexts;
 using DexCMS.Tickets.Schedules.Models;
 using DexCMS.Tickets.Venues.Models;
 

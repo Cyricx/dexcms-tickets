@@ -11,8 +11,8 @@ using DexCMS.Tickets.Events.Models;
 using DexCMS.Tickets.Tickets.Interfaces;
 using DexCMS.Tickets.Tickets.Models;
 using DexCMS.Tickets.WebApi.ApiModels;
-using DexCMS.Core.Infrastructure.Enums;
-using DexCMS.Core.Infrastructure;
+using DexCMS.Core.Enums;
+using DexCMS.Core;
 
 namespace DexCMS.Tickets.WebApi.Controllers
 {

@@ -1,4 +1,4 @@
-﻿using DexCMS.Core.Infrastructure.Interfaces;
+﻿using DexCMS.Core.Interfaces;
 using DexCMS.Tickets.Tickets.Models;
 
 namespace DexCMS.Tickets.Tickets.Interfaces

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DexCMS.Base.Models;
 using DexCMS.Tickets.Events.Models;
-using DexCMS.Core.Infrastructure.Models;
+using DexCMS.Core.Models;
 
 namespace DexCMS.Tickets.Venues.Models
 {

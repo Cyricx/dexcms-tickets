@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DexCMS.Core.Infrastructure.Interfaces;
+using DexCMS.Core.Interfaces;
 using DexCMS.Tickets.Events.Models;
 using DexCMS.Tickets.Schedules.Models;
 using DexCMS.Tickets.Venues.Models;

@@ -7,7 +7,7 @@ using System.Web.Http.Description;
 using DexCMS.Tickets.Orders.Interfaces;
 using DexCMS.Tickets.Orders.Models;
 using DexCMS.Tickets.WebApi.ApiModels;
-using DexCMS.Core.Infrastructure;
+using DexCMS.Core;
 
 namespace DexCMS.Tickets.WebApi.Controllers
 {

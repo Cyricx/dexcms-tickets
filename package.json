@@ -11,8 +11,8 @@
     "url": "git://github.com/Cyricx/dexcms-tickets.git"
   },
   "dependencies": {
-    "dexcms-base": "git+https://git@github.com/Cyricx/dexcms-base.git#0.6.0-alpha",
-    "dexcms-core": "git+https://git@github.com/Cyricx/dexcms-core.git#0.6.0-alpha"
+    "dexcms-base": "git+https://git@github.com/Cyricx/dexcms-base.git#development",
+    "dexcms-core": "git+https://git@github.com/Cyricx/dexcms-core.git#development"
   },
   "devDependencies": {
     "grunt": "1.0.1",

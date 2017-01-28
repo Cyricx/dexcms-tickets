@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DexCMS.Core.Infrastructure.Globals;
+using DexCMS.Core.Globals;
 using DexCMS.Tickets.Contexts;
 
 namespace DexCMS.Tickets.Initializers

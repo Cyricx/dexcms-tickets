@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DexCMS.Tickets.Events.Models;
-using DexCMS.Core.Infrastructure.Attributes;
+using DexCMS.Core.Attributes;
 
 namespace DexCMS.Tickets.Tickets.Models
 {

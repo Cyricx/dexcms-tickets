@@ -12,7 +12,7 @@ using DexCMS.Tickets.Tickets.Interfaces;
 using DexCMS.Tickets.Tickets.Models;
 using DexCMS.Tickets.WebApi.ApiModels;
 using DexCMS.Tickets.WebApi.Payments;
-using DexCMS.Core.Infrastructure;
+using DexCMS.Core;
 
 namespace DexCMS.Tickets.WebApi.Controllers
 {

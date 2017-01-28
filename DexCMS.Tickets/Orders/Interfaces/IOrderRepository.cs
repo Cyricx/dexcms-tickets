@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using DexCMS.Core.Infrastructure.Interfaces;
+using DexCMS.Core.Interfaces;
 using DexCMS.Tickets.Orders.Models;
 
 namespace DexCMS.Tickets.Orders.Interfaces

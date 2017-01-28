@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using DexCMS.Core.Infrastructure.Attributes;
+using DexCMS.Core.Attributes;
 using DexCMS.Tickets.Tickets.Models;
 
 namespace DexCMS.Tickets.Events.Models
