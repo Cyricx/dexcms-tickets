@@ -10,8 +10,8 @@ namespace DexCMS.Tickets.Initializers.Helpers
 
         public ScheduleTypesReference(IDexCMSTicketsContext Context)
         {
-            Concert = Context.ScheduleTypes.Where(x => x.Name == "Concert").Select(x => x.ScheduleTypeID).Single();
-            Drawing = Context.ScheduleTypes.Where(x => x.Name == "Drawing").Select(x => x.ScheduleTypeID).Single();
+            Concert = Context.ScheduleTypes.Where(x => x.Name == "Concert").Select(x => x.ScheduleTypeID).SingleOrDefault();
+            Drawing = Context.ScheduleTypes.Where(x => x.Name == "Drawing").Select(x => x.ScheduleTypeID).SingleOrDefault();
         }
     }
 }

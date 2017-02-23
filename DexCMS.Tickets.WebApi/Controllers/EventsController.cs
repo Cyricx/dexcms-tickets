@@ -9,6 +9,7 @@ using System.Web.Http.Description;
 using DexCMS.Tickets.Events.Interfaces;
 using DexCMS.Tickets.Events.Models;
 using DexCMS.Tickets.WebApi.ApiModels;
+using DexCMS.Base.WebApi.ApiModels;
 
 namespace DexCMS.Tickets.WebApi.Controllers
 {
@@ -35,7 +36,7 @@ namespace DexCMS.Tickets.WebApi.Controllers
                 EventStart = x.EventStart,
                 EventEnd = x.EventEnd,
                 PageContentHeading = x.PageContent.Heading,
-                PageContent = new EventContentInfo
+                PageContent = new PageContentApiModel
                 {
                    PageContentID = x.PageContent.PageContentID,
                    Heading = x.PageContent.Heading,

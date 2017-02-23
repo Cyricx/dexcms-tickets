@@ -16,12 +16,12 @@ namespace DexCMS.Tickets.Initializers.Helpers
         public VenueSectionsReference(IDexCMSTicketsContext Context)
         {
             VenueAreas = new VenueAreasReference(Context);
-            BalconyL = Context.VenueSections.Where(x => x.Name == "L" && x.VenueAreaID == VenueAreas.Balcony).Select(x => x.VenueSectionID).Single();
-            BalconyM = Context.VenueSections.Where(x => x.Name == "M" && x.VenueAreaID == VenueAreas.Balcony).Select(x => x.VenueSectionID).Single();
-            BalconyR = Context.VenueSections.Where(x => x.Name == "R" && x.VenueAreaID == VenueAreas.Balcony).Select(x => x.VenueSectionID).Single();
-            LowerSeatingL = Context.VenueSections.Where(x => x.Name == "L" && x.VenueAreaID == VenueAreas.LowerSeating).Select(x => x.VenueSectionID).Single();
-            LowerSeatingM = Context.VenueSections.Where(x => x.Name == "M" && x.VenueAreaID == VenueAreas.LowerSeating).Select(x => x.VenueSectionID).Single();
-            LowerSeatingR = Context.VenueSections.Where(x => x.Name == "R" && x.VenueAreaID == VenueAreas.LowerSeating).Select(x => x.VenueSectionID).Single();
+            BalconyL = Context.VenueSections.Where(x => x.Name == "L" && x.VenueAreaID == VenueAreas.Balcony).Select(x => x.VenueSectionID).SingleOrDefault();
+            BalconyM = Context.VenueSections.Where(x => x.Name == "M" && x.VenueAreaID == VenueAreas.Balcony).Select(x => x.VenueSectionID).SingleOrDefault();
+            BalconyR = Context.VenueSections.Where(x => x.Name == "R" && x.VenueAreaID == VenueAreas.Balcony).Select(x => x.VenueSectionID).SingleOrDefault();
+            LowerSeatingL = Context.VenueSections.Where(x => x.Name == "L" && x.VenueAreaID == VenueAreas.LowerSeating).Select(x => x.VenueSectionID).SingleOrDefault();
+            LowerSeatingM = Context.VenueSections.Where(x => x.Name == "M" && x.VenueAreaID == VenueAreas.LowerSeating).Select(x => x.VenueSectionID).SingleOrDefault();
+            LowerSeatingR = Context.VenueSections.Where(x => x.Name == "R" && x.VenueAreaID == VenueAreas.LowerSeating).Select(x => x.VenueSectionID).SingleOrDefault();
         }
     }
 }

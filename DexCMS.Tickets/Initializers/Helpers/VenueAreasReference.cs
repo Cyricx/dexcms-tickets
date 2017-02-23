@@ -11,8 +11,8 @@ namespace DexCMS.Tickets.Initializers.Helpers
         public VenueAreasReference(IDexCMSTicketsContext Context)
         {
             Venues = new VenuesReference(Context);
-            Balcony = Context.VenueAreas.Where(x => x.Name == "Balcony" && x.VenueID == Venues.Example).Select(x => x.VenueAreaID).Single();
-            LowerSeating = Context.VenueAreas.Where(x => x.Name == "Lower Seating" && x.VenueID == Venues.Example).Select(x => x.VenueAreaID).Single();
+            Balcony = Context.VenueAreas.Where(x => x.Name == "Balcony" && x.VenueID == Venues.Example).Select(x => x.VenueAreaID).SingleOrDefault();
+            LowerSeating = Context.VenueAreas.Where(x => x.Name == "Lower Seating" && x.VenueID == Venues.Example).Select(x => x.VenueAreaID).SingleOrDefault();
         }
     }
 }

@@ -34,6 +34,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\node_modules\dexcms-base\dist\DexCMS.Base.dll</HintPath>
     </Reference>
+    <Reference Include="DexCMS.Base.WebApi">
+      <HintPath>..\node_modules\dexcms-base\dist\DexCMS.Base.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="DexCMS.Core">
       <HintPath>..\node_modules\dexcms-core\dist\DexCMS.Core.dll</HintPath>
     </Reference>

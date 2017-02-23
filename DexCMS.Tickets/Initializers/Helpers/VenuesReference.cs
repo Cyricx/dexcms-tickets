@@ -9,7 +9,7 @@ namespace DexCMS.Tickets.Initializers.Helpers
 
         public VenuesReference(IDexCMSTicketsContext Context)
         {
-            Example = Context.Venues.Where(x => x.Name == "Example Venue").Select(x => x.VenueID).Single();
+            Example = Context.Venues.Where(x => x.Name == "Example Venue").Select(x => x.VenueID).SingleOrDefault();
         }
     }
 }

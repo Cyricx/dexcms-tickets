@@ -10,8 +10,8 @@ namespace DexCMS.Tickets.Initializers.Helpers
 
         public ScheduleStatusesReference(IDexCMSTicketsContext Context)
         {
-            Tentative = Context.ScheduleStatuses.Where(x => x.Name == "Tentative").Select(x => x.ScheduleStatusID).Single();
-            Confirmed = Context.ScheduleStatuses.Where(x => x.Name == "Confirmed").Select(x => x.ScheduleStatusID).Single();
+            Tentative = Context.ScheduleStatuses.Where(x => x.Name == "Tentative").Select(x => x.ScheduleStatusID).SingleOrDefault();
+            Confirmed = Context.ScheduleStatuses.Where(x => x.Name == "Confirmed").Select(x => x.ScheduleStatusID).SingleOrDefault();
         }
     }
 }
